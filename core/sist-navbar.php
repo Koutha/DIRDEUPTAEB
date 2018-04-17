@@ -1,0 +1,174 @@
+<!-- NAV TOP  -->
+<nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    <a class="navbar-brand" href="?action=sindex">Dirección de Deportes</a> 
+    </div>
+ 	 <div style="color: white;padding: 15px 25px 1px 5px;float: right;font-size: 16px;">
+        <div class="dropdown navbar-right">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $_SESSION['username']; ?>
+            <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <!--<li class="dropdown-header">Dropdown header 1</li>-->
+              <li><a href="#"><span class="glyphicon glyphicon-th-list"></span> Mi perfil</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon glyphicon-edit"></span> Cambiar contraseña</a></li>
+              
+              <li class="divider"></li>
+              <!--<li class="dropdown-header">Dropdown header 2</li>-->
+              <li><a href="?action=logout"><span class="glyphicon glyphicon-log-out"></span> Salir</a></li>
+            </ul>
+          </div>
+        <!--<a href="?action=logout" class="btn btn-primary "><span class="glyphicon glyphicon-log-out"></span> Salir</a>-->
+	</div>
+    <div style="color: white;
+        padding: 15px 1px 5px 25px;
+        float: left;
+        font-size: 16px;"> Universidad Politecnica Territorial del Estado Lara "Andres Eloy Blanco" &nbsp; 
+    </div>
+    
+</nav>   
+<!-- /. NAV TOP END  -->
+<!-- NAV SIDE  -->
+<nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+					<li class="text-center">
+                    	<img src="assets/images/logoUPTAEB.jpg" class="user-image img-responsive"/>
+                        <p style="color:#fff"><?php echo "Bienvenid@  " . $_SESSION['username']; ?></p>
+					</li>
+                    <li>
+<!--class="active-menu"--><a href="?action=sindex"><i class="fa fa-tachometer-alt fa-2x"></i>Inicio</a>
+                    </li>
+                    <?php if ($_SESSION['rol']==1) {?>
+                    <li><a href="#"><i class="fas fa-user-secret fa-2x"></i>Administrar<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Bitácora<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Consultar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Usuarios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="?action=registrarAdm">Registrar</a>
+                                    </li>
+                                    <li>
+                                        <a href="?action=consultarAdm">Consultar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">Disciplinas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="?action=registrarDisciplina">Registrar</a>
+                                    </li>
+                                    <li>
+                                        <a href="?action=consultarDisciplina">Consultar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">PNF<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Registrar</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Consultar</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fas fa-street-view fa-2x"></i>Equipo Técnico<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="registrarET">Registrar </a>
+                            </li>
+                            <li>
+                                <a href="consultarET">Consultar </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <?php } ?>
+                    <li><a href="#"><i class="fas fa-user-plus fa-2x"></i> Atletas<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="?action=registrarAtleta">Registrar</a>
+                            </li>
+                            <li>
+                                <a href="?action=consultarAtleta">Consultar </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><i class="fas fa-chart-line fa-2x"></i> Pruebas (Test)<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">Bateria de test<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="?action=registrarPruebas">Registrar</a>
+                                        </li>
+                                        <li>
+                                            <a href="?action=consultarPruebas">Consultar</a>
+                                        </li>
+                                    </ul>
+                            </li>
+                            <li><a href="#">Aplicación<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="?action=registrarApliPruebas">Registrar</a>
+                                        </li>
+                                        <li>
+                                            <a href="?action=consultarApliPruebas">Consultar</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Resultados / Reportes </a>
+                                        </li>
+                                    </ul>
+                            </li>
+                        </ul> 
+                   </li>
+                   <li><a href="#"><i class="fas fa-edit fa-2x"></i>Planificación<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="#">Programas / PDC <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="?action=registrarPdc">Registrar</a>
+                                        </li>
+                                        <li>
+                                            <a href="?action=consultarPdc">Consultar</a>
+                                        </li>
+                                    </ul>
+                            </li>
+                            <li><a href="#">Aplicación<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="?action=registrarAplicacionPdc">Registrar</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Consultar</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Resultados / Reportes </a>
+                                        </li>
+                                    </ul>
+                            </li>
+                        </ul> 
+                   </li>
+                   <li>
+                        <a href="?action=logout"><i class="fas fa-sign-out-alt fa-2x"></i>Salir</a>
+                   </li> 
+                </ul>
+            </div>
+        </nav>  
+        <!-- /. NAV SIDE END  -->
