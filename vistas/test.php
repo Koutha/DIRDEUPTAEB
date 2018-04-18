@@ -1,26 +1,54 @@
 <!DOCTYPE html>
-<html lang="es_VE">
+<html >
 <head>
-    <title></title>
-
+ <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Registro</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="assets/css/bootstrap.css" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+     <link href="assets/css/fontawesome-all.min.css" rel="stylesheet" />
     
+     <!-- MORRIS CHART STYLES-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link href="assets/css/custom.css" rel="stylesheet" />
+    <link href="assets/css/stepform.css" rel="stylesheet" type="text/css" >
+     <!-- GOOGLE FONTS-->
+   <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> -->
+     <!-- TABLE STYLES-->
+    <link href="assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <!-- CALENDAR-->
+    <link href='assets/css/fullcalendar.min.css' rel='stylesheet' />
+    <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />  
 </head>
 <body>
 <form action="" method="post" enctype="multipart/form-data">
-<div class="panel-body">
-    <div class="row" >
-        <div class="col-md-4" >
-            <div class="form-group" >
-                <label>Fecha de Inicio</label>
-                <input type="text" name="fecha_inicio" class="form-group" value="<?php echo isset($_POST['fecha_inicio'])?$_POST['fecha_inicio']:'';?>" required>
-             </div>
-        </div>    
-        <div class="col-md-4" >  
-            <div class="form-group" >
-                <label>Fecha de Finalización</label>
-                <input type="text" name="fecha_fin" class="form-group" value="<?php echo isset($_POST['fecha_fin'])?$_POST['fecha_fin']:'';?>" required>
+
+<div class="container">
+    <div class="row">
+        <div class='col-sm-3'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' class="form-control" name="fecha_inicio" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
             </div>
         </div>
+        <div class='col-sm-3'>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker2'>
+                    <input type='text' class="form-control" name="fecha_fin" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </div>
 <input type="submit" value="test" name="submit">
@@ -294,27 +322,40 @@ include_once('modelos/modelo_atleta.php');
                     <button name="submit" type="submit" value="registrarAtleta" class="btn btn-success btn-lg pull-right" >Submit</button>
 
                 </form>
-<!-- JQUERY SCRIPTS -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
-      <!-- BOOTSTRAP SCRIPTS -->
+    <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-     <!-- DATA TABLE SCRIPTS -->
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-    <!-- MORRIS CHART SCRIPTS -->
-    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
+    <!-- script para validaciones -->
+    <script src="assets/js/valida.js" type="text/javascript" ></script>
+    <!-- CALENDAR -->
+    <script src='assets/js/moment.min.js'></script>
+    <script src='assets/js/fullcalendar.min.js'></script>
+    <script src='assets/locale/es.js'></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
-         <!-- script para validaciones -->
-     <script type="text/javascript" src="assets/js/valida.js"></script>
-   
-
+    <!-- script para validaciones -->
+    <script type="text/javascript" src="assets/js/valida.js"></script>
+   <!-- previsualizacion de imagenes -->
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
+    
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'YYYY-MM-DD h:i:s'
+                });
+                $('#datetimepicker2').datetimepicker({
+                    
+                });
+            });
+        </script>
+    
 
 </body>
 </html>

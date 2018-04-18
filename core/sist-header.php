@@ -21,6 +21,6 @@
     <!-- CALENDAR-->
     <link href='assets/css/fullcalendar.min.css' rel='stylesheet' />
     <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-   
+    <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />
 
 </head>

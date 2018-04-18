@@ -54,14 +54,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         $Opdc->setPsicologico($psicologico);
                         $Opdc->setVelocidad($velocidad);
                         $Opdc->registrarPdc();
-                        $pdc_tmp=$Opdc->consultarDatos($nombre);/////////asdsadsadasdaquiii
+                        $pdc_tmp=$Opdc->consultarDatos($nombre);
                         $periodo_planificacion=$Opdc->determinarPeriodoPorDias($fecha_inicio,$fecha_fin);
-                        /*foreach ($periodo_planificacion as $dia) { //en desarrollo para registrar los dias
-                            $fecha=$Opdc->registrarDiaPdc()$dia['begin']->format('Y-m-d H:i:s');
+                        foreach ($periodo_planificacion as $dia) { //en desarrollo para registrar los dias
+                            $fecha=$dia['begin']->format('Y-m-d H:i:s');
                             $id_pdc=$pdc_tmp['id_pdc'];
-                            $tecnica_dia,$tactica_dia,$fisico_dia,$velocidad_dia,$psicologico_dia;
-                            $Opdc->registrarDiaPdc($fecha,$tecnica_dia,$tactica_dia,$fisico_dia,$velocidad_dia,$id_pdc,$psicologico_dia);
-                        }*/
+                            $Opdc->registrarDiaPdc($fecha,$id_pdc);
+                        }
                     
                         $registro= 1;
                         

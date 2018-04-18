@@ -138,20 +138,16 @@ class Cpdc extends modelobase {
         }
     }
 
-    public function registrarDiaPdc($fecha,$tecnica,$tactica,$fisico,$velocidad,$id_pdc,$psicologico){
+    public function registrarDiaPdc($fecha,$id_pdc){
         try{
-            $sql =  'INSERT INTO "T_dia_pdc"(fecha,tecnica,tactica,fisico,velocidad,id_pdc,psicologico) 
-                            VALUES(:fecha,:tecnica,:tactica,:fisico,:velocidad,:id_pdc,:psicologico)';
+            $sql =  'INSERT INTO "T_dia_pdc"(fecha,id_pdc) 
+                            VALUES(:fecha,:id_pdc)';
                             
             $db = $this->db();
             $query=$db->prepare($sql);
             $query->bindParam(':fecha',$fecha);
-            $query->bindParam(':tecnica',$fecha);
-            $query->bindParam(':tactica',$tactica);
-            $query->bindParam(':fisico',$fisico);
-            $query->bindParam(':velocidad',$velocidad);
             $query->bindParam(':id_pdc',$id_pdc);
-            $query->bindParam(':psicologico',$psicologico);
+            
             $query->execute();
         } catch (PDOException $e){
             echo $e->getMessage();
@@ -236,7 +232,7 @@ class Cpdc extends modelobase {
             if ($i) $_begin->setTime(06, 00, 00); //hora de inicio del dia
             if ($_begin > $end) break;
             $_end = clone $_begin;
-            $_end->setTime(22, 00, 00); //hora de finalizacion del dia
+            $_end->setTime(22, 00, 00); //hora de finalizacion maxima del dia
             if ($end < $_end) $_end = $end;
             $days[] = [
                 'begin' => $_begin,
