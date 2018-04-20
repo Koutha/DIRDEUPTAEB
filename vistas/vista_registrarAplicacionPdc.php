@@ -268,7 +268,7 @@ require('core/sist-header.php');
             $('#registrarPdc').modal('show');
           },
             events: [
-                    <?php foreach ($pdc as $key) { ?>
+                    <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
                       id:    '<?php echo $key['id_pdc']; ?>',
                       title: '<?php echo $key['nombre_pdc']; ?>',

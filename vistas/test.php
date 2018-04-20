@@ -30,8 +30,8 @@
     <div class="row">
         <div class='col-sm-3'>
             <div class="form-group">
-                <div class='input-group date' id='datetimepicker1'>
-                    <input type='text' class="form-control" name="fecha_inicio" />
+                <div class='input-group date' >
+                    <input type='text' id='datetimepicker1' class="form-control" name="fecha_inicio" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -40,8 +40,8 @@
         </div>
         <div class='col-sm-3'>
             <div class="form-group">
-                <div class='input-group date' id='datetimepicker2'>
-                    <input type='text' class="form-control" name="fecha_fin" />
+                <div class='input-group date' >
+                    <input type='text' id='datetimepicker2' class="form-control" name="fecha_fin" />
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -346,15 +346,22 @@ include_once('modelos/modelo_atleta.php');
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
     
     <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker({
-                    format: 'YYYY-MM-DD h:i:s'
-                });
-                $('#datetimepicker2').datetimepicker({
-                    
-                });
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY-MM-DD h:mm A'
             });
-        </script>
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mms A'
+            });
+            $("#datetimepicker1").on("dp.change", function (e) {
+                $('#datetimepicker2').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
+            });
+            $("#datetimepicker2").on("dp.change", function (e) {
+                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
+            });
+        });
+    </script>
     
 
 </body>

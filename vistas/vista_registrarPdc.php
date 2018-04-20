@@ -90,18 +90,29 @@ require('core/sist-header.php');
                                         </div>
                                     <?php } ?>
                                         <div class="row" >
-                                            <div class="col-md-4" >
-                                                <div class="form-group" >
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
                                                     <label>Fecha de Inicio</label>
-                                                    <input type="date" name="fecha_inicio" class="form-group" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required>
-                                                </div>
-                                            </div>    
-                                            <div class="col-md-4" >  
-                                                <div class="form-group" >
-                                                    <label>Fecha de Finalización</label>
-                                                    <input type="date" name="fecha_fin" class="form-group" value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required>
+                                                    <div class='input-group date' >
+                                                        <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
+                                                    <label>Fecha de Finalización</label>
+                                                    <div class='input-group date' >
+                                                        <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -161,26 +172,46 @@ require('core/sist-header.php');
         </div><!-- /. PAGE WRAPPER  --> 
     </div><!-- /. WRAPPER  -->
 
+     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
-    <!-- DATA TABLE SCRIPTS -->
-    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
-    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
-    <!-- MORRIS CHART SCRIPTS -->
-    <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/js/morris/morris.js"></script>
+    <!-- script para validaciones -->
+    <script src="assets/js/valida.js" type="text/javascript" ></script>
+    <!-- CALENDAR -->
+    <script src='assets/js/moment.min.js'></script>
+    <script src='assets/js/fullcalendar.min.js'></script>
+    <script src='assets/locale/es.js'></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
     <!-- script para validaciones -->
     <script type="text/javascript" src="assets/js/valida.js"></script>
-    <script src="assets/js/stepform.js" type="text/javascript"></script>
+   <!-- previsualizacion de imagenes -->
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
+    
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker({
+                    format: 'YYYY-MM-DD h:mm A'
+                });
+                $('#datetimepicker2').datetimepicker({
+                    useCurrent: false,
+                    format: 'YYYY-MM-DD h:mm A'
+                });
+                $("#datetimepicker1").on("dp.change", function (e) {
+                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
+                });
+                $("#datetimepicker2").on("dp.change", function (e) {
+                    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
+                });
+            });
+        </script>
 
 </body>
 </html>

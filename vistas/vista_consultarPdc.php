@@ -24,6 +24,7 @@ require('core/sist-header.php');
                             <div class="panel-body">
 
                                 <div id='calendar'></div> <!--Calendario-->
+                                <!--modal consultar -->
                                 <div class="modal fade" id="consultar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -55,6 +56,7 @@ require('core/sist-header.php');
                                         </div>
                                     </div>
                                 </div><!--/.modal consultar -->
+                                <!--modal registrar -->
                                 <div class="modal fade" id="registrarPdc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -126,6 +128,7 @@ require('core/sist-header.php');
                                                                 </div>    
                                                             </div>
                                                         </div> <!--/Informacion del programa-->
+                                                        <!--Duracion-->
                                                         <div class="panel panel-default">
                                                             <div class="panel-heading">
                                                                 <h5><strong>Duración</strong></h5>
@@ -138,16 +141,26 @@ require('core/sist-header.php');
                                                                 </div>
                                                                 <?php } ?>
                                                                 <div class="row" >
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group" >
+                                                                    <div class='col-sm-6'>
+                                                                        <div class="form-group">
                                                                             <label>Fecha de Inicio</label>
-                                                                            <input type="date" name="fecha_inicio" id="start" class="form-group" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required>
+                                                                            <div class='input-group date' >
+                                                                                <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
+                                                                                <span class="input-group-addon">
+                                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>    
-                                                                    <div class="col-md-4" >  
-                                                                        <div class="form-group" >
+                                                                    </div>
+                                                                    <div class='col-sm-6'>
+                                                                        <div class="form-group">
                                                                             <label>Fecha de Finalización</label>
-                                                                            <input type="date" name="fecha_fin" id="end" class="form-group" value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required>
+                                                                            <div class='input-group date' >
+                                                                                <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
+                                                                                <span class="input-group-addon">
+                                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -235,6 +248,7 @@ require('core/sist-header.php');
     <script src='assets/js/moment.min.js'></script>
     <script src='assets/js/fullcalendar.min.js'></script>
     <script src='assets/locale/es.js'></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
     <script>
       $(document).ready(function() {
         $('#calendar').fullCalendar({
@@ -260,13 +274,15 @@ require('core/sist-header.php');
           },
           selectable: true,
           selectHelper: true,
-          select: function(start,end){
-            $('#registrarPdc #start').val(moment(start).format('YYYY-MM-DD'));
-            $('#registrarPdc #end').val(moment(end).format('YYYY-MM-DD'));
+          select: function(start,end){ //parametros que vienen de 'events'
+            $('#registrarPdc #datetimepicker1').val(moment(start).format('YYYY-MM-DD h:mm A'));
+            if (end.diff(start, 'weeks')>=3) {
+            $('#registrarPdc #datetimepicker2').val(moment(end).format('YYYY-MM-DD h:mm A'));
+            }
             $('#registrarPdc').modal('show');
           },
             events: [
-                    <?php foreach ($pdc as $key) { ?>
+                    <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
                       id:    '<?php echo $key['id_pdc']; ?>',
                       title: '<?php echo $key['nombre_pdc']; ?>',
@@ -278,14 +294,28 @@ require('core/sist-header.php');
                       color: getRandomColor(),
                         },
                    <?php   }  ?>
-                    {
-                      title: 'All Day Event',
-                      start: '2018-03-01',
-                    },
+                    
             ]
         });
 
       });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'YYYY-MM-DD h:mm A'
+            });
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+            $("#datetimepicker1").on("dp.change", function (e) {
+                $('#datetimepicker2').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
+            });
+            $("#datetimepicker2").on("dp.change", function (e) {
+                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
+            });
+        });
     </script>
 
     

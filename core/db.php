@@ -3,9 +3,9 @@
 		private 
 				$host_db = "localhost",
 				$user_db = "postgres",
-				$pass_db = "1",
+				$pass_db = "123456",
 				$db_name = "DIRDEUPTAEB",
-				$db_port = 5433;
+				$db_port = 5432;
 				//$tbl_name = "usuarios";
 
 
