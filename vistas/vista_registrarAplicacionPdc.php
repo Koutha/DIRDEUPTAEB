@@ -247,7 +247,7 @@ require('core/sist-header.php');
           },
           defaultDate: Date(),
           navLinks: true, // can click day/week names to navigate views
-          editable: true,
+          editable: false,
           eventLimit: true, // allow "more" link when too many events
           eventClick: function(event){
             $('#consultar #id').text(event.id);
@@ -255,29 +255,28 @@ require('core/sist-header.php');
             $('#consultar #descripcion').text(event.desc);
             $('#consultar #disciplina').text(event.disciplina);
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
-            $('#consultar #start').text(event.start.format('LLLL'));
-            $('#consultar #end').text(event.end.format('LLLL'));
+            $('#consultar #start').text(event.start.format('LLLL A'));
+            $('#consultar #end').text(event.end);
             $('#consultar').modal('show');
             return false;
           },
           selectable: true,
           selectHelper: true,
           select: function(start,end){ //funcion para pasar atributos al modal
-            $('#registrarPdc #start').val(moment(start).format('YYYY-MM-DD'));
-            $('#registrarPdc #end').val(moment(end).format('YYYY-MM-DD'));
+            $('#registrarPdc #start').val(moment(start).format('YYYY-MM-DD h:mm A'));
+            $('#registrarPdc #end').val(moment(end).format('YYYY-MM-DD h:mm A'));
             $('#registrarPdc').modal('show');
           },
             events: [
                     <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
-                      id:    '<?php echo $key['id_pdc']; ?>',
+                      id:    '<?php echo $key['id_dp']; ?>',
                       title: '<?php echo $key['nombre_pdc']; ?>',
                       desc:  '<?php echo $key['descripcion']; ?>',
-                      disciplina:  '<?php echo $key['disciplina']; ?>',
+                      disciplina:  '<?php echo $key['nombre_disciplina']; ?>',
                       tipo_pdc:  '<?php echo $key['tipo_pdc']; ?>',
-                      start: '<?php echo $key['fecha_inicio']; ?>',
-                      end:   '<?php echo $key['fecha_fin']; ?>',
-                      color: getRandomColor(),
+                      start: '<?php echo $key['fecha_dia']; ?>',
+                      end: '<?php  $key['fecha_dia'];?>',
                         },
                    <?php   }  ?>
                     {

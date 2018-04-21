@@ -69,6 +69,12 @@ setlocale(LC_ALL, "es_VE.utf8");
  if (isset($_POST['fecha_inicio'])) {
     $inicio=$_POST['fecha_inicio'];
     $fin= $_POST['fecha_fin'];
+
+$end= new DateTime($inicio);
+ $end->add(new DateInterval('PT10H'));
+ echo 'prueba '.$end->format('Y-m-d H:i:s A');
+echo '<br>';
+
     foreach ($Opdc->determinarPeriodoPorDias($inicio,$fin) as $dia) {
         echo " {$dia['begin']->format('Y-m-d H:i:s')} | {$dia['end']->format('Y-m-d H:i:s')}"."<br>";  
     }
@@ -348,11 +354,11 @@ include_once('modelos/modelo_atleta.php');
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker({
-                format: 'YYYY-MM-DD h:mm A'
+                format: 'YYYY-MM-DD'
             });
             $('#datetimepicker2').datetimepicker({
                 useCurrent: false,
-                format: 'YYYY-MM-DD h:mms A'
+                format: 'YYYY-MM-DD'
             });
             $("#datetimepicker1").on("dp.change", function (e) {
                 $('#datetimepicker2').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
