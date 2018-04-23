@@ -186,7 +186,7 @@ require('core/sist-header.php');
     <!-- CALENDAR -->
     <script src='assets/js/moment.min.js'></script>
     <script src='assets/js/fullcalendar.min.js'></script>
-    <script src='assets/locale/es.js'></script>
+    <script src='assets/locale/es-do.js'></script>
     <script src="assets/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
@@ -198,6 +198,7 @@ require('core/sist-header.php');
     <script type="text/javascript">
             $(function () {
                 $('#datetimepicker1').datetimepicker({
+                    useCurrent: false,
                     format: 'YYYY-MM-DD h:mm A'
                 });
                 $('#datetimepicker2').datetimepicker({

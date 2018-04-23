@@ -15,7 +15,12 @@
 body {
     font-family: 'Open Sans', sans-serif;
 }
-
+.visualizar{
+    display: block;
+}
+.form{
+    display: none;
+}
  #wrapper {
     width: 100%;
     background:#202020;

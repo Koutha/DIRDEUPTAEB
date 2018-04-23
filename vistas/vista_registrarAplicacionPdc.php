@@ -31,13 +31,13 @@ require('core/sist-header.php');
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title text-center">Datos de la Planificacion</h4>
+                                                <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
                                             </div>
                                             <div class="modal-body">
                                                 <dl class="dl-horizontal">
                                                     <dt>ID</dt>
                                                     <dd id="id"></dd>
-                                                    <dt>Titulo</dt>
+                                                    <dt>Nombre</dt>
                                                     <dd id="title"></dd>
                                                     <dt>Descripcion</dt>
                                                     <dd id="descripcion"></dd>
@@ -45,9 +45,9 @@ require('core/sist-header.php');
                                                     <dd id="disciplina"></dd>
                                                     <dt>Tipo de Planificacion</dt>
                                                     <dd id="tipo_pdc"></dd>
-                                                    <dt>Fecha de Inicio</dt>
+                                                    <dt>Inicio del Dia</dt>
                                                     <dd id="start"></dd>
-                                                    <dt>Fecha de Finalización</dt>
+                                                    <dt>Finalización</dt>
                                                     <dd id="end"></dd>
                                                 </dl>
                                             </div>
@@ -57,6 +57,7 @@ require('core/sist-header.php');
                                         </div>
                                     </div>
                                 </div><!--/.modal consultar -->
+                                <!--/.modal registrar -->
                                 <div class="modal fade" id="registrarPdc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -236,7 +237,7 @@ require('core/sist-header.php');
     <!-- CALENDAR -->
     <script src='assets/js/moment.min.js'></script>
     <script src='assets/js/fullcalendar.min.js'></script>
-    <script src='assets/locale/es.js'></script>
+    <script src='assets/locale/es-do.js'></script>
     <script>
       $(document).ready(function() {
         $('#calendar').fullCalendar({
@@ -246,27 +247,27 @@ require('core/sist-header.php');
             right: 'month,agendaWeek,agendaDay,listWeek'
           },
           defaultDate: Date(),
-          navLinks: true, // can click day/week names to navigate views
+          navLinks: false, // can click day/week names to navigate views
           editable: false,
           eventLimit: true, // allow "more" link when too many events
-          eventClick: function(event){
+          eventClick: function(event){ // al hacer click en el evento
             $('#consultar #id').text(event.id);
             $('#consultar #title').text(event.title);
             $('#consultar #descripcion').text(event.desc);
             $('#consultar #disciplina').text(event.disciplina);
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
-            $('#consultar #start').text(event.start.format('LLLL A'));
-            $('#consultar #end').text(event.end);
+            $('#consultar #start').text(event.start.format('LLLL'));
+            $('#consultar #end').text(event.end.format('LLLL'));
             $('#consultar').modal('show');
             return false;
           },
-          selectable: true,
+          selectable: false,
           selectHelper: true,
-          select: function(start,end){ //funcion para pasar atributos al modal
+          /*select: function(start,end){ //funcion para pasar atributos al modal
             $('#registrarPdc #start').val(moment(start).format('YYYY-MM-DD h:mm A'));
             $('#registrarPdc #end').val(moment(end).format('YYYY-MM-DD h:mm A'));
             $('#registrarPdc').modal('show');
-          },
+          },*/
             events: [
                     <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
@@ -276,12 +277,15 @@ require('core/sist-header.php');
                       disciplina:  '<?php echo $key['nombre_disciplina']; ?>',
                       tipo_pdc:  '<?php echo $key['tipo_pdc']; ?>',
                       start: '<?php echo $key['fecha_dia']; ?>',
-                      end: '<?php  $key['fecha_dia'];?>',
+                      end: '<?php   $end= new DateTime($key['fecha_dia']);
+                                    $end->add(new DateInterval('PT16H')); //16 horas agregadas a la fecha de inicio
+                                    echo $end->format('Y-m-d H:i:s'); ?>',
+                      color: getRandomColor(),
                         },
                    <?php   }  ?>
                     {
                       title: 'All Day Event',
-                      start: '2018-03-01',
+                      start: '2018-04-24',
                     },
             ]
         });
