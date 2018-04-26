@@ -205,7 +205,9 @@ class Cpdc extends modelobase {
     public function consultarTodos(){
         $sql= 'SELECT   id_pdc,tipo_pdc,nombre_pdc,descripcion,
                         fecha_inicio, fecha_fin, tecnica, tactica,
-                        psicologico, velocidad, td.nombre as disciplina  
+                        fisico, psicologico,velocidad,
+                        td.nombre as nombre_disciplina,
+                        tp.id_disciplina   
                 FROM "T_pdc" tp, "T_disciplina" td
                 WHERE tp.id_disciplina=td.id_disciplina';
         $query = $this->db()->query($sql);

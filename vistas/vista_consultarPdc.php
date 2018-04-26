@@ -52,33 +52,18 @@ require('core/sist-header.php');
                                                     </dl>
                                                 </div>
                                                 <div class="modal-footer"> 
-                                                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar" data-id="">Modificar</button>
+                                                   <button type="button" class="btn btn-canc-vis btn-warning" data-toggle="modal" >Modificar</button>
                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
                                                 </div>
-                                                <!-- contenido del Modal confirmacion modificar -->
-                                                <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmar">
-                                                    <div class="modal-dialog modal-sm" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-number="1" aria-label="Close">&times;</button>
-                                                                <h4 class="modal-title">Confirmación</h4>
-                                                                </div>
-                                                            <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar los datos?</p>  
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-canc-vis btn-warning" >Si</button>
-                                                                <button type="button" class="btn btn-info" data-number="1">Volver</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div> <!-- // contenido del Modal confirmacion modificar -->
-                                            </div><!--/. Seccion Informacion -->
+                                                
+                                            </div><!--/. End Seccion Informacion -->
                                             <div class="form"> <!-- Seccion Vista del formulario para modificar -->
                                                 <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <button type="button" class="close btn-canc-edit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    
                                                     <h4 class="modal-title text-center">Modificando los datos de la planificación</h4>
                                                 </div>
+                                                <!--Form Modificar-->
                                                 <form action="" method="post" role="form" class="form-group">
                                                     <div class="modal-body">
                                                         <div class="row">
@@ -89,23 +74,17 @@ require('core/sist-header.php');
                                                                         <h5><strong>Información del Programa</strong></h5>
                                                                     </div>
                                                                     <div class="panel-body">
-                                                                        <?php if (isset($existe) && $existe == 1) { ?>
-                                                                        <div class="alert alert-danger alert-dismissible fade in">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            <strong>El Nombre ya existe</strong> por favor intente con uno diferente
-                                                                        </div>
-                                                                        <?php } ?>
                                                                         <div class="row">
                                                                             <div class="col-sm-4">
                                                                                 <div class="form-group">
                                                                                     <label>Nombre</label>
-                                                                                    <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : ''; ?>" required/>
+                                                                                    <input type="text" id="input_nombre_pdc" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : ''; ?>" required/>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-6">
                                                                                 <div class="form-group">
                                                                                     <label>Descripción</label>
-                                                                                    <textarea name="descripcion" class="form-control" placeholder="" required><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : ''; ?></textarea>
+                                                                                    <textarea name="descripcion" id="txt_descripcion" class="form-control" placeholder="" required><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : ''; ?></textarea>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -113,7 +92,7 @@ require('core/sist-header.php');
                                                                             <div class="col-sm-4">
                                                                                 <div class="form-group">
                                                                                     <label  class="control-label label-default">Tipo de programa</label>
-                                                                                    <select name="tipo_pdc" class="form-control" required >
+                                                                                    <select name="tipo_pdc" id="select_tipo_pdc" class="form-control" required >
                                                                                         <option value="">Seleccione...</option>
                                                                                         <option value="Preparatorio" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio") ? 'selected' : ''; ?>>Preparatorio</option>
                                                                                         <option value="Pre-Compentencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia") ? 'selected' : ''; ?>>Pre-Compentencia</option>
@@ -125,7 +104,7 @@ require('core/sist-header.php');
                                                                             <div class="col-sm-4">
                                                                                 <div class="form-group">
                                                                                     <label  class="control-label label-default">Disciplina</label>
-                                                                                    <select name="id_disciplina" class="form-control" required >
+                                                                                    <select name="id_disciplina" id="select_id_disciplina" class="form-control" required >
                                                                                         <option value="">Seleccione...</option>
                                                                                         <?php foreach ($disciplinas as $key => $value) { ?>
                                                                                             <option value="<?php echo $value['id_disciplina']; ?>" <?php echo (isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']) ? 'selected' : ''; ?>><?php echo $value['nombre']; ?></option>
@@ -142,12 +121,7 @@ require('core/sist-header.php');
                                                                         <h5><strong>Duración</strong></h5>
                                                                     </div>
                                                                     <div class="panel-body">
-                                                                        <?php if (isset($periodo) && $periodo == 1) { ?>
-                                                                        <div class="alert alert-danger alert-dismissible fade in">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            <strong>Periodo invalido</strong> La fecha de inicio debe ser menor a la fecha de finalizacion
-                                                                        </div>
-                                                                        <?php } ?>
+                                                                        
                                                                         <div class="row" >
                                                                             <div class='col-sm-6'>
                                                                                 <div class="form-group">
@@ -179,43 +153,37 @@ require('core/sist-header.php');
                                                                     <div class="panel-heading">
                                                                         <h5><strong>Características del Programa</strong></h5>
                                                                     </div>
-                                                                    <div class="panel-body">
-                                                                        <?php if (isset($porcentaje) && $porcentaje == 1) { ?>
-                                                                        <div class="alert alert-danger alert-dismissible fade in">
-                                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                            <strong>Porcentajes incorrectos</strong> La suma de los porcentajes debe ser igual a 100 % 
-                                                                        </div>
-                                                                        <?php } ?>
+                                                                    <div class="panel-body"> 
                                                                         <label>Aspectos a trabajar en porcentaje</label>
                                                                         <div class="row" >
                                                                             <div class="col-md-4" >
                                                                                 <div class="form-group">
                                                                                     <label>Técnica</label>
-                                                                                    <input type="number" min="1" max="100" name="tecnica" class="form-control" value="<?php echo isset($_POST['tecnica']) ? $_POST['tecnica'] : ''; ?>" required>
+                                                                                    <input type="number" id="input_tecnica" min="1" max="100" name="tecnica" class="form-control" value="<?php echo isset($_POST['tecnica']) ? $_POST['tecnica'] : ''; ?>" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-4" >
                                                                                 <div class="form-group">
                                                                                     <label>Táctica</label>
-                                                                                    <input type="number" min="1" max="100" name="tactica" class="form-control" value="<?php echo isset($_POST['tactica']) ? $_POST['tactica'] : ''; ?>" required>
+                                                                                    <input type="number" id="input_tactica" min="1" max="100" name="tactica" class="form-control" value="<?php echo isset($_POST['tactica']) ? $_POST['tactica'] : ''; ?>" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-4" >
                                                                                 <div class="form-group">
                                                                                     <label>Físico</label>
-                                                                                    <input type="number" min="1" max="100" name="fisico" class="form-control" value="<?php echo isset($_POST['fisico']) ? $_POST['fisico'] : ''; ?>" required>
+                                                                                    <input type="number" id="input_fisico" min="1" max="100" name="fisico" class="form-control" value="<?php echo isset($_POST['fisico']) ? $_POST['fisico'] : ''; ?>" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-4" >
                                                                                 <div class="form-group">
                                                                                     <label>Psicológico</label>
-                                                                                    <input type="number" min="1" max="100" name="psicologico" class="form-control" value="<?php echo isset($_POST['psicologico']) ? $_POST['psicologico'] : ''; ?>" required>
+                                                                                    <input type="number" id="input_psicologico" min="1" max="100" name="psicologico" class="form-control" value="<?php echo isset($_POST['psicologico']) ? $_POST['psicologico'] : ''; ?>" required>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-4" >
                                                                                 <div class="form-group">
                                                                                     <label>Velocidad</label>
-                                                                                    <input type="number" min="1" max="100" name="velocidad" class="form-control" value="<?php echo isset($_POST['velocidad']) ? $_POST['velocidad'] : ''; ?>" required>
+                                                                                    <input type="number" id="input_velocidad" min="1" max="100" name="velocidad" class="form-control" value="<?php echo isset($_POST['velocidad']) ? $_POST['velocidad'] : ''; ?>" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -224,12 +192,32 @@ require('core/sist-header.php');
                                                             </div> <!--/ col-md-12 -->
                                                         </div> <!-- /. ROW  -->  
                                                     </div><!-- /. modal body -->
-                                                
                                                 <div class="modal-footer">
-                                                   <button type="submit" name="submit" value="modificarPdc" class="btn btn-danger">Guardar Cambios</button>
+                                                    <input type="hidden" name="id" id="input_id" value="<? if(isset($id)){echo $id;} ?>">
+                                                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar">Guardar Cambios</button>
+                                                   
                                                    <button type="button" class="btn btn-canc-edit btn-info">Volver</button>
-                                                </div>   
-                                                </form>
+                                                </div>
+                                                <!-- contenido del Modal confirmacion modificar -->
+                                                <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmar" data-backdrop="static">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-number="1" aria-label="Close">&times;</button>
+                                                                <h4 class="modal-title">Confirmación</h4>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                    <p>¿Estas segur@ que quieres modificar los datos?</p>  
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="submit" value="modificarPdc" class="btn btn-danger">Si</button>
+                                                        
+                                                                <button type="button" class="btn btn-info" data-number="1">Volver</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- // contenido del Modal confirmacion modificar -->   
+                                                </form><!--// end Form Modificar-->
                                             </div><!-- /. Seccion Vista del formulario para modificar -->
                                         </div> <!--/.modal-content  -->
                                     </div> <!--/.modal-dialog -->
@@ -242,7 +230,7 @@ require('core/sist-header.php');
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title text-center">Registrar Planificación</h4>
                                             </div>
-                                            <!-- Form Elements -->  
+                                            <!-- Form Elements Registrar -->  
                                             <form action="" method="post" role="form" class="form-group"> 
                                             <div class="modal-body">
                                                 <div class="row">
@@ -399,7 +387,7 @@ require('core/sist-header.php');
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
                                                 </div>
                                             </div>
-                                            </form><!-- End Form Elements -->
+                                            </form><!-- End Form Registrar -->
                                         </div><!--/ Modal Content -->
                                     </div><!--/ Modal Dialog -->
                                 </div><!--/.modal registrar -->
@@ -412,8 +400,6 @@ require('core/sist-header.php');
     </div> <!-- /. WRAPPER  -->
     
 
-
-   
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -450,8 +436,18 @@ require('core/sist-header.php');
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
             $('#consultar #start').text(event.start.format('LLLL'));
             $('#consultar #end').text(event.end.format('LLLL'));
+            $('#consultar #input_nombre_pdc').val(event.title);
+            $('#consultar #txt_descripcion').val(event.desc);
+            $('#consultar #select_tipo_pdc').val(event.tipo_pdc);
+            $('#consultar #select_id_disciplina').val(event.id_disciplina);
             $('#consultar #datetimepicker1').val(event.start.format('YYYY-MM-DD h:mm A'));
             $('#consultar #datetimepicker2').val(event.end.format('YYYY-MM-DD h:mm A'));
+            $('#consultar #input_tecnica').val(event.tecnica);
+            $('#consultar #input_tactica').val(event.tactica);
+            $('#consultar #input_fisico').val(event.fisico);
+            $('#consultar #input_psicologico').val(event.psicologico);
+            $('#consultar #input_velocidad').val(event.velocidad);
+            $('#consultar #input_id').val(event.id);
             $('#consultar').modal('show');
             return false;
           },
@@ -467,13 +463,19 @@ require('core/sist-header.php');
             events: [
                     <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
-                      id:       '<?php echo $key['id_pdc']; ?>',
-                      title:    '<?php echo $key['nombre_pdc']; ?>',
-                      desc:     '<?php echo $key['descripcion']; ?>',
-                      disciplina:  '<?php echo $key['disciplina']; ?>',
-                      tipo_pdc: '<?php echo $key['tipo_pdc']; ?>',
-                      start:    '<?php echo $key['fecha_inicio']; ?>',
-                      end:      '<?php echo $key['fecha_fin']; ?>',
+                      id:           '<?php echo $key['id_pdc']; ?>',
+                      title:        '<?php echo $key['nombre_pdc']; ?>',
+                      desc:         '<?php echo $key['descripcion']; ?>',
+                      disciplina:   '<?php echo $key['nombre_disciplina']; ?>',
+                      id_disciplina:'<?php echo $key['id_disciplina']; ?>',
+                      tipo_pdc:     '<?php echo $key['tipo_pdc']; ?>',
+                      start:        '<?php echo $key['fecha_inicio']; ?>',
+                      end:          '<?php echo $key['fecha_fin']; ?>',
+                      tecnica:      '<?php echo $key['tecnica']; ?>',
+                      tactica:      '<?php echo $key['tactica']; ?>',
+                      fisico:       '<?php echo $key['fisico']; ?>',
+                      psicologico:  '<?php echo $key['psicologico']; ?>',
+                      velocidad:    '<?php echo $key['velocidad']; ?>',
                       color: getRandomColor(),
                         },
                    <?php   }  ?>
