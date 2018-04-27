@@ -140,8 +140,8 @@ class Cpdc extends modelobase {
 
     public function registrarDiaPdc($fecha,$id_pdc){
         try{
-            $sql =  'INSERT INTO "T_dia_pdc"(fecha,id_pdc) 
-                            VALUES(:fecha,:id_pdc)';
+            $sql =  'INSERT INTO "T_dia_pdc" (fecha,id_pdc) 
+                            VALUES (:fecha,:id_pdc)';
                             
             $db = $this->db();
             $query=$db->prepare($sql);

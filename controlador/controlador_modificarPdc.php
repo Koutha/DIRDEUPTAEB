@@ -9,15 +9,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
         <a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;
     }
-    else if (isset($_POST['submit']) && $_POST['submit']=='registrarPdc') {
+    else if (isset($_POST['submit']) && $_POST['submit']=='modificarPdc') {
+            if (isset($_POST['id'])) {
+            $id = $_POST['id'];
+            }
             include_once('modelos/modelo_pdc.php');
             include_once('modelos/modelo_disciplina.php');
             $Opdc= new Cpdc();
             $Odisciplina= new Cdisciplina();
             $disciplinas=$Odisciplina->consultarTodos();
             $nombre=$_POST['nombre_pdc'];
-            $pdc= $Opdc->consultarDatos($nombre);
-            if ($pdc>0) {//validacion
+            $pdc= $Opdc->consultarDatos($id);
+            $pdc_tmp= $Opdc->consultarDatos($nombre);
+            if ($pdc_tmp>0 && $pdc['nombre_pdc']!=$nombre) {//validacion
                 $existe=1;
                 //echo 'entre por existe';
                 require('vistas/vista_registrarPdc.php');
@@ -53,7 +57,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         $Opdc->setFisico($fisico);
                         $Opdc->setPsicologico($psicologico);
                         $Opdc->setVelocidad($velocidad);
-                        $Opdc->registrarPdc();
+                        $Opdc->modificarPdc($pdc['id_pdc']);//here 
                         $pdc_tmp=$Opdc->consultarDatos($nombre);
                         $periodo_planificacion=$Opdc->determinarPeriodoPorDias($fecha_inicio,$fecha_fin);
                         foreach ($periodo_planificacion as $dia) { //en desarrollo para registrar los dias

@@ -447,7 +447,7 @@ require('core/sist-header.php');
             $('#consultar #input_fisico').val(event.fisico);
             $('#consultar #input_psicologico').val(event.psicologico);
             $('#consultar #input_velocidad').val(event.velocidad);
-            $('#consultar #input_id').val(event.id);
+            $('#consultar #input_id').val(event.title);
             $('#consultar').modal('show');
             return false;
           },
