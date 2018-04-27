@@ -13,7 +13,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include_once('modelos/modelo_disciplina.php');
         $Opdc= new Cpdc();
         $Odisciplina= new Cdisciplina();
-        $pdc=$Opdc->consultarTodos();
+        $pdc=$Opdc->consultarAplicacion();
         $disciplinas=$Odisciplina->consultarTodos();
         require('vistas/vista_registrarAplicacionPdc.php');
     }

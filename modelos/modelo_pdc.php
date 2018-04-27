@@ -138,20 +138,16 @@ class Cpdc extends modelobase {
         }
     }
 
-    public function registrarDiaPdc($fecha,$tecnica,$tactica,$fisico,$velocidad,$id_pdc,$psicologico){
+    public function registrarDiaPdc($fecha,$id_pdc){
         try{
-            $sql =  'INSERT INTO "T_dia_pdc"(fecha,tecnica,tactica,fisico,velocidad,id_pdc,psicologico) 
-                            VALUES(:fecha,:tecnica,:tactica,:fisico,:velocidad,:id_pdc,:psicologico)';
+            $sql =  'INSERT INTO "T_dia_pdc"(fecha,id_pdc) 
+                            VALUES(:fecha,:id_pdc)';
                             
             $db = $this->db();
             $query=$db->prepare($sql);
             $query->bindParam(':fecha',$fecha);
-            $query->bindParam(':tecnica',$fecha);
-            $query->bindParam(':tactica',$tactica);
-            $query->bindParam(':fisico',$fisico);
-            $query->bindParam(':velocidad',$velocidad);
             $query->bindParam(':id_pdc',$id_pdc);
-            $query->bindParam(':psicologico',$psicologico);
+            
             $query->execute();
         } catch (PDOException $e){
             echo $e->getMessage();
@@ -172,7 +168,26 @@ class Cpdc extends modelobase {
     }
 
     public function consultarAplicacion(){
-
+        $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
+                        tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
+                        tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,
+                        tdp.id_pdc, tp.fecha_inicio, tp.fecha_fin, tp.tecnica,
+                        tp.tactica, tp.fisico, tp.psicologico, tp.velocidad,
+                        tp.id_disciplina, tp.tipo_pdc, tp.nombre_pdc, tp.descripcion,
+                        td.nombre as nombre_disciplina, td.tipo_disciplina 
+                FROM "T_dia_pdc" tdp JOIN "T_pdc" tp ON tdp.id_pdc=tp.id_pdc 
+                JOIN "T_disciplina" td ON tp.id_disciplina=td.id_disciplina';
+        $query = $this->db()->query($sql);
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+             $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+        
     }
 
     public function registrarEjecucionAtleta(){
@@ -190,7 +205,9 @@ class Cpdc extends modelobase {
     public function consultarTodos(){
         $sql= 'SELECT   id_pdc,tipo_pdc,nombre_pdc,descripcion,
                         fecha_inicio, fecha_fin, tecnica, tactica,
-                        psicologico, velocidad, td.nombre as disciplina  
+                        fisico, psicologico,velocidad,
+                        td.nombre as nombre_disciplina,
+                        tp.id_disciplina   
                 FROM "T_pdc" tp, "T_disciplina" td
                 WHERE tp.id_disciplina=td.id_disciplina';
         $query = $this->db()->query($sql);
@@ -236,7 +253,7 @@ class Cpdc extends modelobase {
             if ($i) $_begin->setTime(06, 00, 00); //hora de inicio del dia
             if ($_begin > $end) break;
             $_end = clone $_begin;
-            $_end->setTime(22, 00, 00); //hora de finalizacion del dia
+            $_end->setTime(22, 00, 00); //hora de finalizacion maxima del dia
             if ($end < $_end) $_end = $end;
             $days[] = [
                 'begin' => $_begin,

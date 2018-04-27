@@ -9,7 +9,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
         <a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;
     }
-    else if (isset($_POST['submit']) && $_POST['submit']=='registrarPdc') { //cambiar nombre a modificarPdc
+    else if (isset($_POST['submit']) && $_POST['submit']=='registrarPdc') {
             include_once('modelos/modelo_pdc.php');
             include_once('modelos/modelo_disciplina.php');
             $Opdc= new Cpdc();
@@ -19,7 +19,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             $pdc= $Opdc->consultarDatos($nombre);
             if ($pdc>0) {//validacion
                 $existe=1;
-                'entre por existe';
+                //echo 'entre por existe';
                 require('vistas/vista_registrarPdc.php');
             }else if($_POST['tecnica']+$_POST['tactica']+$_POST['fisico']+$_POST['psicologico']+$_POST['velocidad']!=100){
                     //validacion del porcentaje

@@ -24,37 +24,205 @@ require('core/sist-header.php');
                             <div class="panel-body">
 
                                 <div id='calendar'></div> <!--Calendario-->
+                                <!--modal consultar -->
                                 <div class="modal fade" id="consultar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title text-center">Datos de la Planificacion</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <dl class="dl-horizontal">
-                                                    <dt>ID</dt>
-                                                    <dd id="id"></dd>
-                                                    <dt>Titulo</dt>
-                                                    <dd id="title"></dd>
-                                                    <dt>Descripcion</dt>
-                                                    <dd id="descripcion"></dd>
-                                                    <dt>Disciplina</dt>
-                                                    <dd id="disciplina"></dd>
-                                                    <dt>Tipo de Planificacion</dt>
-                                                    <dd id="tipo_pdc"></dd>
-                                                    <dt>Fecha de Inicio</dt>
-                                                    <dd id="start"></dd>
-                                                    <dt>Fecha de Finalización</dt>
-                                                    <dd id="end"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="modal-footer">
-                                               <!--  <button type="button" class="btn btn-success">test</button> -->
-                                            </div>
-                                        </div>
-                                    </div>
+                                            <div class="visualizar"> <!-- Seccion Informacion -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title text-center">Datos de la Planificacion</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>ID</dt>
+                                                        <dd id="id"></dd>
+                                                        <dt>Nombre</dt>
+                                                        <dd id="title"></dd>
+                                                        <dt>Descripcion</dt>
+                                                        <dd id="descripcion"></dd>
+                                                        <dt>Disciplina</dt>
+                                                        <dd id="disciplina"></dd>
+                                                        <dt>Tipo de Planificacion</dt>
+                                                        <dd id="tipo_pdc"></dd>
+                                                        <dt>Fecha de Inicio</dt>
+                                                        <dd id="start"></dd>
+                                                        <dt>Fecha de Finalización</dt>
+                                                        <dd id="end"></dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="modal-footer"> 
+                                                   <button type="button" class="btn btn-canc-vis btn-warning" data-toggle="modal" >Modificar</button>
+                                                   <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
+                                                </div>
+                                                
+                                            </div><!--/. End Seccion Informacion -->
+                                            <div class="form"> <!-- Seccion Vista del formulario para modificar -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close btn-canc-edit" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    
+                                                    <h4 class="modal-title text-center">Modificando los datos de la planificación</h4>
+                                                </div>
+                                                <!--Form Modificar-->
+                                                <form action="" method="post" role="form" class="form-group">
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                            <!--Informacion del programa-->
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading">
+                                                                        <h5><strong>Información del Programa</strong></h5>
+                                                                    </div>
+                                                                    <div class="panel-body">
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4">
+                                                                                <div class="form-group">
+                                                                                    <label>Nombre</label>
+                                                                                    <input type="text" id="input_nombre_pdc" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : ''; ?>" required/>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-6">
+                                                                                <div class="form-group">
+                                                                                    <label>Descripción</label>
+                                                                                    <textarea name="descripcion" id="txt_descripcion" class="form-control" placeholder="" required><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : ''; ?></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-sm-4">
+                                                                                <div class="form-group">
+                                                                                    <label  class="control-label label-default">Tipo de programa</label>
+                                                                                    <select name="tipo_pdc" id="select_tipo_pdc" class="form-control" required >
+                                                                                        <option value="">Seleccione...</option>
+                                                                                        <option value="Preparatorio" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio") ? 'selected' : ''; ?>>Preparatorio</option>
+                                                                                        <option value="Pre-Compentencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia") ? 'selected' : ''; ?>>Pre-Compentencia</option>
+                                                                                        <option value="Competitivo" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Competitivo") ? 'selected' : ''; ?>>Competitivo</option>
+                                                                                        <option value="Post-Competencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Post-Competencia") ? 'selected' : ''; ?>>Post-Competencia</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-4">
+                                                                                <div class="form-group">
+                                                                                    <label  class="control-label label-default">Disciplina</label>
+                                                                                    <select name="id_disciplina" id="select_id_disciplina" class="form-control" required >
+                                                                                        <option value="">Seleccione...</option>
+                                                                                        <?php foreach ($disciplinas as $key => $value) { ?>
+                                                                                            <option value="<?php echo $value['id_disciplina']; ?>" <?php echo (isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']) ? 'selected' : ''; ?>><?php echo $value['nombre']; ?></option>
+                                                                                            <?php } ?>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>    
+                                                                    </div> <!--/ panel panel-body -->
+                                                                </div> <!--/ panel panel-default - Informacion del programa-->
+                                                                <!--Duracion-->
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading">
+                                                                        <h5><strong>Duración</strong></h5>
+                                                                    </div>
+                                                                    <div class="panel-body">
+                                                                        
+                                                                        <div class="row" >
+                                                                            <div class='col-sm-6'>
+                                                                                <div class="form-group">
+                                                                                    <label>Fecha de Inicio</label>
+                                                                                    <div class='input-group date' >
+                                                                                        <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
+                                                                                        <span class="input-group-addon">
+                                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class='col-sm-6'>
+                                                                                <div class="form-group">
+                                                                                    <label>Fecha de Finalización</label>
+                                                                                    <div class='input-group date' >
+                                                                                        <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
+                                                                                        <span class="input-group-addon">
+                                                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> <!--/ panel panel-body -->
+                                                                </div>  <!--/ panel panel-default Duracion-->
+                                                                <!--/ Caracteristicas del programa-->     
+                                                                <div class="panel panel-default">
+                                                                    <div class="panel-heading">
+                                                                        <h5><strong>Características del Programa</strong></h5>
+                                                                    </div>
+                                                                    <div class="panel-body"> 
+                                                                        <label>Aspectos a trabajar en porcentaje</label>
+                                                                        <div class="row" >
+                                                                            <div class="col-md-4" >
+                                                                                <div class="form-group">
+                                                                                    <label>Técnica</label>
+                                                                                    <input type="number" id="input_tecnica" min="1" max="100" name="tecnica" class="form-control" value="<?php echo isset($_POST['tecnica']) ? $_POST['tecnica'] : ''; ?>" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4" >
+                                                                                <div class="form-group">
+                                                                                    <label>Táctica</label>
+                                                                                    <input type="number" id="input_tactica" min="1" max="100" name="tactica" class="form-control" value="<?php echo isset($_POST['tactica']) ? $_POST['tactica'] : ''; ?>" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4" >
+                                                                                <div class="form-group">
+                                                                                    <label>Físico</label>
+                                                                                    <input type="number" id="input_fisico" min="1" max="100" name="fisico" class="form-control" value="<?php echo isset($_POST['fisico']) ? $_POST['fisico'] : ''; ?>" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4" >
+                                                                                <div class="form-group">
+                                                                                    <label>Psicológico</label>
+                                                                                    <input type="number" id="input_psicologico" min="1" max="100" name="psicologico" class="form-control" value="<?php echo isset($_POST['psicologico']) ? $_POST['psicologico'] : ''; ?>" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4" >
+                                                                                <div class="form-group">
+                                                                                    <label>Velocidad</label>
+                                                                                    <input type="number" id="input_velocidad" min="1" max="100" name="velocidad" class="form-control" value="<?php echo isset($_POST['velocidad']) ? $_POST['velocidad'] : ''; ?>" required>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div> <!--/ panel panel-body-->
+                                                                </div> <!--/ panel panel-default - Caracteristicas del programa-->     
+                                                            </div> <!--/ col-md-12 -->
+                                                        </div> <!-- /. ROW  -->  
+                                                    </div><!-- /. modal body -->
+                                                <div class="modal-footer">
+                                                    <input type="hidden" name="id" id="input_id" value="<? if(isset($id)){echo $id;} ?>">
+                                                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar">Guardar Cambios</button>
+                                                   
+                                                   <button type="button" class="btn btn-canc-edit btn-info">Volver</button>
+                                                </div>
+                                                <!-- contenido del Modal confirmacion modificar -->
+                                                <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmar" data-backdrop="static">
+                                                    <div class="modal-dialog modal-sm" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-number="1" aria-label="Close">&times;</button>
+                                                                <h4 class="modal-title">Confirmación</h4>
+                                                                </div>
+                                                            <div class="modal-body">
+                                                                    <p>¿Estas segur@ que quieres modificar los datos?</p>  
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="submit" name="submit" value="modificarPdc" class="btn btn-danger">Si</button>
+                                                        
+                                                                <button type="button" class="btn btn-info" data-number="1">Volver</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> <!-- // contenido del Modal confirmacion modificar -->   
+                                                </form><!--// end Form Modificar-->
+                                            </div><!-- /. Seccion Vista del formulario para modificar -->
+                                        </div> <!--/.modal-content  -->
+                                    </div> <!--/.modal-dialog -->
                                 </div><!--/.modal consultar -->
+                                <!--modal registrar pdc -->
                                 <div class="modal fade" id="registrarPdc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -62,7 +230,7 @@ require('core/sist-header.php');
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title text-center">Registrar Planificación</h4>
                                             </div>
-                                            <!-- Form Elements -->  
+                                            <!-- Form Elements Registrar -->  
                                             <form action="" method="post" role="form" class="form-group"> 
                                             <div class="modal-body">
                                                 <div class="row">
@@ -126,6 +294,7 @@ require('core/sist-header.php');
                                                                 </div>    
                                                             </div>
                                                         </div> <!--/Informacion del programa-->
+                                                        <!--Duracion-->
                                                         <div class="panel panel-default">
                                                             <div class="panel-heading">
                                                                 <h5><strong>Duración</strong></h5>
@@ -138,16 +307,26 @@ require('core/sist-header.php');
                                                                 </div>
                                                                 <?php } ?>
                                                                 <div class="row" >
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group" >
+                                                                    <div class='col-sm-6'>
+                                                                        <div class="form-group">
                                                                             <label>Fecha de Inicio</label>
-                                                                            <input type="date" name="fecha_inicio" id="start" class="form-group" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required>
+                                                                            <div class='input-group date' >
+                                                                                <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
+                                                                                <span class="input-group-addon">
+                                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>    
-                                                                    <div class="col-md-4" >  
-                                                                        <div class="form-group" >
+                                                                    </div>
+                                                                    <div class='col-sm-6'>
+                                                                        <div class="form-group">
                                                                             <label>Fecha de Finalización</label>
-                                                                            <input type="date" name="fecha_fin" id="end" class="form-group" value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required>
+                                                                            <div class='input-group date' >
+                                                                                <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
+                                                                                <span class="input-group-addon">
+                                                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                                                </span>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -208,7 +387,7 @@ require('core/sist-header.php');
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
                                                 </div>
                                             </div>
-                                            </form><!-- End Form Elements -->
+                                            </form><!-- End Form Registrar -->
                                         </div><!--/ Modal Content -->
                                     </div><!--/ Modal Dialog -->
                                 </div><!--/.modal registrar -->
@@ -219,7 +398,8 @@ require('core/sist-header.php');
             </div><!-- /. PAGE INNER  -->     
         </div><!-- /. PAGE WRAPPER  -->       
     </div> <!-- /. WRAPPER  -->
-   
+    
+
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -234,7 +414,8 @@ require('core/sist-header.php');
     <!-- CALENDAR -->
     <script src='assets/js/moment.min.js'></script>
     <script src='assets/js/fullcalendar.min.js'></script>
-    <script src='assets/locale/es.js'></script>
+    <script src='assets/locale/es-do.js'></script>
+    <script src="assets/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
     <script>
       $(document).ready(function() {
         $('#calendar').fullCalendar({
@@ -244,8 +425,8 @@ require('core/sist-header.php');
             right: 'month'//,agendaWeek,agendaDay,listWeek'
           },
           defaultDate: Date(),
-          navLinks: true, // can click day/week names to navigate views
-          editable: true,
+          navLinks: false, // can click day/week names to navigate views
+          editable: false,
           eventLimit: true, // allow "more" link when too many events
           eventClick: function(event){
             $('#consultar #id').text(event.id);
@@ -255,39 +436,98 @@ require('core/sist-header.php');
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
             $('#consultar #start').text(event.start.format('LLLL'));
             $('#consultar #end').text(event.end.format('LLLL'));
+            $('#consultar #input_nombre_pdc').val(event.title);
+            $('#consultar #txt_descripcion').val(event.desc);
+            $('#consultar #select_tipo_pdc').val(event.tipo_pdc);
+            $('#consultar #select_id_disciplina').val(event.id_disciplina);
+            $('#consultar #datetimepicker1').val(event.start.format('YYYY-MM-DD h:mm A'));
+            $('#consultar #datetimepicker2').val(event.end.format('YYYY-MM-DD h:mm A'));
+            $('#consultar #input_tecnica').val(event.tecnica);
+            $('#consultar #input_tactica').val(event.tactica);
+            $('#consultar #input_fisico').val(event.fisico);
+            $('#consultar #input_psicologico').val(event.psicologico);
+            $('#consultar #input_velocidad').val(event.velocidad);
+            $('#consultar #input_id').val(event.id);
             $('#consultar').modal('show');
             return false;
           },
           selectable: true,
           selectHelper: true,
-          select: function(start,end){
-            $('#registrarPdc #start').val(moment(start).format('YYYY-MM-DD'));
-            $('#registrarPdc #end').val(moment(end).format('YYYY-MM-DD'));
+          select: function(start,end){ //parametros que vienen de 'events'
+            $('#registrarPdc #datetimepicker1').val(moment(start).format('YYYY-MM-DD h:mm A'));
+            if (end.diff(start, 'weeks')>=3) {
+            $('#registrarPdc #datetimepicker2').val(moment(end).format('YYYY-MM-DD h:mm A'));
+            }
             $('#registrarPdc').modal('show');
           },
             events: [
-                    <?php foreach ($pdc as $key) { ?>
+                    <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
-                      id:    '<?php echo $key['id_pdc']; ?>',
-                      title: '<?php echo $key['nombre_pdc']; ?>',
-                      desc:  '<?php echo $key['descripcion']; ?>',
-                      disciplina:  '<?php echo $key['disciplina']; ?>',
-                      tipo_pdc:  '<?php echo $key['tipo_pdc']; ?>',
-                      start: '<?php echo $key['fecha_inicio']; ?>',
-                      end:   '<?php echo $key['fecha_fin']; ?>',
+                      id:           '<?php echo $key['id_pdc']; ?>',
+                      title:        '<?php echo $key['nombre_pdc']; ?>',
+                      desc:         '<?php echo $key['descripcion']; ?>',
+                      disciplina:   '<?php echo $key['nombre_disciplina']; ?>',
+                      id_disciplina:'<?php echo $key['id_disciplina']; ?>',
+                      tipo_pdc:     '<?php echo $key['tipo_pdc']; ?>',
+                      start:        '<?php echo $key['fecha_inicio']; ?>',
+                      end:          '<?php echo $key['fecha_fin']; ?>',
+                      tecnica:      '<?php echo $key['tecnica']; ?>',
+                      tactica:      '<?php echo $key['tactica']; ?>',
+                      fisico:       '<?php echo $key['fisico']; ?>',
+                      psicologico:  '<?php echo $key['psicologico']; ?>',
+                      velocidad:    '<?php echo $key['velocidad']; ?>',
                       color: getRandomColor(),
                         },
                    <?php   }  ?>
-                    {
-                      title: 'All Day Event',
-                      start: '2018-03-01',
-                    },
+                    
             ]
         });
 
       });
     </script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+            $("#datetimepicker1").on("dp.change", function (e) {
+                $('#datetimepicker2').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
+            });
+            $("#datetimepicker2").on("dp.change", function (e) {
+                $('#datetimepicker1').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
+            });
+        });
+    </script>
 
+    <script type="text/javascript">
+        $('.btn-canc-vis').on("click", function(){
+            $('.form').slideToggle();
+            $('.visualizar').slideToggle();
+        });
+        
+        $('.btn-canc-edit').on("click", function(){
+            $('.visualizar').slideToggle();
+            $('.form').slideToggle();
+        });
+        $("button[data-number=1]").click(function(){
+            $('#modalConfirmar').modal('hide');
+        });
+    </script>
+    <script type="text/javascript">
+        $('#myModal2').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var recipient = button.data('id'); // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        modal.find('a.btn.btn-danger').attr('href', recipient);
+        });
+    </script>
     
     
 </body>
