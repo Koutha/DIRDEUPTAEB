@@ -10,11 +10,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     	exit;	
     }else {
         require('modelos/modelo_atleta.php');
+        require('modelos/modelo_personal.php');
         require('modelos/modelo_disciplina.php');
         $Oatleta=new Catleta();
         $Odisciplina=new Cdisciplina();
+        $Opersonal=new Cpersonal();
         $totalA= $Oatleta->getTotalAtletasActivos();
         $totalD= $Odisciplina->getTotalDisciplinas();
+        $totalP= $Opersonal->getTotalPersonas();
     	require('vistas/vista_sindex.php');
         
     }

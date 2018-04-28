@@ -142,6 +142,29 @@ class Cdisciplina extends modelobase {
             exit;
         }
     }
+     public function getDisciplinasPorPersonal($cedula) {
+        try {
+            $sql = 'SELECT tad.id_disciplina, td.nombre 
+                    FROM "T_equipo_tecnico_disciplina" tad 
+                    JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+                    WHERE tad.cedula_et=?';
+            $db = $this->db();
+            $query = $db->prepare($sql);
+            $query->bindParam(1, $cedula);
+            $query->execute();
+            while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+                $resultado[] = $fila;
+            }
+            if (!empty($resultado)) {
+                return $resultado;
+            } else {
+                return 0;
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            exit;
+        }
+    }
 
 }
 

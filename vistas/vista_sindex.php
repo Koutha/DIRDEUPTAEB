@@ -71,10 +71,10 @@ require('core/sist-header.php');
                                 <i class="fas fa-child"></i>
                             </span>
                             <div class="text-box" >
-                                <p class="main-text"><?php echo 'nada aun'; ?></p>
-                                <p class="text-muted"> Personal Técnico registrado</p>
+                                <p class="main-text"><?php echo $totalP; ?></p>
+                                <p class="text-muted"> Registros de Personal </p>
                             </div>
-                            <a href="#" class="btn btn-sm btn-primary">Agregar Nuevo +</a>
+                            <a href="?action=consultarPersonal" class="btn btn-sm btn-primary">Agregar Nuevo +</a>
                         </div>
                     </div>
                    

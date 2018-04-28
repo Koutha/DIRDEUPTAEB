@@ -81,22 +81,22 @@
                                 <a href="#">PNF<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="#">Registrar</a>
+                                        <a href="?action=registrarPnf">Registrar</a>
                                     </li>
                                     <li>
-                                        <a href="#">Consultar</a>
+                                        <a href="?action=consultarPnf">Consultar</a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="fas fa-street-view fa-2x"></i>Equipo Técnico<span class="fa arrow"></span></a>
+                    <li><a href="#"><i class="fas fa-street-view fa-2x"></i>Personal Capacitado<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="registrarET">Registrar </a>
+                                <a href="?action=registrarPersonal">Registrar </a>
                             </li>
                             <li>
-                                <a href="consultarET">Consultar </a>
+                                <a href="?action=consultarPersonal">Consultar </a>
                             </li>
                         </ul>
                     </li>
