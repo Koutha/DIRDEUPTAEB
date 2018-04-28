@@ -18,8 +18,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Opnf = new Cpnf();
         $user = $Opnf->getbyid_Pnf($id_pnf);
 		$todos=$Opnf->consultaTodo();
-        if(isset($_POST['nombre'])){
-                    $coordinador= $_POST['nombre'];
+        if(isset($_POST['coordinador'])){
+                    $coordinador= $_POST['coordinador'];
                     $result = $Opnf->consulta($coordinador);
                     if ($result > 0 && $user['nombre'] != $nombre) {
                         $existe = 1;

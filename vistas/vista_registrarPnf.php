@@ -58,7 +58,7 @@ require('core/sist-header.php');
                                                                            
                                 
                                     <div class="form-group">
-                                    <button name="submit" value="registrarPNF" type="submit" class="btn btn-primary">Registrar</button>
+                                    <button name="submit" value="registrarPnf" type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                                 </form>
                             </div>

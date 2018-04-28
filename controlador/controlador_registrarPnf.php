@@ -9,7 +9,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;   
     }
-    else if (isset($_POST['submit']) && $_POST['submit']=='registrarPNF') {
+    else if (isset($_POST['submit']) && $_POST['submit']=='registrarPnf') {
            
             include_once('modelos/modelo_Pnf.php');
             $Cpnf= new Cpnf();
