@@ -15,6 +15,12 @@ require('core/sist-header.php');
                         <!-- <h5> Modulo para el registro de administradores del sistema </h5> -->
 
                     </div>
+                    <?php if (isset($_SESSION['registro']) && $_SESSION['registro'] == 1) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Registrado!</strong>  se ha registrado al atleta Exitosamente.
+                            </div>
+                        <?php unset($_SESSION['registro']); } ?>
                 </div>
                 <!-- /. ROW  -->
                 <hr />

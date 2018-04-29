@@ -236,15 +236,7 @@
             return 0;
     }   
         
-    public function cantidadpersonas(){
-        $sql ="SELECT COUNT(*) FROM $this->tabla ";
-        $db = $this->db();
-        $query=$db->query($sql);
-        $cantidad= $query->fetchColumn();
-        return $cantidad;
 
-    }
-    
         
     }
  ?>

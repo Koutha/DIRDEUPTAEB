@@ -18,7 +18,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $atleta= $Oatleta->consultarDatos($cedula);
             if ($atleta>0) {
                 $existe=1;
-                echo 'entre por existe';
+                //echo 'entre por existe';
                 $disciplinas=$Odisciplina->consultarTodos();
                 require('vistas/vista_registrarAtleta.php');
             }else{
@@ -103,9 +103,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         $Oatleta->asignarDisciplina($value);
                     }
                 }
-                $registro= 1;
-                echo 'registre';
-                require('vistas/vista_registrarAtleta.php');
+                //$registro= 1;
+                //echo 'registre';
+                //require('vistas/vista_registrarAtleta.php');
+                $_SESSION['registro']= 1;
+                header('Location:?action=registrarAtleta');
             }
         }
         else{

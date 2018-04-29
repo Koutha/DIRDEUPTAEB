@@ -13,7 +13,12 @@ require('core/sist-header.php');
                     <div class="col-md-12">
                         <h2>Registro de Personal</h2>   
                         <!-- <h5> Modulo para el registro de administradores del sistema </h5> -->
-                        
+                        <?php if (isset($_SESSION['registro']) && $_SESSION['registro'] == 1) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Registrado!</strong>  se ha registrado Exitosamente.
+                            </div>
+                        <?php unset($_SESSION['registro']); } ?>
                     </div>
                 </div>
                 <!-- /. ROW  -->

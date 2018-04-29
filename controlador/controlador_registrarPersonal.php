@@ -51,9 +51,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         $Oatleta->asignarDisciplina($value);
                     }
                 }
-                $registro= 1;
-                echo 'registre';
-                require('vistas/vista_registrarPersonal.php');
+                //$registro= 1;
+                //echo 'registre';
+                //require('vistas/vista_registrarPersonal.php');
+                $_SESSION['registro']=1;
+                header('Location:?action=registrarPersonal');
             }
         }
         else{
