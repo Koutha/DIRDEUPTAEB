@@ -61,7 +61,7 @@ require('core/sist-header.php');
                                                 </td>
                                                 <td class="center">
                                                     <!-- Boton para activar el modal ELIMINAR -->
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarDisciplina&id=".$uid; ?>">Eliminar</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPnf&id=".$uid; ?>">Eliminar</button>
                                                         
                                                 </td>
                                             </tr>

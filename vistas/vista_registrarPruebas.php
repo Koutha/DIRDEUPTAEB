@@ -24,7 +24,7 @@ require('core/sist-header.php');
                 <hr />
                 <!-- /. ROW  -->
                 <div class="row">
-                    <div class="stepwizard col-md-offset-3">
+                    
                         <!-- Form Elements --> 	
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -38,20 +38,20 @@ require('core/sist-header.php');
                                             <strong>Esta prueba ya se encuentra registrada</strong> por favor intente con otra
                                         </div>
                                 <?php } ?>
-                                <div class="row">
-                                    
-                                        <div class="col-md-6">
-                                           
-
+                                    <div class="row">
+                                        <div class="col-md-6"> 
                                             <div class="form-group">
                                                 <label>Nombre de la prueba</label>
                                                 <input class="form-control" name="nombre" placeholder="nombre:"  required/>
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">     
                                             <div class="form-group">
                                                 <label>Descripción o pasos parar realizar la prueba</label>
                                                 <textarea name="descripcion" class="form-control" required></textarea>     
                                             </div>
-                                            
+                                        </div>
+                                        <div class="col-md-6">     
                                             <div class="form-group">
                                                 <label>Tipo de prueba</label>
                                                 <select name="tipo_prueba" class="form-control" required>
@@ -63,12 +63,14 @@ require('core/sist-header.php');
                                                     <option value="Flexibilidad">Flexibilidad</option>
                                                 </select>
                                             </div>
-                                            
+                                         </div> 
+                                         <div class="col-md-6">    
                                               <div class="form-group">  
                                                 <label>objetivo para el cual se a creado la prueba</label>
                                                 <input name="objetivo" type="text" class="form-control"  placeholder="dar resistencia:"/>
                                             </div>
-                                                                                                
+                                         </div>
+                                          <div class="col-md-6">                                                       
                                             <div class="form-group">
                                                 <label>Unidad o medida</label>
                                                 <select name="unidad" class="form-control" required>
@@ -83,47 +85,53 @@ require('core/sist-header.php');
                                                     <option value="Kilos">Kilos</option>
                                                 </select>
                                             </div>
-
+                                          </div>
+                                        <div class="col-md-6">   
                                             <div class="form-group">
                                                 <label label-default="" class="control-label label-default">Coloque si exelente es el el valor máximo o el minimo</label>
                                                 <input type="radio" name="condicion" value="1" checked> Máximo
                                                 <input type="radio" name="condicion" value="0"> Minimo
                                             </div>
-                                            
-                                        
+                                        </div>    
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rango (max o min) para deficiente</label>
                                                 <textarea name="rango1" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="30"required></textarea>     
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rango (max o min) para regular</label>
                                                 <textarea name="rango2" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="60"required></textarea>     
                                             </div>
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Rango (max o min) para bueno</label>
                                                 <textarea name="rango3" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="90"required></textarea>     
                                             </div>
+                                         </div>
+                                         <div class="col-md-6">   
                                             <div class="form-group">
                                                 <label>Rango (max o min) para exelente</label>
                                                 <textarea name="rango4" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="120"required></textarea>     
                                             </div>
-                                           
-
-                                                                           
-                                
+                                        </div>    
+                                        
+                                    </div>
                                     <div class="form-group">
-                                    <button name="Submit" value="registrarPruebas" type="submit" class="btn btn-primary">Registrar</button>
+                                            <button name="Submit" value="registrarPruebas" type="submit" class="btn btn-primary">Registrar</button>
+                                        </div>
+                                </form><!-- End Form Elements -->
                                 </div>
-                                </div>
-                                </div>
-                                </form>
+                                
                             </div>
-                            <!-- End Form Elements -->
-                        </div>
+                            
+                        </div><!-- /. ROW  -->
 
-                    </div>
+                    
 
-                    <!-- /. ROW  -->
+                    
                 </div>
 
                 <!-- /. PAGE INNER  -->
@@ -132,7 +140,6 @@ require('core/sist-header.php');
             <!-- /. PAGE WRAPPER  -->
         </div>
         <!-- /. WRAPPER  -->
-    </div>
 
 
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->

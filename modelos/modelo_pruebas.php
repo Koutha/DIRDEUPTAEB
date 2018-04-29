@@ -94,7 +94,7 @@
         else{
             return 0;
         }
-        }
+    }
         public function consultarTodosa(){
         $sql= 'SELECT * FROM "T_atleta" ';
         $query = $this->db()->query($sql);
@@ -107,7 +107,7 @@
         else{
             return 0;
         }
-        }
+    }
 
     public function consultarTodosap(){
         $sql= 'SELECT * FROM "T_atleta_prueba" ';

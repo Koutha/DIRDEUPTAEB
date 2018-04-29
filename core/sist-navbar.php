@@ -113,17 +113,17 @@
                     </li>
                     <li><a href="#"><i class="fas fa-chart-line fa-2x"></i> Pruebas (Test)<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="#">Bateria de test<span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
+                            <?php if ($_SESSION['rol']==1) {?>
+                            
                                         <li>
                                             <a href="?action=registrarPruebas">Registrar</a>
                                         </li>
                                         <li>
                                             <a href="?action=consultarPruebas">Consultar</a>
                                         </li>
-                                    </ul>
-                            </li>
-                            <li><a href="#">Aplicación<span class="fa arrow"></span></a>
+                                    
+                            <?php }?>
+                            <li><a href="#">Aplicar<span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
                                             <a href="?action=registrarApliPruebas">Registrar</a>
