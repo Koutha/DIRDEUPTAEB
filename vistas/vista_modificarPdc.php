@@ -13,12 +13,12 @@ require('core/sist-header.php');
                     <div class="col-md-12">
                         <h2>Programas directos de competencia</h2>
                         <h5>Donde se establece la estructura del programa de entrenamiento con miras a la obtención de logros deportivos en corto tiempo. </h5>   
-                        <?php if (isset($_SESSION['registro']) && $_SESSION['registro'] == 1) { ?>
+                        <?php if (isset($_SESSION['modifico']) && $_SESSION['modifico'] == 1) { ?>
                             <div class="alert alert-success alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 <strong>Registrada!</strong>  se ha registrado Exitosamente.
                             </div>
-                        <?php unset($_SESSION['registro']); } ?>
+                        <?php unset($_SESSION['modifico']); } ?>
                     </div>
                 </div>
                 <hr /><!-- /. ROW  -->
@@ -163,8 +163,8 @@ require('core/sist-header.php');
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" name="id" id="input_id" value="<? if(isset($id)){echo $id;} ?>">
-                                    <button name="submit" value="registrarPdc" type="submit" class="btn btn-primary">Registrar</button>
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <button name="submit" value="modificarPdc" type="submit" class="btn btn-primary">Guardar Cambios</button>
                                 </div>
                         </form><!-- End Form Elements -->
                     </div>

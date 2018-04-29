@@ -16,6 +16,12 @@ require('core/sist-header.php');
                                 <strong>Registrada!</strong>  se ha registrado Exitosamente.
                             </div>
                         <?php unset($_SESSION['registro']); } ?>
+                        <?php if (isset($_SESSION['modifico']) && $_SESSION['modifico'] == 1) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Modificada!</strong>  se ha modificado Exitosamente.
+                            </div>
+                        <?php unset($_SESSION['modifico']); } ?>
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading" style="color: #fcfcfc;">
@@ -193,7 +199,7 @@ require('core/sist-header.php');
                                                         </div> <!-- /. ROW  -->  
                                                     </div><!-- /. modal body -->
                                                 <div class="modal-footer">
-                                                    <input type="hidden" name="id" id="input_id" value="<? if(isset($id)){echo $id;} ?>">
+                                                    <input type="hidden" name="id" id="input_id">
                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar">Guardar Cambios</button>
                                                    
                                                    <button type="button" class="btn btn-canc-edit btn-info">Volver</button>

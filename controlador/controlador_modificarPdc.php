@@ -19,22 +19,22 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             $Odisciplina= new Cdisciplina();
             $disciplinas=$Odisciplina->consultarTodos();
             $nombre=$_POST['nombre_pdc'];
-            $pdc= $Opdc->consultarDatos($id);
-            $pdc_tmp= $Opdc->consultarDatos($nombre);
+            $pdc= $Opdc->consultarDatos($id); // pdc a modificar
+            $pdc_tmp= $Opdc->consultarDatos($nombre); // consultar con nombre temporal recibido por post
             if ($pdc_tmp>0 && $pdc['nombre_pdc']!=$nombre) {//validacion
                 $existe=1;
                 //echo 'entre por existe';
-                require('vistas/vista_registrarPdc.php');
+                require('vistas/vista_modificarPdc.php');
             }else if($_POST['tecnica']+$_POST['tactica']+$_POST['fisico']+$_POST['psicologico']+$_POST['velocidad']!=100){
                     //validacion del porcentaje
                     $porcentaje=1;
                     //echo 'porcentaje no valido';
-                    require('vistas/vista_registrarPdc.php');
+                    require('vistas/vista_modificarPdc.php');
                 }else if($_POST['fecha_inicio']>=$_POST['fecha_fin']){
                     //periodo invalido
                     $periodo=1;
-                    echo 'periodo de fechas no valido';
-                    require('vistas/vista_registrarPdc.php');
+                    //echo 'periodo de fechas no valido';
+                    require('vistas/vista_modificarPdc.php');
                     }else{
                         $descripcion=$_POST['descripcion'];
                         $id_disciplina=$_POST['id_disciplina'];
@@ -57,19 +57,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         $Opdc->setFisico($fisico);
                         $Opdc->setPsicologico($psicologico);
                         $Opdc->setVelocidad($velocidad);
-                        $Opdc->modificarPdc($pdc['id_pdc']);//here 
-                        $pdc_tmp=$Opdc->consultarDatos($nombre);
+                        $Opdc->modificarPdc($pdc['id_pdc']);
+                        $Opdc->borrarDiasPdc($pdc['id_pdc']);
+                        $pdc_new=$Opdc->consultarDatos($nombre);
                         $periodo_planificacion=$Opdc->determinarPeriodoPorDias($fecha_inicio,$fecha_fin);
                         foreach ($periodo_planificacion as $dia) { //en desarrollo para registrar los dias
                             $fecha=$dia['begin']->format('Y-m-d H:i:s');
-                            $id_pdc=$pdc_tmp['id_pdc'];
+                            $id_pdc=$pdc_new['id_pdc'];
                             $Opdc->registrarDiaPdc($fecha,$id_pdc);
                         }
                     
-                        $registro= 1;
+                        $modifico= 1;
                         
                         unset($_POST);
-                        $_SESSION['registro']=1;
+                        $_SESSION['modifico']=1;
                         //header('Location:?action=registrarPdc');
                         //require('vistas/vista_registrarPdc.php');
                         header('Location:?action=consultarPdc');

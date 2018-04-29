@@ -155,8 +155,48 @@ class Cpdc extends modelobase {
         }
     }
 
-    public function modificarPdc(){
+    public function modificarPdc($id_pdc){
+        try {
+            $sql='UPDATE "T_pdc" SET nombre_pdc=:nombre_pdc, descripcion=:descripcion,
+                                     tipo_pdc=:tipo_pdc, id_disciplina=:id_disciplina, 
+                                     fecha_inicio=:fecha_inicio, fecha_fin=:fecha_fin,
+                                     tecnica=:tecnica,tactica=:tactica,fisico=:fisico,
+                                     velocidad=:velocidad, psicologico=:psicologico
+                        WHERE id_pdc= :id_pdc';
 
+            $db = $this->db();
+            $query = $db->prepare($sql);
+            $query->bindParam(':nombre_pdc', $this->nombre_pdc);
+            $query->bindParam(':descripcion', $this->descripcion);
+            $query->bindParam('tipo_pdc', $this->tipo_pdc);
+            $query->bindParam('id_disciplina', $this->id_disciplina);
+            $query->bindParam('fecha_inicio', $this->fecha_inicio);
+            $query->bindParam('fecha_fin', $this->fecha_fin);
+            $query->bindParam('tecnica', $this->tecnica);
+            $query->bindParam('tactica', $this->tactica);
+            $query->bindParam('fisico', $this->fisico);
+            $query->bindParam('velocidad', $this->velocidad);
+            $query->bindParam('psicologico', $this->psicologico);
+            $query->bindParam('id_pdc', $id_pdc);
+            $query->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+
+    }
+
+    public function borrarDiasPdc($id_pdc){
+        try {
+            $sql= 'DELETE FROM "T_dia_pdc" WHERE id_pdc=?';
+            $db=$this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $id_pdc);
+            $query->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
     }
 
     public function aplicarPdc(){

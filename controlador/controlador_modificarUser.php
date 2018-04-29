@@ -36,7 +36,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         $actualizo = 1;
                         //aca instanciar el modelo y guardar en la base de datos
                         $allusers=$usuario->listarAdm();
-    	                require('vistas/vista_consultaradm.php');
+    	                require('vistas/vista_consultarAdm.php');
                     }
                 }
                 else {

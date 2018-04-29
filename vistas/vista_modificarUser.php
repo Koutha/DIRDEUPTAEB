@@ -45,11 +45,11 @@ require('core/sist-header.php');
                                         <?php } ?>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-circle-notch"  ></i></span>
-                                            <input name="username" type="text" class="form-control" placeholder="Nombre de Usuario" required />
+                                            <input name="username" type="text" class="form-control" placeholder="Nombre de Usuario" value="<?php echo $user['nombre_usuario'] ?>" required />
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">@</span>
-                                            <input name="email" type="email" class="form-control" placeholder="Correo" />
+                                            <input name="email" type="email" class="form-control" placeholder="Correo" value="<?php echo $user['correo'] ?>"/>
                                         </div>
                                         <?php if (isset($pass)&&$pass==0) {?>
                                         <div class="alert alert-danger alert-dismissible">
