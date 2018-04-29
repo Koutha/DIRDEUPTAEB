@@ -11,8 +11,7 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Formulario para el registro de pruebas</h2>   
-                        <h5>Este modulo registra los test (pruebas) que miden el desempeño actual del atleta. </h5>
+                        
                         <?php if (isset($registro)&&$registro==1) {?>
                                <div class="alert alert-success alert-dismissible">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -25,43 +24,28 @@ require('core/sist-header.php');
                 <hr />
                 <!-- /. ROW  -->
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <!-- Form Elements --> 	
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h2>Registrando los datos</h2>
+                                <h4>Selecciona la prueba a aplicar</h4>
                             </div>
                             <div class="panel-body">
                               <form action="" method="post" role="form">
-                              <?php if (isset($existe)&&$existe==1) {?>
-                                        <div class="alert alert-danger alert-dismissible">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>esta prueba ya se encuentra registrada</strong> por favor intente con una prueba diferente
-                                        </div>
-                                <?php } ?>
+                              
                                 <div class="row">
                                  <div class="col-md-12">
-                                        <?php if (isset($jefe)&&$jefe==1) {?>
-                                        <div class="alert alert-danger alert-dismissible">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Ya es miembro de una familia</strong> por favor intente con uno diferente
-                                        </div>
-                                        <?php } ?>
-                                        <?php if (isset($existe)&&$existe==0) {?>
-                                        <div class="alert alert-danger alert-dismissible">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>La cedula introducida no se encuentra registrada</strong> por favor intente con uno diferente
-                                        </div>
-                                        <?php } ?>
+                                        
                                          <div class="col-md-6">
                                          <div class="form-group">
                                                 <label>seleccione prueba</label>
                                                 <select name="nombre" class="form-control" required>
                                                     <option value="">Seleccione...</option>
                                                     <?php foreach ($todos as $au){ ?>
+                                                    <?php if($au['status']== 1 ){ ?>
                                                     <option value="<?php echo $au['id_prueba']; ?>"><?php echo $au['nombre']; ?> </option>
                                                     
-                                                    <?php } ?>
+                                                    <?php }} ?>
                                                 </select>
                                             </div>                               
                                     
@@ -70,7 +54,7 @@ require('core/sist-header.php');
                                 
                                     <div class="form-group">
                                      <input type="hidden" name="prue" value="0">
-                                    <button name="Submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Registrar</button>
+                                    <button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                                 </form>
                             </div>

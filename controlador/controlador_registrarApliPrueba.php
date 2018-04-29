@@ -18,7 +18,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                $id_prueba=($_POST['id_prueba']);
                $medicion=($_POST['medicion']);
                $nomb=($_POST['cedula_atleta']);
-                if ($Oprueba->consultar($nomb)) {
+                if ($Oprueba->consultara($nomb)) {
                //si el atleta existe
                  $existe= 1;
                  }
@@ -27,13 +27,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                
                 
                 //registrar la aplicacion de la prueba
-                $Oprueba->registrarapliprueba($_POST['id_prueba'], $_POST['fecha'], $_POST['medicion'], 
-                                        $_POST['cedula_atleta']);
+                $Oprueba->registrarapliprueba( $_POST['fecha'], $_POST['medicion'], 
+                                        $_POST['cedula_atleta'],$_POST['id_prueba']);
                $registro= 1;
                
-                    $nomb=($_POST['id_prueba']);                            
+                    $nombr=($_POST['id_prueba']);                            
                require('vistas/vista_registrarApliPrueba.php');
             }
+            $nombr=$_POST['id_prueba'];
                require('vistas/vista_registrarApliPrueba.php');
             
         }
@@ -42,8 +43,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             include_once('modelos/modelo_pruebas.php');
             $Oprueba= new Cprueba();
                 $todos=$Oprueba->consultarTodos(); 
-            $nomb=$_POST['nombre'];
-            $prueba=$Oprueba->consultar($nomb);
+            $nombr=$_POST['id_prueba'];
+            
                 //si el nombre existe
                 
                

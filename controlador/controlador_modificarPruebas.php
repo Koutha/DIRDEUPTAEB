@@ -28,11 +28,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     } 
                     else { //aca  guardar en la base de datos
                     	       				
-                        $Oprueba->actualizarprueba($id_prueba, $_POST['nombre'], $_POST['descripcion'], $_POST['tipo_prueba'], $_POST['objetivo'], $_POST['unidad'], $_POST['rango1'], 
+                        $Oprueba->actualizarprueba($id_prueba, $_POST['nombre'], $_POST['descripcion'], $_POST['tipo_prueba'], $_POST['objetivo'], $_POST['unidad'], $_POST['condicion'], $_POST['rango1'], 
                                                     $_POST['rango2'], $_POST['rango3'], $_POST['rango4']);
                          
                         $actualizo = 1;
-                       
+                       $todos=$Oprueba->consultarTodos();
                         
                         require_once('vistas/vista_consultarPruebas.php');
                     }

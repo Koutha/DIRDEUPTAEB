@@ -20,13 +20,13 @@ require('core/sist-header.php');
                 <?php if (isset($borrado)&&$borrado==1) {?>
                     <div class="alert alert-danger alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Eliminacion exitosa!</strong> El usuario se ha eliminado correctamente.
+                        <strong>Eliminacion exitosa!</strong> La prueba se ha eliminado correctamente.
                     </div>
                 <?php } ?>
                 <?php if (isset($actualizo)&&$actualizo==1) {?>
                     <div class="alert alert-info alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Usuario Actualizado!</strong> Los datos del usuario han sido modificados exitosamente.
+                        <strong>Actualizado!</strong> Los datos de la prueba han sido modificados exitosamente.
                     </div>
                 <?php } ?>
                 <div class="row">
@@ -43,25 +43,28 @@ require('core/sist-header.php');
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
-                                                <th>Descripcion</th>
+                                                <th>Descripción</th>
                                                 <th>Tipo de <br/> prueba</th>
                                                 <th>Objetivo</th>
                                                 <th>Unidad</th>
-                                                <th>Rango1</th>
-                                                <th>Rango2</th>
-                                                <th>Rango3</th>
-                                                <th>Rango4</th>
+                                                <th>Condición</th>
+                                                <th>Deficiente</th>
+                                                <th>Regular</th>
+                                                <th>Bueno</th>
+                                                <th>Excelente</th>
                                                 <th>Acciones</th>
                                                 <th> </th>
                                             </tr>
                                         </thead>
                                         <tbody><?php foreach ($todos as $au){ ?>
+                                        <?php if($au['status']== 1 ){ ?>
                                             <tr class="odd gradeX">
                                                 <td><?php echo $au['nombre'] ?></td>
                                                 <td><?php echo $au['descripcion']; ?></td>
                                                 <td><?php echo $au['tipo_prueba']; ?></td>
                                                 <td><?php echo $au['objetivo'];?></td>
                                                 <td><?php echo $au['unidad']; ?></td>
+                                                <td><?php if ($au['condicion']=='1'){echo "los rangos para excelente son maximos";} else {echo "los rangos para excelente son minimos";}?></td>
                                                 <td><?php echo $au['rango1']; ?></td>
                                                 <td><?php echo $au['rango2']; ?></td>
                                                 <td><?php echo $au['rango3']; ?></td>
@@ -74,11 +77,11 @@ require('core/sist-header.php');
                                                 </td>
                                                 <td class="center">
                                                     <!-- Boton para activar el modal ELIMINAR -->
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarpruebas&id_prueba=".$uid; ?>">Eliminar</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPruebas&id_prueba=".$uid; ?>">Eliminar</button>
                                                         
                                                 </td>
                                             </tr>
-                                            <?php } ?>
+                                            <?php }} ?>
                                             <!-- contenido del Modal MODIFICAR -->
                                                           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
                                                             <div class="modal-dialog modal-sm" role="document">
@@ -88,7 +91,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar al usuario?</p>
+                                                                    <p>¿Estas segur@ que quieres modificar la prueba?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -108,7 +111,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres eliminar al usuario?</p>
+                                                                    <p>¿Estas segur@ que quieres eliminar la prueba?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">

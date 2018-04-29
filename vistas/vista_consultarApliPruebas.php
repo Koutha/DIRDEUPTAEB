@@ -44,27 +44,36 @@ require('core/sist-header.php');
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                       <tbody> <?php foreach ($todosp as $aud){ $rango1=$aud['rango1'];$rango2=$aud['rango2'];$rango3=$aud['rango3'];$rango4=$aud['rango4'];
+                                       <tbody> <?php foreach ($todosp as $aud){$condicion=$aud['condicion']; $rango1=$aud['rango1'];$rango2=$aud['rango2'];$rango3=$aud['rango3'];$rango4=$aud['rango4'];
                                                   } ?>
                                         <?php foreach ($todos as $au){ ?>
                                             <tr class="odd gradeX">
                                                 <td><?php echo $au['fecha'] ?></td>
-                                                <td><?php if ($au['medicion']<=$rango1) { echo $au['medicion']." el  resultado es malo";
+                                                <td><?php if ($condicion=='1') {
+                                                 if ($au['medicion']<=$rango1) { echo $au['medicion']." el  resultado es deficiente";
                                                 }
                                                 elseif (($au['medicion']>$rango1) && ($au['medicion']<= $rango2)){ echo $au['medicion']." el  resultado es regular";
                                                 }
                                                 elseif (($au['medicion']>$rango2) && ($au['medicion']<=$rango3)){ echo $au['medicion']." el  resultado es bueno";
                                                 }
                                                 else { echo $au['medicion']." el  resultado es exelente";
-                                                }?></td>
-                                                <td><?php foreach ($todosp as $aud) if ($au['cedula_atleta']==$aud['nombre']) {echo $aud['id_prueba']." ".$au['cedula_atleta'];} ?></td>
+                                                }} 
+                                            else{if ($au['medicion']>=$rango1) { echo $au['medicion']." el  resultado es deficiente";
+                                                }
+                                                elseif (($au['medicion']<$rango1) && ($au['medicion']>= $rango2)){ echo $au['medicion']." el  resultado es regular";
+                                                }
+                                                elseif (($au['medicion']<$rango2) && ($au['medicion']>=$rango3)){ echo $au['medicion']." el  resultado es bueno";
+                                                }
+                                                else { echo $au['medicion']." el  resultado es exelente";
+                                                }}?></td>
+                                                <td><?php foreach ($todosa as $aua){if ($aua['cedula_atleta']==$au['cedula_atleta']) {echo $aua['nombres']." ".$au['cedula_atleta']; }}?></td>
                                                 <td><?php foreach ($todosp as $aud) if ($au['id_prueba']==$aud['id_prueba']) {
                                                 {echo $aud['nombre'];}}?></td>
 
                                                 <td class="center">
-                                                    <?php $uid= $au['id_atleta_prueba']; ?>
+                                                    <?php $uid= $au['id_ap']; ?>
                                                     <!-- Boton para activar el modal MODIFICAR -->
-                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificaraplipruebas&id_atleta_prueba=".$uid; ?>">Modificar</button>
+                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificaraplipruebas&id_ap=".$uid; ?>">Modificar</button>
                                                 </td>
                                                 
                                             </tr>

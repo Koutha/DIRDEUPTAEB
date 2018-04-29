@@ -10,17 +10,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     	exit;	
     }else {
         include_once('modelos/modelo_pruebas.php');
-        $Oprueba = new Cprueba();
-        $todos=$Oprueba->consultarTodosap();
-        $todosa=$Oprueba->consultarTodosa();
-        $todosp=$Oprueba->consultarTodos();
-        
-        require_once('vistas/vista_consultarApliPruebas.php');
-        /*$allusers=$usuario->listarAdm();
-    	require('vistas/vista_consultar.php');*/
+        $Oprueba= new Cprueba();
+        if (isset($_GET['id_prueba'])) {
+            $id_prueba=$_GET['id_prueba'];
+            $Oprueba->borrarPrueba($id_prueba);
+            $borrado = 1;
+        }
+        $todos=$Oprueba->consultarTodos(); 
+        require('vistas/vista_consultarPruebas.php');
     }
     
 } 
+
 else{
     echo "Esta pagina es solo para usuarios registrados.<br>";
     echo "<br><a href='?action=ingresar'>Login</a>";
@@ -28,3 +29,4 @@ else{
 }
 
 ?>
+  

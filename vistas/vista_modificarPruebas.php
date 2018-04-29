@@ -10,9 +10,7 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Actualizar Datos</h2>   
-                        <h5> Actualizacion o modificacion de datos de las pruebas de la direccion de deportes </h5>
-
+                        
                     </div>
                 </div>
                 <!-- /. ROW  -->
@@ -32,7 +30,7 @@ require('core/sist-header.php');
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <strong>  Actualizar / Modificar Datos </strong>  
+                                    <strong>  Actualizacion o modificacion de datos de las pruebas de la direccion de deportes </strong>  
                                 </div><div class="panel-body">
                             <div class="row">
                                 
@@ -62,14 +60,23 @@ require('core/sist-header.php');
                                             
                                            
                                             <div class="form-group input-group">
-                                                <label>Nombre de la prueba</label>
+                                                <label>Tipo de prueba</label>
                                                 <select name="tipo_prueba" class="form-control" required>
-                                                    <option value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['tipo_prueba'];}  } ?>"><?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['tipo_prueba'];}  } ?></option>
-                                                    <option value="Velocidad">Velocidad</option>
-                                                    <option value="Fuerza" >Fuerza</option>
-                                                    <option value="Resistencia">Resistencia</option>
-                                                    <option value="Equilibrio">Equilibrio</option>
-                                                    <option value="Flexibilidad">Flexibilidad</option>
+                                                <?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){
+                                                    $tipo_p=$au['tipo_prueba'];}  } ?>
+                                                    <option value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['tipo_prueba'];}  } ?>"><?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['tipo_prueba'];
+                                                    $tipo_p=$au['tipo_prueba'];}  } ?></option>
+                                                    <?php if ($tipo_p!="Velocidad"){
+                                                    echo '<option value="Velocidad">Velocidad</option>';}?>
+                                                    <?php if ($tipo_p!="Fuerza"){
+                                                    echo '<option value="Fuerza">Fuerza</option>';}?>
+                                                    <?php if ($tipo_p!="Resistencia"){
+                                                    echo '<option value="Resistencia">Resistencia</option>';}?>
+                                                    <?php if ($tipo_p!="Equilibrio"){
+                                                    echo '<option value="Equilibrio">Equilibrio</option>';}?>
+                                                     <?php if ($tipo_p!="Flexibilidad"){
+                                                    echo '<option value="Flexibilidad">Flexibilidad</option>';}?>
+                                                    
                                                 </select>
                                             </div>
                                             
@@ -77,29 +84,59 @@ require('core/sist-header.php');
                                                 <label>objetivo para el cual se a creado la prueba</label>
                                                 <input name="objetivo" type="text" class="form-control"  placeholder="dar resistencia:"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['objetivo'];}  } ?>"/>
                                             </div>
-                                            <hr />
-                                        
+                                           
+                                    
 
-                                                                                                  
-                                        <div class="form-group">
+                                            <div class="form-group">
                                                 <label>Unidad o medida</label>
-                                                <input class="form-control" name="unidad" placeholder="centimetros, metros,..."value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['unidad'];}  } ?>"/>
+                                                <select name="unidad" class="form-control" required>
+                                                <?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){
+                                                    $uni=$au['unidad'];}  } ?>
+                                                    <option value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['unidad'];}  } ?>"><?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['unidad'];
+                                                    $uni=$au['unidad'];}  } ?></option>
+                                                    <?php if ($uni!="segundos"){
+                                                    echo '<option value="segundos">segundos</option>';}?>
+                                                    <?php if ($uni!="Minutos"){
+                                                    echo '<option value="Minutos">Minutos</option>';}?>
+                                                    <?php if ($uni!="Centimetros"){
+                                                    echo '<option value="Centimetros">Centimetros</option>';}?>
+                                                    <?php if ($uni!="Metros"){
+                                                    echo '<option value="Metros">Metros</option>';}?>
+                                                     <?php if ($uni!="Kilometros"){
+                                                    echo '<option value="Kilometros">Kilometros</option>';}?>
+                                                     <?php if ($uni!="Gramos"){
+                                                    echo '<option value="Gramos">Gramos</option>';}?>
+                                                     <?php if ($uni!="Libras"){
+                                                    echo '<option value="Libras">Libras</option>';}?>
+                                                     <?php if ($uni!="Kilos"){
+                                                    echo '<option value="Kilos">Kilos</option>';}?>
+                                                    
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label label-default="" class="control-label label-default">Coloque si exelente es el el valor maximo o el minimo</label>
+                                                <?php foreach ($todos as $au){ if(isset($au)&&($au['condicion']=='1')){echo '<input type="radio" name="condicion" value="1" checked> Maximo';} else {echo '<input type="radio" name="condicion" value="1" > Maximo';} }?>
+                                                <?php foreach ($todos as $au){ if(isset($au)&&($au['condicion']=='0')){echo '<input type="radio" name="condicion" value="0" checked> Minimo';} else {echo '<input type="radio" name="condicion" value="0" > Minimo';} }?>
+                                            </div>
+                                            
+                                        </div>    
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Rango (max o min) para malo</label>
+                                                <input name="rango1" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="30" value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango1'];}  } ?>" required></input>     
                                             </div>
                                             <div class="form-group">
-                                                <label>Rango1 para malo</label>
-                                                <input name="rango1" class="form-control" placeholder="30"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango1'];}  } ?>" required></input>     
+                                                <label>Rango (max o min) para regular</label>
+                                                <input name="rango2" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="60"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango2'];}  } ?>"required></input>     
                                             </div>
                                             <div class="form-group">
-                                                <label>Rango2 para regular</label>
-                                                <input name="rango2" class="form-control" placeholder="60"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango2'];}  } ?>"required></input>     
+                                                <label>Rango (max o min) para bueno</label>
+                                                <input name="rango3" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="90"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango3'];}  } ?>"required></input>     
                                             </div>
                                             <div class="form-group">
-                                                <label>Rango3 para bueno</label>
-                                                <input name="rango3" class="form-control" placeholder="90"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango3'];}  } ?>"required></input>     
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Rango4 para exelente</label>
-                                                <input name="rango4" class="form-control" placeholder="120"value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango4'];}  } ?>"required></input>     
+                                                <label>Rango (max o min) para exelente</label>
+                                                <input name="rango4" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="120" value="<?php foreach ($todos as $au){ if(isset($au)&&($id_prueba==$au['id_prueba'])){echo $au['rango4'];}  } ?>" required></input>     
                                             </div>
                                             
 
@@ -107,7 +144,7 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="id_prueba" value="<?php echo $id_prueba; ?>">
-                                    <button name="submit" value="modificarPruebas" type="submit" class="btn btn-primary">Actualizar Datos</button>
+                                    <button name="Submit" value="modificarPruebas" type="submit" class="btn btn-primary">Actualizar Datos</button>
                                 </div>
                                 </form>
                             </div>

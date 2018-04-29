@@ -8,20 +8,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         echo "Su sesion a terminado,
 		<a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;
-    } else if (isset($_POST['Submit']) or isset($_GET['id_atleta_prueba'])) {
-        if (isset($_POST['id_atleta_prueba'])) {
-            $id_atleta_prueba = $_POST['id_atleta_prueba'];
-        } else if (isset($_GET['id_atleta_prueba'])) {
-            $id_atleta_prueba = $_GET['id_atleta_prueba'];
+    } else if (isset($_POST['Submit']) or isset($_GET['id_ap'])) {
+        if (isset($_POST['id_ap'])) {
+            $id_ap = $_POST['id_ap'];
+        } else if (isset($_GET['id_ap'])) {
+            $id_ap = $_GET['id_ap'];
         }
 
         include_once('modelos/modelo_pruebas.php');
         $Oprueba = new Cprueba();
         $todosp=$Oprueba->consultarTodos();
-        $todos=$Oprueba->consultarTodosa();
+        $todos=$Oprueba->consultarTodosap();
         if(isset($_POST['cedula_atleta'])){
-          $nomb=($_POST['cedula_atleta']);
-                if ($Oprueba->consultar($nomb)) {
+          $cedula_atleta=($_POST['cedula_atleta']);
+                if ($Oprueba->consultara($cedula_atleta)) {
                //si el atleta existe
                  $existe= 1;
                  }
@@ -30,17 +30,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     
                      //aca  guardar en la base de datos
                     	       				
-                        $Oprueba->actualizarapliprueba($_POST['id_atleta_prueba'], $_POST['id_prueba'], $_POST['fecha'], $_POST['medicion'], $_POST['cedula_atleta']);
+                        $Oprueba->actualizarapliprueba($_POST['fecha'], $_POST['medicion'], $_POST['cedula_atleta'], $_POST['id_prueba'], $_POST['id_ap']);
                          
                         $actualizo = 1;
                        
-                        
-                        require_once('vistas/vista_consultarAplipruebas.php');
+                        $todosp=$Oprueba->consultarTodos();
+                        $todosa=$Oprueba->consultarTodosa();
+                        $todos=$Oprueba->consultarTodosap();
+                        require_once('vistas/vista_consultarApliPruebas.php');
                     } 
-                     require('vistas/vista_modificarAplipruebas.php');   
+                     require('vistas/vista_modificarApliPruebas.php');   
         }    
         else{
-            require('vistas/vista_modificarAplipruebas.php');
+            require('vistas/vista_modificarApliPruebas.php');
         }
     }
         

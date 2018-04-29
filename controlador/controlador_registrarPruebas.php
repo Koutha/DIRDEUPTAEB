@@ -21,8 +21,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             }
             else{
                 //registrarlo
-                $Oprueba->registrarprueba($_POST['nombre'], $_POST['descripcion'], $_POST['tipo_prueba'], 
-                                        $_POST['objetivo'], $_POST['unidad'], $_POST['rango1'], 
+                $id_prueba=($_POST['tipo_prueba'].$_POST['unidad']);
+                $Oprueba->registrarprueba($id_prueba,$_POST['nombre'], $_POST['descripcion'], $_POST['tipo_prueba'], 
+                                        $_POST['objetivo'], $_POST['unidad'], $_POST['condicion'], $_POST['rango1'], 
                                         $_POST['rango2'], $_POST['rango3'], $_POST['rango4']);
     	       $registro= 1;
                require('vistas/vista_registrarPruebas.php');
