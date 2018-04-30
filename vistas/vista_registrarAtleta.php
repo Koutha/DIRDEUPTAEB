@@ -296,7 +296,6 @@ require('core/sist-header.php');
                                 </div>
                                 <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Anterior</button>
                                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
-                               
                             </div>
                         </div>
                     </div>

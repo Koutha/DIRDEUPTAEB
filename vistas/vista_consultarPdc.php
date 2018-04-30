@@ -41,27 +41,37 @@ require('core/sist-header.php');
                                                 </div>
                                                 <div class="modal-body">
                                                     <dl class="dl-horizontal">
-                                                        <dt>ID</dt>
+                                                        <dt>ID:</dt>
                                                         <dd id="id"></dd>
-                                                        <dt>Nombre</dt>
+                                                        <dt>Nombre:</dt>
                                                         <dd id="title"></dd>
-                                                        <dt>Descripcion</dt>
+                                                        <dt>Descripcion:</dt>
                                                         <dd id="descripcion"></dd>
-                                                        <dt>Disciplina</dt>
+                                                        <dt>Disciplina:</dt>
                                                         <dd id="disciplina"></dd>
-                                                        <dt>Tipo de Planificacion</dt>
+                                                        <dt>Tipo de Planificacion:</dt>
                                                         <dd id="tipo_pdc"></dd>
-                                                        <dt>Fecha de Inicio</dt>
+                                                        <dt>Fecha de Inicio:</dt>
                                                         <dd id="start"></dd>
-                                                        <dt>Fecha de Finalización</dt>
+                                                        <dt>Fecha de Finalización:</dt>
                                                         <dd id="end"></dd>
+                                                        <h4><center> Aspectos a Trabajar</center></h4>
+                                                        <dt>Tecnica:</dt>
+                                                        <dd id="tecnica"></dd>
+                                                        <dt>Tactica:</dt>
+                                                        <dd id="tactica"></dd>
+                                                        <dt>Fisico:</dt>
+                                                        <dd id="fisico"></dd>
+                                                        <dt>Psicologico:</dt>
+                                                        <dd id="psicologico"></dd>
+                                                        <dt>Velocidad:</dt>
+                                                        <dd id="velocidad"></dd>
                                                     </dl>
                                                 </div>
                                                 <div class="modal-footer"> 
-                                                   <button type="button" class="btn btn-canc-vis btn-warning" data-toggle="modal" >Modificar</button>
+                                                   <button type="button" class="btn btn-canc-vis btn-warning">Modificar</button>
                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
                                                 </div>
-                                                
                                             </div><!--/. End Seccion Informacion -->
                                             <div class="form"> <!-- Seccion Vista del formulario para modificar -->
                                                 <div class="modal-header">
@@ -198,31 +208,30 @@ require('core/sist-header.php');
                                                             </div> <!--/ col-md-12 -->
                                                         </div> <!-- /. ROW  -->  
                                                     </div><!-- /. modal body -->
-                                                <div class="modal-footer">
-                                                    <input type="hidden" name="id" id="input_id">
-                                                   <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar">Guardar Cambios</button>
-                                                   
-                                                   <button type="button" class="btn btn-canc-edit btn-info">Volver</button>
-                                                </div>
-                                                <!-- contenido del Modal confirmacion modificar -->
-                                                <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmar" data-backdrop="static">
-                                                    <div class="modal-dialog modal-sm" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <button type="button" class="close" data-number="1" aria-label="Close">&times;</button>
-                                                                <h4 class="modal-title">Confirmación</h4>
+                                                    <div class="modal-footer">
+                                                        <input type="hidden" name="id" id="input_id">
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar">Guardar Cambios</button>
+                                                       <button type="button" class="btn btn-canc-edit btn-info">Volver</button>
+                                                    </div>
+                                                    <!-- contenido del Modal confirmacion modificar -->
+                                                    <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmar" data-backdrop="static">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-number="1" aria-label="Close">&times;</button>
+                                                                    <h4 class="modal-title">Confirmación</h4>
+                                                                    </div>
+                                                                <div class="modal-body">
+                                                                        <p>¿Estas segur@ que quieres modificar los datos?</p>  
                                                                 </div>
-                                                            <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar los datos?</p>  
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="submit" name="submit" value="modificarPdc" class="btn btn-danger">Si</button>
-                                                        
-                                                                <button type="button" class="btn btn-info" data-number="1">Volver</button>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" name="submit" value="modificarPdc" class="btn btn-danger">Si</button>
+                                                            
+                                                                    <button type="button" class="btn btn-info" data-number="1">Volver</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div> <!-- // contenido del Modal confirmacion modificar -->   
+                                                    </div> <!-- // contenido del Modal confirmacion modificar -->   
                                                 </form><!--// end Form Modificar-->
                                             </div><!-- /. Seccion Vista del formulario para modificar -->
                                         </div> <!--/.modal-content  -->
@@ -442,6 +451,11 @@ require('core/sist-header.php');
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
             $('#consultar #start').text(event.start.format('LLLL'));
             $('#consultar #end').text(event.end.format('LLLL'));
+            $('#consultar #tecnica').text(event.tecnica+'%');
+            $('#consultar #tactica').text(event.tactica+'%');
+            $('#consultar #fisico').text(event.fisico+'%');
+            $('#consultar #psicologico').text(event.psicologico+'%');
+            $('#consultar #velocidad').text(event.velocidad+'%');
             $('#consultar #input_nombre_pdc').val(event.title);
             $('#consultar #txt_descripcion').val(event.desc);
             $('#consultar #select_tipo_pdc').val(event.tipo_pdc);
@@ -524,16 +538,5 @@ require('core/sist-header.php');
             $('#modalConfirmar').modal('hide');
         });
     </script>
-    <script type="text/javascript">
-        $('#myModal2').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-        var recipient = button.data('id'); // Extract info from data-* attributes
-        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-        var modal = $(this);
-        modal.find('a.btn.btn-danger').attr('href', recipient);
-        });
-    </script>
-    
-    
+ 
 </body>

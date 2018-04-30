@@ -55,13 +55,11 @@ require('core/sist-header.php');
                                                 <td><?php echo $au['rol']; ?></td>
                                                 <td class="center">
                                                 <?php $uid= $au['id_usuario']; ?>
-                                                   <!-- <a class="btn btn-warning " href="?action=ModificarUser&id=<?php echo $au['id']?>">Modificar</a> -->
                                                     <!-- Boton para activar el modal MODIFICAR -->
                                                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificarUser&id=".$uid; ?>">Modificar</button>
                                                 </td>
                                                 <td class="center">
-                                                <!-- <a class="btn btn-danger" href="<?php echo "?action=eliminarUser&id=".$uid; ?>">Eliminar</a> -->
-                                                    
+
                                                     <!-- Boton para activar el modal ELIMINAR -->
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarUser&id=".$uid; ?>">Eliminar</button>
                                                 </td>

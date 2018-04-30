@@ -18,10 +18,20 @@ body {
 .visualizar{
     display: block;
 }
+
 .form{
     display: none;
 }
- #wrapper {
+
+.informacion{
+    display: block;
+}
+
+.asignarAtletas{
+    display: none;
+}
+
+#wrapper {
     width: 100%;
     background:#202020;
 }

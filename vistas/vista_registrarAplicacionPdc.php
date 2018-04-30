@@ -29,192 +29,89 @@ require('core/sist-header.php');
                                 <div class="modal fade" id="consultar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <dl class="dl-horizontal">
-                                                    <dt>ID</dt>
-                                                    <dd id="id"></dd>
-                                                    <dt>Nombre</dt>
-                                                    <dd id="title"></dd>
-                                                    <dt>Descripcion</dt>
-                                                    <dd id="descripcion"></dd>
-                                                    <dt>Disciplina</dt>
-                                                    <dd id="disciplina"></dd>
-                                                    <dt>Tipo de Planificacion</dt>
-                                                    <dd id="tipo_pdc"></dd>
-                                                    <dt>Inicio del Dia</dt>
-                                                    <dd id="start"></dd>
-                                                    <dt>Finalización</dt>
-                                                    <dd id="end"></dd>
-                                                </dl>
-                                            </div>
-                                            <div class="modal-footer">
-                                               <!--  <button type="button" class="btn btn-success">test</button> -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div><!--/.modal consultar -->
-                                <!--/.modal registrar -->
-                                <div class="modal fade" id="registrarPdc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title text-center">Registrar Planificación</h4>
-                                            </div>
-                                            <!-- Form Elements -->  
-                                            <form action="" method="post" role="form" class="form-group"> 
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h4>Programas directos de competencia</h4>
-                                                        <h6>Donde se establece la estructura del programa de entrenamiento con miras a la obtención de logros deportivos en corto tiempo. </h6>   
-                                                        
-                                                    </div>
-                                                </div><!-- /. ROW  -->
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading">
-                                                                <h5><strong>Información del Programa</strong></h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <?php if (isset($existe) && $existe == 1) { ?>
-                                                                    <div class="alert alert-danger alert-dismissible fade in">
-                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                        <strong>El Nombre ya existe</strong> por favor intente con uno diferente
-                                                                    </div>
-                                                                <?php } ?>
-                                                                <div class="row">
-                                                                    <div class="col-sm-4">
-                                                                        <div class="form-group">
-                                                                            <label>Nombre</label>
-                                                                            <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : ''; ?>" required/>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-6">
-                                                                        <div class="form-group">
-                                                                            <label>Descripción</label>
-                                                                            <textarea name="descripcion" class="form-control" placeholder="" required><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : ''; ?></textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-sm-4">
-                                                                        <div class="form-group">
-                                                                            <label  class="control-label label-default">Tipo de programa</label>
-                                                                            <select name="tipo_pdc" class="form-control" required >
-                                                                                <option value="">Seleccione...</option>
-                                                                                <option value="Preparatorio" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio") ? 'selected' : ''; ?>>Preparatorio</option>
-                                                                                <option value="Pre-Compentencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia") ? 'selected' : ''; ?>>Pre-Compentencia</option>
-                                                                                <option value="Competitivo" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Competitivo") ? 'selected' : ''; ?>>Competitivo</option>
-                                                                                <option value="Post-Competencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Post-Competencia") ? 'selected' : ''; ?>>Post-Competencia</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-4">
-                                                                        <div class="form-group">
-                                                                            <label  class="control-label label-default">Disciplina</label>
-                                                                            <select name="id_disciplina" class="form-control" required >
-                                                                                <option value="">Seleccione...</option>
-                                                                                <?php foreach ($disciplinas as $key => $value) { ?>
-                                                                                    <option value="<?php echo $value['id_disciplina']; ?>" <?php echo (isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']) ? 'selected' : ''; ?>><?php echo $value['nombre']; ?></option>
-                                                                                    <?php } ?>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>    
-                                                            </div>
-                                                        </div> <!--/Informacion del programa-->
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading">
-                                                                <h5><strong>Duración</strong></h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <?php if (isset($periodo) && $periodo == 1) { ?>
-                                                                <div class="alert alert-danger alert-dismissible fade in">
-                                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                    <strong>Periodo invalido</strong> La fecha de inicio debe ser menor a la fecha de finalizacion
-                                                                </div>
-                                                                <?php } ?>
-                                                                <div class="row" >
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group" >
-                                                                            <label>Fecha de Inicio</label>
-                                                                            <input type="date" name="fecha_inicio" id="start" class="form-group" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>    
-                                                                    <div class="col-md-4" >  
-                                                                        <div class="form-group" >
-                                                                            <label>Fecha de Finalización</label>
-                                                                            <input type="date" name="fecha_fin" id="end" class="form-group" value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>  <!--/ Duracion-->
-                                                        <div class="panel panel-default">
-                                                            <div class="panel-heading">
-                                                                <h5><strong>Características del Programa</strong></h5>
-                                                            </div>
-                                                            <div class="panel-body">
-                                                                <?php if (isset($porcentaje) && $porcentaje == 1) { ?>
-                                                                <div class="alert alert-danger alert-dismissible fade in">
-                                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                    <strong>Porcentajes incorrectos</strong> La suma de los porcentajes debe ser igual a 100 % 
-                                                                </div>
-                                                                <?php } ?>
-                                                            <label>Aspectos a trabajar en porcentaje</label>
-                                                                <div class="row" >
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group">
-                                                                            <label>Técnica</label>
-                                                                            <input type="number" min="1" max="100" name="tecnica" class="form-control" value="<?php echo isset($_POST['tecnica']) ? $_POST['tecnica'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group">
-                                                                            <label>Táctica</label>
-                                                                            <input type="number" min="1" max="100" name="tactica" class="form-control" value="<?php echo isset($_POST['tactica']) ? $_POST['tactica'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group">
-                                                                            <label>Físico</label>
-                                                                            <input type="number" min="1" max="100" name="fisico" class="form-control" value="<?php echo isset($_POST['fisico']) ? $_POST['fisico'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group">
-                                                                            <label>Psicológico</label>
-                                                                            <input type="number" min="1" max="100" name="psicologico" class="form-control" value="<?php echo isset($_POST['psicologico']) ? $_POST['psicologico'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4" >
-                                                                        <div class="form-group">
-                                                                            <label>Velocidad</label>
-                                                                            <input type="number" min="1" max="100" name="velocidad" class="form-control" value="<?php echo isset($_POST['velocidad']) ? $_POST['velocidad'] : ''; ?>" required>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>  <!--/ Caracteristicas del programa-->     
-                                                    </div> <!--/ col-md-12 -->
-                                                </div> <!-- /. ROW  -->
-                                            </div> <!--/ Modal Body-->
-                                            <div class="modal-footer">
-                                                <div class="form-group">
-                                                    <button type="submit" name="submit" value="registrarPdc" class="btn btn-primary">Registrar</button>
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
+                                            <div class="informacion"> <!-- Seccion Informacion -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
                                                 </div>
-                                            </div>
-                                            </form><!-- End Form Elements -->
-                                        </div><!--/ Modal Content -->
-                                    </div><!--/ Modal Dialog -->
-                                </div><!--/.modal registrar -->
+                                                <div class="modal-body">
+                                                    <dl class="dl-horizontal">
+                                                        <dt>ID</dt>
+                                                        <dd id="id"></dd>
+                                                        <dt>Nombre</dt>
+                                                        <dd id="title"></dd>
+                                                        <dt>Descripcion</dt>
+                                                        <dd id="descripcion"></dd>
+                                                        <dt>Disciplina</dt>
+                                                        <dd id="disciplina"></dd>
+                                                        <dt>Tipo de Planificacion</dt>
+                                                        <dd id="tipo_pdc"></dd>
+                                                        <dt>Inicio del Dia</dt>
+                                                        <dd id="start"></dd>
+                                                        <dt>Finalización</dt>
+                                                        <dd id="end"></dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button>
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
+                                                </div>
+                                            </div><!--/. End Seccion Informacion -->
+                                            <div class="asignarAtletas"><!-- Seccion asignarAtletas -->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close goToInformacion"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                    <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
+                                                </div>
+                                                <!-- form asignarAtletas elements -->
+                                                <form action="" method="post" role="form" class="form-group">
+                                                    <div class="modal-body"><!--Cuerpo del modal -->
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="checkbox form-control">
+                                                                        <label><input type="checkbox" id="select_all"/> Seleccionar todos</label>
+                                                                    </div>
+                                                                    <div class="checkbox form-control">
+                                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
+                                                                    </div>
+                                                                    <div class="checkbox form-control">
+                                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 2</label>
+                                                                    </div>
+                                                                    <div class="checkbox form-control">
+                                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 3</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!--/ col-md-12 -->
+                                                        </div> <!-- /. ROW  -->
+                                                    </div><!--/. End div class="modal-body" Cuerpo del modal -->
+                                                    <div class="modal-footer">
+                                                        <!--<a class="btn btn-success" id="redir" href="">Asignar Atletas + </a>-->
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalConfirmar">Guardar Cambios</button>
+                                                        <button type="button" class="btn goToInformacion btn-info">Volver</button>
+                                                    </div>
+                                                    <!-- contenido del Modal confirmar asignarAtletas #modalConfirmar -->
+                                                    <div class="modal fade" id="modalConfirmar" tabindex="-1" role="dialog" aria-labelledby="modalConfirmar" data-backdrop="static">
+                                                        <div class="modal-dialog modal-sm" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-number="1" aria-label="Close">&times;</button>
+                                                                    <h4 class="modal-title">Confirmación</h4>
+                                                                    </div>
+                                                                <div class="modal-body">
+                                                                    <p>¿Estas segur@ que quieres asignar estos atletas?</p>  
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="submit" name="submit" value="asignarAtletaPdc" class="btn btn-danger">Si</button>
+                                                                    <button type="button" class="btn btn-info" data-number="1">Volver</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div> <!-- /. End contenido del Modal confirmar asignarAtletas -->   
+                                                </form> <!--/. End form asignarAtletas elements -->
+                                            </div><!--/. End Seccion asignarAtletas -->    
+                                        </div><!--/. End div class="modal-content" -->
+                                    </div><!--/. End div class="modal-dialog" --> 
+                                </div><!--/.modal consultar -->
                             </div><!--/.panel-body -->
                         </div><!--/.panel panel-default -->
                     </div><!-- /. col-md-12  -->
@@ -258,6 +155,7 @@ require('core/sist-header.php');
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
             $('#consultar #start').text(event.start.format('LLLL'));
             $('#consultar #end').text(event.end.format('LLLL'));
+            //$('#consultar #redir').attr("href","?action=asignarAtletaPdc&id="+event.id);
             $('#consultar').modal('show');
             return false;
           },
@@ -292,7 +190,37 @@ require('core/sist-header.php');
 
       });
     </script>
-
+    <script type="text/javascript">
+        $('.goToAsignar').on("click", function(){
+            $('.asignarAtletas').slideToggle();
+            $('.informacion').slideToggle();
+        });
+        
+        $('.goToInformacion').on("click", function(){
+            $('.informacion').slideToggle();
+            $('.asignarAtletas').slideToggle();
+        });
+        $("button[data-number=1]").click(function(){
+            $('#modalConfirmar').modal('hide');
+        });
+    </script>
+    <script type="text/javascript">
+        //select all checkboxes
+        $("#select_all").change(function(){  //"select all" change
+            $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
+        });
+        //".checkbox" change
+        $('.checkbox').change(function(){
+            //uncheck "select all", if one of the listed checkbox item is unchecked
+            if(false == $(this).prop("checked")){ //if this item is unchecked
+                $("#select_all").prop('checked', false); //change "select all" checked status to false
+            }
+            //check "select all" if all checkbox items are checked
+            if ($('.checkbox:checked').length == $('.checkbox').length ){
+                $("#select_all").prop('checked', true);
+            }
+        });
+    </script>
     
     
 </body>
