@@ -71,15 +71,11 @@ require('core/sist-header.php');
                                                                     <div class="checkbox form-control">
                                                                         <label><input type="checkbox" id="select_all"/> Seleccionar todos</label>
                                                                     </div>
+                                                                 
                                                                     <div class="checkbox form-control">
                                                                         <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
                                                                     </div>
-                                                                    <div class="checkbox form-control">
-                                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 2</label>
-                                                                    </div>
-                                                                    <div class="checkbox form-control">
-                                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 3</label>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div> <!--/ col-md-12 -->
                                                         </div> <!-- /. ROW  -->
@@ -173,6 +169,7 @@ require('core/sist-header.php');
                       title: '<?php echo $key['nombre_pdc']; ?>',
                       desc:  '<?php echo $key['descripcion']; ?>',
                       disciplina:  '<?php echo $key['nombre_disciplina']; ?>',
+                      id_disciplina: '<?php echo $key['id_disciplina']; ?>' ,
                       tipo_pdc:  '<?php echo $key['tipo_pdc']; ?>',
                       start: '<?php echo $key['fecha_dia']; ?>',
                       end: '<?php   $end= new DateTime($key['fecha_dia']);

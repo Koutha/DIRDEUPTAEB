@@ -230,6 +230,34 @@ class Cpdc extends modelobase {
         
     }
 
+    public function consultarADP($id_disciplina){ //consultar atletas por disciplinas por pdc
+        try {
+            $sql= ' SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
+                    FROM "T_atleta" ta 
+                    JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+                    JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+                    JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina
+                    WHERE tpdc.id_disciplina=:id_disciplina';
+            $db = $this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(':id_disciplina', $id_disciplina);
+            $query->execute();
+            while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+                $resultado[] = $fila;
+            }
+            if (!empty($resultado)) {
+                return $resultado;
+            }
+            else{
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+        
+    }
+
     public function registrarEjecucionAtleta(){
 
     }

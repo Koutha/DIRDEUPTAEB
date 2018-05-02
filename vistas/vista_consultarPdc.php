@@ -326,7 +326,7 @@ require('core/sist-header.php');
                                                                         <div class="form-group">
                                                                             <label>Fecha de Inicio</label>
                                                                             <div class='input-group date' >
-                                                                                <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
+                                                                                <input type='text' name="fecha_inicio" id='datetimepicker3' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
                                                                                 <span class="input-group-addon">
                                                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                                                 </span>
@@ -337,7 +337,7 @@ require('core/sist-header.php');
                                                                         <div class="form-group">
                                                                             <label>Fecha de Finalización</label>
                                                                             <div class='input-group date' >
-                                                                                <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
+                                                                                <input type='text' name="fecha_fin" id='datetimepicker4' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
                                                                                 <span class="input-group-addon">
                                                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                                                 </span>
@@ -474,9 +474,9 @@ require('core/sist-header.php');
           selectable: true,
           selectHelper: true,
           select: function(start,end){ //parametros que vienen de 'events'
-            $('#registrarPdc #datetimepicker1').val(moment(start).format('YYYY-MM-DD h:mm A'));
+            $('#registrarPdc #datetimepicker3').val(moment(start).format('YYYY-MM-DD h:mm A'));
             if (end.diff(start, 'weeks')>=3) {
-            $('#registrarPdc #datetimepicker2').val(moment(end).format('YYYY-MM-DD h:mm A'));
+            $('#registrarPdc #datetimepicker4').val(moment(end).format('YYYY-MM-DD h:mm A'));
             }
             $('#registrarPdc').modal('show');
           },
@@ -520,6 +520,22 @@ require('core/sist-header.php');
             });
             $("#datetimepicker2").on("dp.change", function (e) {
                 $('#datetimepicker1').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
+            });
+        });
+        $(function () {
+            $('#datetimepicker3').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+            $('#datetimepicker4').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+            $("#datetimepicker3").on("dp.change", function (e) {
+                $('#datetimepicker4').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
+            });
+            $("#datetimepicker4").on("dp.change", function (e) {
+                $('#datetimepicker3').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
             });
         });
     </script>

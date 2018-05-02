@@ -54,13 +54,13 @@
 <input type="submit" value="test" name="submit">
 </form>
 <?php
-
- $sql= 'SELECT ta.cedula_atleta, ta.nombres 
+//atletas por disciplina por pdc
+$sql= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
 FROM "T_atleta" ta 
 JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
 JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
-JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina'
-WHERE tpdc.id_disciplina=?
+JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina
+WHERE tpdc.id_disciplina=18';
 //WHERE td.nombre='Ajedrez Masculino';
 
 
@@ -69,6 +69,7 @@ include_once('modelos/modelo_atleta.php');
 include_once('modelos/modelo_disciplina.php');
 include_once('modelos/modelo_pdc.php');
  $Opdc= new Cpdc();
+ //var_dump($Opdc->consultarADP($id=16)); consultar atleta por disciplina por pdc
 date_default_timezone_set('America/Caracas');
 setlocale(LC_ALL, "es_VE.utf8");
 
