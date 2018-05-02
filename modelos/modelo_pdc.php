@@ -230,6 +230,33 @@ class Cpdc extends modelobase {
         
     }
 
+    public function consultarAplicacionDia($id_dp){
+        $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
+                        tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
+                        tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,
+                        tdp.id_pdc, tp.fecha_inicio, tp.fecha_fin, tp.tecnica,
+                        tp.tactica, tp.fisico, tp.psicologico, tp.velocidad,
+                        tp.id_disciplina, tp.tipo_pdc, tp.nombre_pdc, tp.descripcion,
+                        td.nombre as nombre_disciplina, td.tipo_disciplina 
+                FROM "T_dia_pdc" tdp JOIN "T_pdc" tp ON tdp.id_pdc=tp.id_pdc 
+                JOIN "T_disciplina" td ON tp.id_disciplina=td.id_disciplina
+                WHERE tdp.id_dp=:id_dp';
+        $db=$this->db();
+        $query = $db->prepare($sql); 
+        $query->bindParam(':id_dp', $id_dp);
+        $query->execute();
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+             $resultado = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+        
+    }
+
     public function consultarADP($id_disciplina){ //consultar atletas por disciplinas por pdc
         try {
             $sql= ' SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre

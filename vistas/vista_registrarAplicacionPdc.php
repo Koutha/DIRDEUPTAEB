@@ -29,41 +29,44 @@ require('core/sist-header.php');
                                 <div class="modal fade" id="consultar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
-                                            <div class="informacion"> <!-- Seccion Informacion -->
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <dl class="dl-horizontal">
-                                                        <dt>ID</dt>
-                                                        <dd id="id"></dd>
-                                                        <dt>Nombre</dt>
-                                                        <dd id="title"></dd>
-                                                        <dt>Descripcion</dt>
-                                                        <dd id="descripcion"></dd>
-                                                        <dt>Disciplina</dt>
-                                                        <dd id="disciplina"></dd>
-                                                        <dt>Tipo de Planificacion</dt>
-                                                        <dd id="tipo_pdc"></dd>
-                                                        <dt>Inicio del Dia</dt>
-                                                        <dd id="start"></dd>
-                                                        <dt>Finalización</dt>
-                                                        <dd id="end"></dd>
-                                                    </dl>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button>
-                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
-                                                </div>
-                                            </div><!--/. End Seccion Informacion -->
-                                            <div class="asignarAtletas"><!-- Seccion asignarAtletas -->
-                                                <div class="modal-header">
-                                                    <button type="button" class="close goToInformacion"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
-                                                </div>
-                                                <!-- form asignarAtletas elements -->
-                                                <form action="" method="post" role="form" class="form-group">
+                                            <!-- form asignarAtletas elements -->
+                                            <form action="" method="post" role="form" class="form-group">
+                                                <div class="informacion"> <!-- Seccion Informacion -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <dl class="dl-horizontal">
+                                                            <dt>ID</dt>
+                                                            <dd id="id"></dd>
+                                                            <dt>Nombre</dt>
+                                                            <dd id="title"></dd>
+                                                            <dt>Descripcion</dt>
+                                                            <dd id="descripcion"></dd>
+                                                            <dt>Disciplina</dt>
+                                                            <dd id="disciplina"></dd>
+                                                            <dt>Tipo de Planificacion</dt>
+                                                            <dd id="tipo_pdc"></dd>
+                                                            <dt>Inicio del Dia</dt>
+                                                            <dd id="start"></dd>
+                                                            <dt>Finalización</dt>
+                                                            <dd id="end"></dd>
+                                                        </dl>
+                                                    </div>
+                                                    <input type="hidden" name="id_dp" id="id_dp" value="">
+                                                    <div class="modal-footer">
+                                                        <button type="submit" name="submit" value="asignarAtletaPdc" class="btn btn-warning"  >Asignar Atletas + </button>
+                                                        <!--<button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button> -->
+                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
+                                                    </div>
+                                                </div><!--/. End Seccion Informacion -->
+                                                <div class="asignarAtletas"><!-- Seccion asignarAtletas -->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close goToInformacion"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                        <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
+                                                    </div>
+                                               
                                                     <div class="modal-body"><!--Cuerpo del modal -->
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -103,8 +106,9 @@ require('core/sist-header.php');
                                                             </div>
                                                         </div>
                                                     </div> <!-- /. End contenido del Modal confirmar asignarAtletas -->   
-                                                </form> <!--/. End form asignarAtletas elements -->
-                                            </div><!--/. End Seccion asignarAtletas -->    
+                                               
+                                                </div><!--/. End Seccion asignarAtletas --> 
+                                            </form> <!--/. End form asignarAtletas elements -->   
                                         </div><!--/. End div class="modal-content" -->
                                     </div><!--/. End div class="modal-dialog" --> 
                                 </div><!--/.modal consultar -->
@@ -151,6 +155,7 @@ require('core/sist-header.php');
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
             $('#consultar #start').text(event.start.format('LLLL'));
             $('#consultar #end').text(event.end.format('LLLL'));
+            $('#consultar #id_dp').val(event.id);
             //$('#consultar #redir').attr("href","?action=asignarAtletaPdc&id="+event.id);
             $('#consultar').modal('show');
             return false;
