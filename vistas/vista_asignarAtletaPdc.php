@@ -10,19 +10,7 @@ var_dump($pdc);
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Programas directos de competencia</h2>
-                        <h5>Donde se establece la estructura del programa de entrenamiento con miras a la obtención de logros deportivos en corto tiempo. </h5>   
-                        <?php if (isset($_SESSION['registro']) && $_SESSION['registro'] == 1) { ?>
-                            <div class="alert alert-success alert-dismissible">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Registrada!</strong>  se ha registrado Exitosamente.
-                            </div>
-                        <?php unset($_SESSION['registro']); } ?>
-                    </div>
-                </div>
-                <hr /><!-- /. ROW  -->
+                
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Form Elements -->  
@@ -42,13 +30,13 @@ var_dump($pdc);
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : $pdc['nombre_pdc']; ?>" required/>
+                                                <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : $pdc['nombre_pdc']; ?>" disabled/>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea name="descripcion" class="form-control" placeholder="" required><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : ''; ?></textarea>
+                                                <textarea name="descripcion" class="form-control" placeholder="" disabled><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : $pdc['descripcion']; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -56,46 +44,77 @@ var_dump($pdc);
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label  class="control-label label-default">Tipo de programa</label>
-                                                <select name="tipo_pdc" class="form-control" required >
+                                                <select name="tipo_pdc" class="form-control" disabled>
                                                     <option value="">Seleccione...</option>
-                                                    <option value="Preparatorio" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio") ? 'selected' : ''; ?>>Preparatorio</option>
-                                                    <option value="Pre-Compentencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia") ? 'selected' : ''; ?>>Pre-Compentencia</option>
-                                                    <option value="Competitivo" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Competitivo") ? 'selected' : ''; ?>>Competitivo</option>
-                                                    <option value="Post-Competencia" <?php echo (isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Post-Competencia") ? 'selected' : ''; ?>>Post-Competencia</option>
+                                                    <option value="Preparatorio" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio"){echo 'selected';} else if($pdc['tipo_pdc']=='Preparatorio'){echo 'selected';}?>>Preparatorio</option>
+                                                    <option value="Pre-Compentencia" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia"){echo 'selected';} else if($pdc['tipo_pdc']=='Pre-Compentencia'){echo 'selected';}?>>Pre-Compentencia</option>
+                                                    <option value="Competitivo" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Competitivo"){echo 'selected';} else if($pdc['tipo_pdc']=='Competitivo'){echo 'selected';}?>>Competitivo</option>
+                                                    <option value="Post-Competencia" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Post-Competencia"){echo 'selected';} else if($pdc['tipo_pdc']=='Post-Competencia'){echo 'selected';}?>>Post-Competencia</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label  class="control-label label-default">Disciplina</label>
-                                                <select name="id_disciplina" class="form-control" required >
+                                                <select name="id_disciplina" class="form-control" disabled >
                                                     <option value="">Seleccione...</option>
                                                     <?php foreach ($disciplinas as $key => $value) { ?>
-                                                        <option value="<?php echo $value['id_disciplina']; ?>" <?php echo (isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']) ? 'selected' : ''; ?>><?php echo $value['nombre']; ?></option>
+                                                        <option value="<?php echo $value['id_disciplina']; ?>" <?php if(isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']){echo 'selected';} else if($pdc['id_disciplina']==$value['id_disciplina']){echo 'selected';}?>><?php echo $value['nombre']; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>    
+                                    </div> 
+                                    <div class="row">
+
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Fecha de inicio: <?php $fi= new DateTime($pdc['fecha_inicio']);
+                                            echo $fi->format('Y-m-d h:i A'); ?></label>
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Fecha de Finalizacion: <?php $ff= new DateTime($pdc['fecha_fin']);
+                                            echo $ff->format('Y-m-d h:i A'); ?></label>
+                                            
+                                        </div>
+                                    </div>
+                                    <h5><strong>Aspectos a trabajar del Programa</strong></h5>
+                                    <div class="row">
+                                        
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Técnica: <?php echo $pdc['tecnica'];?> %</label>
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Táctica: <?php echo $pdc['tactica']; ?> %</label>
+                                            
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Físico: <?php echo $pdc['fisico']; ?> %</label>
+                                            
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Psicológico: <?php echo $pdc['psicologico']; ?> %</label>
+                                            
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label  class="control-label label-default">Velocidad: <?php echo $pdc['velocidad']; ?> %</label>
+                                            
+                                        </div>
+                                    </div>   
                                 </div>
                             </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h5><strong>Duración</strong></h5>
+                                        <h5><strong>Duración de la sesión</strong></h5>
                                     </div>
-                                    <div class="panel-body">
-                                        <?php if (isset($periodo) && $periodo == 1) { ?>
-                                        <div class="alert alert-danger alert-dismissible fade in">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Periodo invalido</strong> La fecha de inicio debe ser menor a la fecha de finalizacion
-                                        </div>
-                                    <?php } ?>
+                                    <div class="panel-body">                                       
                                         <div class="row" >
                                             <div class='col-sm-3'>
                                                 <div class="form-group">
-                                                    <label>Fecha de Inicio</label>
+                                                    <label>Inicia</label>
                                                     <div class='input-group date' >
-                                                        <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : ''; ?>" required />
+                                                        <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : $pdc['fecha_dia']; ?>" disabled />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
@@ -104,9 +123,9 @@ var_dump($pdc);
                                             </div>
                                             <div class='col-sm-3'>
                                                 <div class="form-group">
-                                                    <label>Fecha de Finalización</label>
+                                                    <label>Termina</label>
                                                     <div class='input-group date' >
-                                                        <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : ''; ?>" required />
+                                                        <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : $fin; ?>" disabled />
                                                         <span class="input-group-addon">
                                                             <span class="glyphicon glyphicon-calendar"></span>
                                                         </span>
@@ -119,55 +138,77 @@ var_dump($pdc);
                                 </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h5><strong>Características del Programa</strong></h5>
+                                        <h5><strong>Características de la sesión</strong></h5>
                                     </div>
                                     <div class="panel-body">
-                                        <?php if (isset($porcentaje) && $porcentaje == 1) { ?>
-                                        <div class="alert alert-danger alert-dismissible fade in">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Porcentajes incorrectos</strong> La suma de los porcentajes debe ser igual a 100 % 
+                                        <label>Aspectos a trabajar en la sesión</label>
+                                        <div class="row">
+                                            <div class="checkbox-group form-group">
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="tecnica_dia" required>Técnica</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="tactica_dia" required>Táctica</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="fisico_dia" required>Físico</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="psicologico_dia" required>Psicológico</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="velocidad_dia" required>Velocidad</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             </div>   
                                         </div>
-                                    <?php } ?>
-                                        <label>Aspectos a trabajar en porcentaje</label>
-                                        <div class="row" >
-                                            <div class="col-md-4" >
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5><strong>Atletas de la sesión</strong></h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <label>Aspectos a trabajar en la sesión</label>
+                                        <div class="row">
+                                            <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Técnica</label>
-                                                    <input type="number" min="1" max="100" name="tecnica" class="form-control" value="<?php echo isset($_POST['tecnica']) ? $_POST['tecnica'] : ''; ?>" required>
+                                                    <div class="checkbox form-control">
+                                                        <label><input type="checkbox" id="select_all"/> Seleccionar todos</label>
+                                                    </div>             
+                                                    <div class="checkbox form-control">
+                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
+                                                    </div>
+                                                                    
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4" >
-                                                <div class="form-group">
-                                                    <label>Táctica</label>
-                                                    <input type="number" min="1" max="100" name="tactica" class="form-control" value="<?php echo isset($_POST['tactica']) ? $_POST['tactica'] : ''; ?>" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4" >
-                                                <div class="form-group">
-                                                    <label>Físico</label>
-                                                    <input type="number" min="1" max="100" name="fisico" class="form-control" value="<?php echo isset($_POST['fisico']) ? $_POST['fisico'] : ''; ?>" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4" >
-                                                <div class="form-group">
-                                                    <label>Psicológico</label>
-                                                    <input type="number" min="1" max="100" name="psicologico" class="form-control" value="<?php echo isset($_POST['psicologico']) ? $_POST['psicologico'] : ''; ?>" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4" >
-                                                <div class="form-group">
-                                                    <label>Velocidad</label>
-                                                    <input type="number" min="1" max="100" name="velocidad" class="form-control" value="<?php echo isset($_POST['velocidad']) ? $_POST['velocidad'] : ''; ?>" required>
-                                                </div>
-                                            </div>
+                                            </div> <!--/ col-md-12 -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button name="submit" value="registrarPdc" type="submit" class="btn btn-primary">Registrar</button>
+                                    <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                         </form><!-- End Form Elements -->
-                    </div>
+                    </div><!-- /. <div class="col-md-12">  -->
                 </div> <!-- /. ROW  -->
             </div><!-- /. PAGE INNER  -->    
         </div><!-- /. PAGE WRAPPER  --> 
@@ -205,12 +246,6 @@ var_dump($pdc);
                 $('#datetimepicker2').datetimepicker({
                     useCurrent: false,
                     format: 'YYYY-MM-DD h:mm A'
-                });
-                $("#datetimepicker1").on("dp.change", function (e) {
-                    $('#datetimepicker2').data("DateTimePicker").minDate(e.date.add(3, 'weeks'));
-                });
-                $("#datetimepicker2").on("dp.change", function (e) {
-                    $('#datetimepicker1').data("DateTimePicker").maxDate(e.date.subtract(3, 'weeks'));
                 });
             });
         </script>

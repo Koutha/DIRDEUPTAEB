@@ -10,11 +10,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         exit;   
     }else {
         include_once('modelos/modelo_pdc.php');
-        
+        include_once('modelos/modelo_disciplina.php');
         $Opdc= new Cpdc();
-        
+        $Odisciplina= new Cdisciplina();
+        $disciplinas=$Odisciplina->consultarTodos();
         $pdc= $Opdc->consultarAplicacionDia($_POST['id_dp']);
+        $end= new DateTime($pdc['fecha_dia']);
+        $end->add(new DateInterval('PT16H')); //16 horas agregadas a la fecha de inicio
+        $fin = (string)$end->format('Y-m-d h:i A');
         require('vistas/vista_asignarAtletaPdc.php');
+
     }
     
 } 
