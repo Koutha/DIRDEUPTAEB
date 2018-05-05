@@ -13,11 +13,17 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include_once('modelos/modelo_disciplina.php');
         $Opdc= new Cpdc();
         $Odisciplina= new Cdisciplina();
-        $pdc=$Opdc->consultarTodos();
         $disciplinas=$Odisciplina->consultarTodos();
-        require('vistas/vista_consultarPdc.php');
-    }
-    
+        if (isset($_GET['id'])) {
+            $id=$_GET['id'];
+            $pdc=$Opdc->consultarDatos($id);
+            require('vistas/vista_consultarPdc.php');
+        }else{
+            $pdc=$Opdc->consultarTodos();
+            
+            require('vistas/vista_consultarTodosPdc.php');
+            }
+    }  
 } 
 else{
     echo "Esta pagina es solo para usuarios registrados.<br>";

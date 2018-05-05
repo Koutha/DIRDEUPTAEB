@@ -439,7 +439,9 @@ require('core/sist-header.php');
             center: 'title',
             right: 'month'//,agendaWeek,agendaDay,listWeek'
           },
-          defaultDate: Date(),
+          defaultDate: <?php    $f_ini= new DateTime($pdc['fecha_inicio']);
+                                $fe= $f_ini->format('Y-m-d');
+                                echo json_encode($fe);  ?>,
           navLinks: false, // can click day/week names to navigate views
           editable: false,
           eventLimit: true, // allow "more" link when too many events
@@ -471,7 +473,7 @@ require('core/sist-header.php');
             $('#consultar').modal('show');
             return false;
           },
-          selectable: true,
+          selectable: false,
           selectHelper: true,
           select: function(start,end){ //parametros que vienen de 'events'
             $('#registrarPdc #datetimepicker3').val(moment(start).format('YYYY-MM-DD h:mm A'));
@@ -481,24 +483,25 @@ require('core/sist-header.php');
             $('#registrarPdc').modal('show');
           },
             events: [
-                    <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
+                   
                         {
-                      id:           '<?php echo $key['id_pdc']; ?>',
-                      title:        '<?php echo $key['nombre_pdc']; ?>',
-                      desc:         '<?php echo $key['descripcion']; ?>',
-                      disciplina:   '<?php echo $key['nombre_disciplina']; ?>',
-                      id_disciplina:'<?php echo $key['id_disciplina']; ?>',
-                      tipo_pdc:     '<?php echo $key['tipo_pdc']; ?>',
-                      start:        '<?php echo $key['fecha_inicio']; ?>',
-                      end:          '<?php echo $key['fecha_fin']; ?>',
-                      tecnica:      '<?php echo $key['tecnica']; ?>',
-                      tactica:      '<?php echo $key['tactica']; ?>',
-                      fisico:       '<?php echo $key['fisico']; ?>',
-                      psicologico:  '<?php echo $key['psicologico']; ?>',
-                      velocidad:    '<?php echo $key['velocidad']; ?>',
+                      id:           '<?php echo $pdc['id_pdc']; ?>',
+                      title:        '<?php echo $pdc['nombre_pdc']; ?>',
+                      desc:         '<?php echo $pdc['descripcion']; ?>',
+                      disciplina:   '<?php echo $pdc['nombre_disciplina']; ?>',
+                      id_disciplina:'<?php echo $pdc['id_disciplina']; ?>',
+                      tipo_pdc:     '<?php echo $pdc['tipo_pdc']; ?>',
+                      start:        '<?php echo $pdc['fecha_inicio']; ?>',
+                      end:          '<?php echo $pdc['fecha_fin']; ?>',
+                      tecnica:      '<?php echo $pdc['tecnica']; ?>',
+                      tactica:      '<?php echo $pdc['tactica']; ?>',
+                      fisico:       '<?php echo $pdc['fisico']; ?>',
+                      psicologico:  '<?php echo $pdc['psicologico']; ?>',
+                      velocidad:    '<?php echo $pdc['velocidad']; ?>',
                       color: getRandomColor(),
                         },
-                   <?php   }  ?>
+
+                  
                     
             ]
         });

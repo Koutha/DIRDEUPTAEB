@@ -73,7 +73,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         $_SESSION['modifico']=1;
                         //header('Location:?action=registrarPdc');
                         //require('vistas/vista_registrarPdc.php');
-                        header('Location:?action=consultarPdc');
+                        header('Location:?action=consultarPdc&id='.$pdc_new['nombre_pdc']);
                 }
         }
         else{//entrada por enlace o get

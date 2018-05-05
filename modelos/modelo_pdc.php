@@ -318,7 +318,13 @@ class Cpdc extends modelobase {
     }
 
     public function consultarDatos($nombre){
-        $sql ='SELECT * FROM "T_pdc" WHERE nombre_pdc=?';
+        $sql ='SELECT   id_pdc,tipo_pdc,nombre_pdc,descripcion,
+                        fecha_inicio, fecha_fin, tecnica, tactica,
+                        fisico, psicologico,velocidad,
+                        td.nombre as nombre_disciplina,
+                        tp.id_disciplina   
+                FROM "T_pdc" tp, "T_disciplina" td
+                WHERE tp.id_disciplina=td.id_disciplina AND nombre_pdc=?';
         $db=$this->db();
         $query=$db->prepare($sql);
         $query->bindParam(1, $nombre);
