@@ -9,21 +9,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;   
     }
-    else if (isset($_POST['Submit']) && $_POST['Submit']=='registrarDisciplina') {
+    else if (isset($_POST['submit']) && $_POST['submit']=='registrarDisciplina') {
            
             include_once('modelos/modelo_disciplina.php');
-            $Cdisciplina= new Cdisciplina();
+            $Odisciplina= new Cdisciplina();
             $nomb=$_POST['nombre'];
-            if ($Cdisciplina->consultar($nomb)) {
+            if ($Odisciplina->consultar($nomb)) {
                 //si el nombre existe
                 $existe= 1;
                 require('vistas/vista_registrarDisciplina.php');
             }
             else{
+                 $nombre=$_POST['nombre'];
+                $tipo_disciplina=$_POST['tipo_disciplina'];
+                $Odisciplina->setnombre($nombre);
+                $Odisciplina->settipo_disciplina($tipo_disciplina);
                 //registrarlo
-                $Cdisciplina->registrarDisciplina($_POST['nombre'], $_POST['tipo_disciplina']);
+                $Odisciplina->registrarDisciplina();
                $registro= 1;
-               echo 'entre en registrar';
                require('vistas/vista_registrarDisciplina.php');
             }
     

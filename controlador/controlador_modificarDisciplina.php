@@ -16,17 +16,22 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         }
         include_once('modelos/modelo_disciplina.php');
         $Odisciplina = new Cdisciplina();
-        $user = $Odisciplina->getbyid_d($id_disciplina);
+        $Odisciplina->setid_disciplina($id_disciplina);
+        $user = $Odisciplina->consultarid();
 		$todos=$Odisciplina->consultarTodos();
         if(isset($_POST['nombre'])){
                     $nombre= $_POST['nombre'];
-                    $result = $Odisciplina->consultar($nombre);
+                    $Odisciplina->setnombre($nombre);
+                    $result = $Odisciplina->consultar();
                     if ($result > 0 && $user['nombre'] != $nombre) {
                         $existe = 1;
                         require('vistas/vista_modificarDisciplina.php');
                     } 
-                    else { //aca  guardar en la base de datos
-                        $Odisciplina->actualizarDisciplina($id_disciplina, $_POST['nombre'], $_POST['tipo_disciplina']);
+                    else { 
+                        $tipo_disciplina=$_POST['tipo_disciplina'];
+                        $Odisciplina->settipo_disciplina($tipo_disciplina);
+                    //aca  guardar en la base de datos
+                        $Odisciplina->actualizarDisciplina();
                          
                         $actualizo = 1;
                        

@@ -21,21 +21,25 @@ require('core/sist-header.php');
                     </div>
                 </div>
                 <h2>Registro de test (pruebas).</h2>
-                <hr />
+                <ul class="nav nav-tabs">
+                    <li style="float: right;">
+                         <a class="btn btn-infoda" href="?action=consultarPruebas">Consultar</a>
+                    </li>
+                </ul>
                 <!-- /. ROW  -->
                 <div class="row">
                     
-                        <!-- Form Elements --> 	
+                        <!-- Form Elements -->  
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4>Este modulo registra los test (pruebas) ejecutadas que miden el desempeño actual del atleta.</h4>
+                                <h4>Este modulo registra los test (pruebas) para medir el desempeño actual del atleta.</h4>
                             </div>
                             <div class="panel-body">                      
                               <form action="" method="post" role="form">
                               <?php if (isset($existe)&&$existe==1) {?>
                                         <div class="alert alert-danger alert-dismissible">
                                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>Esta prueba ya se encuentra registrada</strong> por favor intente con otra
+                                            <strong>Esta prueba ya se encuentra registrada o una con iniciales similares</strong> por favor verifique el nombre de la prueba e intente con una diferente 
                                         </div>
                                 <?php } ?>
                                     <div class="row">
@@ -44,14 +48,12 @@ require('core/sist-header.php');
                                                 <label>Nombre de la prueba</label>
                                                 <input class="form-control" name="nombre" placeholder="nombre:"  required/>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">     
+                                             
                                             <div class="form-group">
                                                 <label>Descripción o pasos parar realizar la prueba</label>
                                                 <textarea name="descripcion" class="form-control" required></textarea>     
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">     
+                                             
                                             <div class="form-group">
                                                 <label>Tipo de prueba</label>
                                                 <select name="tipo_prueba" class="form-control" required>
@@ -63,64 +65,52 @@ require('core/sist-header.php');
                                                     <option value="Flexibilidad">Flexibilidad</option>
                                                 </select>
                                             </div>
-                                         </div> 
-                                         <div class="col-md-6">    
+                                             
                                               <div class="form-group">  
                                                 <label>objetivo para el cual se a creado la prueba</label>
                                                 <input name="objetivo" type="text" class="form-control"  placeholder="dar resistencia:"/>
                                             </div>
-                                         </div>
-                                          <div class="col-md-6">                                                       
+                                                                                                
                                             <div class="form-group">
                                                 <label>Unidad o medida</label>
                                                 <select name="unidad" class="form-control" required>
                                                     <option value="">Seleccione...</option>
-                                                    <option value="Segundos">Segundos</option>
                                                     <option value="Minutos" >Minutos</option>
-                                                    <option value="Centimetros">Centimetros</option>
                                                     <option value="Metros">Metros</option>
-                                                    <option value="Kilometros">Kilometros</option>
-                                                    <option value="Gramos">Gramos</option>
                                                     <option value="Libras">Libras</option>
                                                     <option value="Kilos">Kilos</option>
+                                                    <option value="Repeticiones">Repeticiones</option>
                                                 </select>
                                             </div>
-                                          </div>
-                                        <div class="col-md-6">   
+                                            
                                             <div class="form-group">
-                                                <label label-default="" class="control-label label-default">Coloque si exelente es el el valor máximo o el minimo</label>
-                                                <input type="radio" name="condicion" value="1" checked> Máximo
-                                                <input type="radio" name="condicion" value="0"> Minimo
+                                                <label label-default="" class="control-label label-default">Coloque valor minimo o el máximo para excelente</label>
+                                                <input type="radio" name="condicion" value="0" checked> Minimo
+                                                <input type="radio" name="condicion" value="1"> Máximo
                                             </div>
                                         </div>    
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Rango (max o min) para deficiente</label>
+                                                <label>Rango (min o max) para deficiente</label>
                                                 <textarea name="rango1" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="30"required></textarea>     
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Rango (max o min) para regular</label>
+                                                <label>Rango (min o max) para regular</label>
                                                 <textarea name="rango2" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="60"required></textarea>     
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Rango (max o min) para bueno</label>
+                                                <label>Rango (min o max) para bueno</label>
                                                 <textarea name="rango3" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="90"required></textarea>     
                                             </div>
-                                         </div>
-                                         <div class="col-md-6">   
                                             <div class="form-group">
-                                                <label>Rango (max o min) para exelente</label>
+                                                <label>Rango (min o max) para excelente</label>
                                                 <textarea name="rango4" class="form-control" maxlength="5" onkeypress="return numero(event);" placeholder="120"required></textarea>     
                                             </div>
                                         </div>    
                                         
                                     </div>
                                     <div class="form-group">
-                                            <button name="Submit" value="registrarPruebas" type="submit" class="btn btn-primary">Registrar</button>
+                                            <button name="submit" value="registrarPruebas" type="submit" class="btn btn-primary">Registrar</button>
                                         </div>
                                 </form><!-- End Form Elements -->
                                 </div>

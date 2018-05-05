@@ -24,7 +24,7 @@ require('core/sist-header.php');
                 <hr />
                 <!-- /. ROW  -->
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- Form Elements --> 	
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -39,7 +39,7 @@ require('core/sist-header.php');
                                          <div class="col-md-6">
                                          <div class="form-group">
                                                 <label>seleccione prueba</label>
-                                                <select name="nombre" class="form-control" required>
+                                                <select name="id_prueba" class="form-control" required>
                                                     <option value="">Seleccione...</option>
                                                     <?php foreach ($todos as $au){ ?>
                                                     <?php if($au['status']== 1 ){ ?>
@@ -54,7 +54,7 @@ require('core/sist-header.php');
                                 
                                     <div class="form-group">
                                      <input type="hidden" name="prue" value="0">
-                                    <button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Registrar</button>
+                                    <button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Siguente</button>
                                 </div>
                                 </form>
                             </div>

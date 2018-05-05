@@ -12,8 +12,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include_once('modelos/modelo_pruebas.php');
         $Oprueba = new Cprueba();
         $todos=$Oprueba->consultarTodosap();
-        $todosa=$Oprueba->consultarTodosa();
-        $todosp=$Oprueba->consultarTodos();
+        $todosa=$Oprueba->consultarTodos();
+        $todosp=$Oprueba->consultarTodosp();
         
         require_once('vistas/vista_consultarApliPruebas.php');
         /*$allusers=$usuario->listarAdm();

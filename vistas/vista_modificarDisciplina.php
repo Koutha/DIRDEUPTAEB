@@ -11,8 +11,7 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Formulario para el registro de disciplinas</h2>   
-                        <h5>Este modulo registra las disciplinas que existen en el sistema. </h5>
+                        <h2>Modificar</h2>
                         <?php if (isset($registro)&&$registro==1) {?>
                                <div class="alert alert-success alert-dismissible">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -21,20 +20,21 @@ require('core/sist-header.php');
                         <?php } ?>
                     </div>
                 </div>
-
-                <hr />
+                
                 <!-- /. ROW  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Form Elements --> 	
                         <div class="panel panel-default">
-                            
+                            <div class="panel-heading">
+                                <h4>Editar las disciplinas.</h4>
+                            </div>
                             <div class="panel-body">
                               <form action="" method="post" role="form">
                               <?php if (isset($existe)&&$existe==1) {?>
                                         <div class="alert alert-danger alert-dismissible">
                                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>esta disciplina ya se encuentra registrada</strong> por favor intente con una disciplina diferente
+                                            <strong>Esta disciplina ya se encuentra registrada</strong> por favor verifique el nombre e intente con una diferente
                                         </div>
                                 <?php } ?>
                                 <div class="row">
@@ -64,7 +64,12 @@ require('core/sist-header.php');
                                 
                                     <div class="form-group">
 									<input type="hidden" name="id_disciplina" value="<?php echo $id_disciplina; ?>">
-                                    <button name="submit" value="modificarDisciplina" type="submit" class="btn btn-primary">Registrar</button>
+                                    <div class="col-md-3">  
+                                        <a class="btn btn-danger" href="?action=consultarDisciplina">Regresar</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                    <button name="submit" value="modificarDisciplina" type="submit" class="btn btn-primary">Modificar</button>
+                                    </div>
                                 </div>
                                 </form>
                             </div>

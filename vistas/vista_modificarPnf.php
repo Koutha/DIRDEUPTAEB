@@ -11,7 +11,7 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Registro de PNF</h2>   
+                        <h2>Modificar</h2>   
                         <?php if (isset($registro)&&$registro==1) {?>
                                <div class="alert alert-success alert-dismissible">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -27,7 +27,9 @@ require('core/sist-header.php');
                     <div class="col-md-12">
                         <!-- Form Elements -->  
                         <div class="panel panel-default">
-                            
+                            <div class="panel-heading">
+                                <h4>Editar los PNF.</h4>
+                            </div>
                             <div class="panel-body">
                               <form action="" method="post" role="form">
                               <?php if (isset($existe)&&$existe==1) {?>
@@ -59,7 +61,12 @@ require('core/sist-header.php');
                                 
                                     <div class="form-group">
                                     <input type="hidden" name="id_pnf" value="<?php echo $id_pnf; ?>">
+                                    <div class="col-md-3">  
+                                        <a class="btn btn-danger" href="?action=consultarPnf">Regresar</a>
+                                    </div>
+                                    <div class="col-md-3">
                                     <button name="submit" value="modificarPnf" type="submit" class="btn btn-primary">Registrar</button>
+                                    </div>
                                 </div>
                                 </form>
                             </div>

@@ -20,14 +20,19 @@ require('core/sist-header.php');
                         <?php } ?>
                     </div>
                 </div>
-
-                <hr />
+                <ul class="nav nav-tabs">
+                    <li style="float: right;">
+                         <a class="btn btn-infoda" href="?action=consultarPnf">Consultar</a>
+                    </li>
+                </ul>
                 <!-- /. ROW  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Form Elements --> 	
                         <div class="panel panel-default">
-                            
+                            <div class="panel-heading">
+                                <h4>Este modulo registra los PNF.</h4>
+                            </div>
                             <div class="panel-body">
                               <form action="" method="post" role="form">
                               <?php if (isset($existe)&&$existe==1) {?>

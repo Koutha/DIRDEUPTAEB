@@ -11,9 +11,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }else {
         include_once('modelos/modelo_disciplina.php');
         $Odisciplina= new Cdisciplina();
-        if (isset($_GET['id'])) {
-            $id=$_GET['id'];
-            $Odisciplina->borrarDisciplina($id);
+        if (isset($_GET['id_disciplina'])) {
+            $id_disciplina=$_GET['id_disciplina'];
+            $Odisciplina->setid_disciplina($id_disciplina);
+            $Odisciplina->borrarDisciplina();
             $borrado = 1;
         }
         $todos=$Odisciplina->consultarTodos(); 

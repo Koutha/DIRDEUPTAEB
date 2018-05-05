@@ -5,7 +5,7 @@ include_once('modelos/modelo_base.php');
 	*/
 	class Cpnf extends modelobase
 	{
-		private $id_pnf;
+		private $id_pnf,$nombre,$coordinador;
         private $tabla;
 
 		public function __construct()
@@ -14,15 +14,31 @@ include_once('modelos/modelo_base.php');
 			parent::__construct($this->tabla);	
 		}
 
-        public function getId_pnf(){
+        public function getid_pnf(){
             return $this->id_pnf;
         }
 
-        public function setId_pnf($id_pnf){
+        public function getnombre(){
+            return $this->nombre;
+        }
+
+        public function getcoordinador(){
+            return $this->coordinador;
+        }
+
+        public function setid_pnf($id_pnf){
             $this->id_pnf=$id_pnf;
         }
 
-		public function registrarPnf($nombre,$coordinador)
+        public function setnombre($nombre){
+            $this->nombre=$nombre;
+        }
+
+        public function setcoordinador($coordinador){
+            $this->coordinador=$coordinador;
+        }
+
+		public function registrarPnf()
         {
             try {
  
@@ -31,8 +47,8 @@ include_once('modelos/modelo_base.php');
                
                 $db = $this->db();
                 $query = $db->prepare($sql);
-                $query->bindParam(1, $nombre);
-                $query->bindParam(2, $coordinador);
+                $query->bindParam(1, $this->nombre);
+                $query->bindParam(2, $this->coordinador);
                 
  
                 $resultado = $query->execute();
@@ -46,7 +62,7 @@ include_once('modelos/modelo_base.php');
             return 0;
         }
 
-       public function actualizarpnf($id_pnf,$nombre,$coordinador) {
+       public function actualizarpnf() {
         
         try {
             $sql='UPDATE "T_pnf" SET nombre=?, coordinador=? WHERE id_pnf=?';
@@ -55,9 +71,9 @@ include_once('modelos/modelo_base.php');
 
             $query=$db->prepare($sql);
 
-            $query->bindParam(1,$nombre);
-            $query->bindParam(2,$coordinador);
-            $query->bindParam(3,$id_pnf);
+            $query->bindParam(1, $this->nombre);
+            $query->bindParam(2, $this->coordinador);
+            $query->bindParam(3, $this->id_pnf);
 
             $resultado=$query->execute();
         } catch (PDOException $e) {
@@ -84,13 +100,13 @@ include_once('modelos/modelo_base.php');
         }
 
     }
-    public function getbyid_Pnf($id){
+    public function consultarid_Pnf(){
         $sql = 'SELECT * FROM "T_pnf" WHERE id_pnf=?';
 
         $db  = $this->db();
 
         $query=$db->prepare($sql);
-        $query->bindParam(1,$id);
+        $query->bindParam(1,$this->id_pnf);
         $query->execute();
         if($fila=$query->fetch(PDO::FETCH_ASSOC)){
             $resultado=$fila;
@@ -102,11 +118,11 @@ include_once('modelos/modelo_base.php');
         
     }
 
-    public function consulta($nombre){
+    public function consulta(){
         $sql = 'SELECT * FROM "T_pnf" WHERE nombre=?';
         $db=$this->db();
         $query=$db->prepare($sql);
-        $query->bindParam(1, $nombre);
+        $query->bindParam(1, $this->nombre);
         $query->execute();
         if($fila=$query->fetch(PDO::FETCH_ASSOC)){
             $resultado=$fila;
@@ -116,49 +132,19 @@ include_once('modelos/modelo_base.php');
             return 0;
         }   
     }
-     public function borrarDisciplina($id_disciplina){
+     public function borrarpnf(){
             try {
-            $sql= 'UPDATE "T_disciplina" SET status = 0 WHERE id_disciplina=?';
+            $sql= 'UPDATE "T_pnf" SET status = 0 WHERE id_pnf=?';
             $db=$this->db();
             $query=$db->prepare($sql);
 
-            $query->bindParam(1, $id_disciplina);
+            $query->bindParam(1, $this->id_pnf);
             $resultado=$query->execute();
             
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
             return 0;
-        }
-        public function totalDisciplinas(){
-            $sql='SELECT COUNT(*) FROM "T_disciplina"';
-            $db=$this->db();
-            $query=$db->query($sql);
-            $cantidad=$query->fetchColumn();
-            return $cantidad;
-        }
-
-        public function atletaDisciplinas($cedula){
-            try {
-                $sql='SELECT id_disciplina FROM "T_atleta_disciplina" WHERE cedula_atleta=?';
-                $db=$this->db();
-                $query=$db->prepare($sql);
-                $query->bindParam(1, $cedula);
-                $query->execute();
-                while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
-                    $resultado[] = $fila;
-                }
-                if (!empty($resultado)) {
-                    return $resultado;
-                }
-                else{
-                    return 0;
-                }
-            } catch (Exception $e) {
-                echo $e->getMessage();
-                exit;
-            }
-            
         }
  
     }

@@ -1,115 +1,150 @@
-<?php
-/**
- * 
- */
-include_once('modelos/modelo_base.php');
+<?php 
+    include_once('modelos/modelo_base.php');
 
-class Cdisciplina extends modelobase {
+    /**
+    * 
+    */
+    class Cdisciplina extends modelobase
+    {
+        private $nombre,$tipo_disciplina,$id_disciplina;
+        private $tabla;
 
-    private $id_disciplina;
-    private $tabla;
-
-    public function __construct() {
-        $this->tabla = "T_disciplina";
-        parent::__construct($this->tabla);
-    }
-
-    public function getId_disciplina() {
-        return $this->id_disciplina;
-    }
-
-    public function setId_disciplina($id_disciplina) {
-        $this->id_disciplina = $id_disciplina;
-    }
-
-    public function registrarDisciplina($nombre, $tipo) {
-        try {
-
-            $sql = 'INSERT  INTO "T_disciplina" (nombre,tipo_disciplina)
-                            VALUES (?,?)';
-            $db = $this->db();
-            $query = $db->prepare($sql);
-            $query->bindParam(1, $nombre);
-            $query->bindParam(2, $tipo);
-            $resultado = $query->execute();
-        } catch (PDOException $e) {
-
-            echo $e->getMessage();
-            exit;
+        public function __construct()
+        {
+            $this->tabla= "T_disciplina";
+            parent::__construct($this->tabla);  
         }
-        return 0;
-    }
 
-    public function actualizarDisciplina($id_disciplina, $nombre, $tipo_disciplina) {
+    public function getnombre() {
+            return $this->nombre;
+        }
 
+    public function gettipo_disciplina() {
+            return $this->tipo_disciplina;
+        }
+
+    public function getid_disciplina() {
+            return $this->id_disciplina;
+        }
+
+        public function setnombre($nombre) {
+            $this->nombre = $nombre;
+        }
+
+        public function settipo_disciplina($tipo_disciplina) {
+            $this->tipo_disciplina = $tipo_disciplina;
+        }
+
+        public function setid_disciplina($id_disciplina) {
+            $this->id_disciplina = $id_disciplina;
+        }
+
+        public function registrarDisciplina()
+        {
+            try {
+ 
+                $sql='INSERT INTO "T_disciplina" (nombre,tipo_disciplina)
+                                            VALUES (?,?)';
+               
+                $db = $this->db();
+                $query = $db->prepare($sql);
+ 
+                $query->bindParam(1, $this->nombre);
+                $query->bindParam(2, $this->tipo_disciplina);
+                
+ 
+                $resultado = $query->execute();
+ 
+            } catch (PDOException $e) {
+ 
+                echo $e->getMessage();
+                exit;
+               
+            }
+            return 0;
+        }
+
+        public function actualizarDisciplina() {
+        
         try {
-            $sql = 'UPDATE "T_disciplina"   SET nombre=?, tipo_disciplina=? 
-                                            WHERE id_disciplina=?';
-            $db = $this->db();
-            $query = $db->prepare($sql);
-            $query->bindParam(1, $nombre);
-            $query->bindParam(2, $tipo_disciplina);
-            $query->bindParam(3, $id_disciplina);
-            $resultado = $query->execute();
+            $sql='UPDATE "T_disciplina" SET nombre=?, tipo_disciplina=? WHERE id_disciplina=?';
+            
+            $db=$this->db();
+
+            $query=$db->prepare($sql);
+
+            $query->bindParam(1, $this->nombre);
+            $query->bindParam(2, $this->tipo_disciplina);
+            $query->bindParam(3, $this->id_disciplina);
+
+            $resultado=$query->execute();
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+
         return 0;
+
+
     }
 
-    public function consultarTodos() {
-        $sql = 'SELECT * FROM "T_disciplina" ';
+    public function consultarTodos(){
+        $sql= 'SELECT * FROM "T_disciplina" ';
         $query = $this->db()->query($sql);
         while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
             $resultado[] = $fila;
         }
         if (!empty($resultado)) {
             return $resultado;
-        } else {
+        }
+        else{
             return 0;
         }
-    }
 
-    public function getbyid_d($id) {
-        $sql = 'SELECT * FROM "T_disciplina" WHERE id_disciplina=?';
-        $db = $this->db();
-        $query = $db->prepare($sql);
-        $query->bindParam(1, $id);
-        $query->execute();
-        if ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
-            $resultado = $fila;
-            return $resultado;
-        } else {
-            return 0;
-        }
     }
+    
 
-    public function consultar($nombre) {
+    public function consultar(){
         $sql = 'SELECT * FROM "T_disciplina" WHERE nombre=?';
-        $db = $this->db();
+        $db=$this->db();
         $query = $db->prepare($sql);
-        $query->bindParam(1, $nombre);
+        $query->bindParam(1, $this->nombre);
         $query->execute();
-        if ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
-            $resultado = $fila;
+        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
+            $resultado=$fila;
             return $resultado;
-        } else {
-            return 0;
         }
+        else{
+            return 0;
+        }   
     }
+    public function consultarid(){
+        $sql = 'SELECT * FROM "T_disciplina" WHERE id_disciplina=?';
+        $db=$this->db();
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $this->id_disciplina);
+        $query->execute();
+        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
+            $resultado=$fila;
+            return $resultado;
+        }
+        else{
+            return 0;
+        }   
+    }
+     public function borrarDisciplina(){
+            try {
+            $sql= 'UPDATE "T_disciplina" SET status = 0 WHERE id_disciplina=?';
+            $db=$this->db();
+            $query=$db->prepare($sql);
 
-    public function borrarDisciplina($id_disciplina) {
-        try {
-            $sql = 'UPDATE "T_disciplina" SET status = 0 WHERE id_disciplina=?';
-            $db = $this->db();
-            $query = $db->prepare($sql);
-            $query->bindParam(1, $id_disciplina);
-            $resultado = $query->execute();
-        } catch (PDOException $e) {
+            $query->bindParam(1, $this->id_disciplina);
+            $resultado=$query->execute();
+            
+        } catch (Exception $e) {
             echo $e->getMessage();
         }
-        return 0;
-    }
+            return 0;
+        }
 
     public function getTotalDisciplinas() {
         $sql = 'SELECT COUNT(*) FROM "T_disciplina"';

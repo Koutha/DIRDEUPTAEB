@@ -16,24 +16,45 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         }
         include_once('modelos/modelo_pruebas.php');
         $Oprueba = new Cprueba();
-        $user = $Oprueba->getbyid_p($id_prueba);
-       $todos=$Oprueba->consultarTodos();
+       $todos=$Oprueba->consultarTodosp();
          
-        if(isset($_POST['nombre'])){
-                    $nombre= $_POST['nombre'];
-                    $result = $Oprueba->consultar($nombre);
-                    if ($result > 0 && $user['nombre'] != $nombre) {
+        if(isset($_POST['id_prueba'])){
+            $id_pruebaa=(substr($_POST['tipo_prueba'], 0,3).substr($_POST['unidad'], 0,3).substr($_POST['nombre'], 0,5));
+                    $id_prueba= $_POST['id_prueba'];
+                    $result = $Oprueba->consultarid($id_pruebaa);
+                    if ($result > 0 && $result['id_prueba'] != $id_prueba) {
                         $existe = 1;
                         require('vistas/vista_modificarpruebas.php');
                     } 
-                    else { //aca  guardar en la base de datos
+                    else { 
+                $nombre=$_POST['nombre'];
+                $descripcion=$_POST['descripcion'];
+                $tipo_prueba=$_POST['tipo_prueba'];
+                $objetivo=$_POST['objetivo'];
+                $unidad=$_POST['unidad'];
+                $condicion=$_POST['condicion'];
+                $rango1=$_POST['rango1'];
+                $rango2=$_POST['rango2'];
+                $rango3=$_POST['rango3'];
+                $rango4=$_POST['rango4'];
+                $Oprueba->setid_prueba($id_prueba);
+                $Oprueba->setnombre($nombre);
+                $Oprueba->setdescripcion($descripcion);
+                $Oprueba->settipo_prueba($tipo_prueba);
+                $Oprueba->setobjetivo($objetivo);
+                $Oprueba->setunidad($unidad);
+                $Oprueba->setcondicion($condicion);
+                $Oprueba->setrango1($rango1);
+                $Oprueba->setrango2($rango2);
+                $Oprueba->setrango3($rango3);
+                $Oprueba->setrango4($rango4);
+                    //aca  guardar en la base de datos
                     	       				
-                        $Oprueba->actualizarprueba($id_prueba, $_POST['nombre'], $_POST['descripcion'], $_POST['tipo_prueba'], $_POST['objetivo'], $_POST['unidad'], $_POST['condicion'], $_POST['rango1'], 
-                                                    $_POST['rango2'], $_POST['rango3'], $_POST['rango4']);
+                        $Oprueba->actualizarprueba();
                          
                         $actualizo = 1;
-                       $todos=$Oprueba->consultarTodos();
-                        
+                       
+                        $todos=$Oprueba->consultarTodosp();
                         require_once('vistas/vista_consultarPruebas.php');
                     }
         }    

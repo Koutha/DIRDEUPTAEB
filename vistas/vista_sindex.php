@@ -1,5 +1,6 @@
 <?php
 require('core/sist-header.php');
+
 ?>
 <body>
     <div id="wrapper">

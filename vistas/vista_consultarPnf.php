@@ -10,13 +10,15 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Consulta de PNF</h2>   
-                        <!--<h5> Modulo para la consulta de las disciplinas registradas en el sistema </h5>-->
-
+                        <h2>Consulta de PNF  
+                        <ul class="nav nav-tabs">
+                    <li style="float: right;">
+                         <a class="btn btn-infoda" href="?action=registrarPnf">Registrar</a>
+                    </li>
+                </ul></h2>
                     </div>
                 </div>
                 <!-- /. ROW  -->
-                <hr />
                 <?php if (isset($borrado)&&$borrado==1) {?>
                     <div class="alert alert-danger alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -47,7 +49,9 @@ require('core/sist-header.php');
                                                 <th> </th>
                                             </tr>
                                         </thead>
-                                        <tbody><?php foreach ($todos as $au){ ?>
+                                        <tbody><?php foreach ($todos as $au){if ($au['status']=='1') {
+                                            # code...
+                                         ?>
 										
                                             <tr class="odd gradeX">
                                                 <td><?php echo $au['nombre']; ?></td>
@@ -61,11 +65,11 @@ require('core/sist-header.php');
                                                 </td>
                                                 <td class="center">
                                                     <!-- Boton para activar el modal ELIMINAR -->
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPnf&id=".$uid; ?>">Eliminar</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPnf&id_pnf=".$uid; ?>">Eliminar</button>
                                                         
                                                 </td>
                                             </tr>
-                                            <?php }?>
+                                            <?php }}?>
                                             <!-- contenido del Modal MODIFICAR -->
                                                           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
                                                             <div class="modal-dialog modal-sm" role="document">

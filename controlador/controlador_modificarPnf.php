@@ -16,17 +16,22 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         }
         include_once('modelos/modelo_Pnf.php');
         $Opnf = new Cpnf();
-        $user = $Opnf->getbyid_Pnf($id_pnf);
+        $Opnf->setid_pnf($id_pnf);
+        $user = $Opnf->consultarid_Pnf();
 		$todos=$Opnf->consultaTodo();
-        if(isset($_POST['coordinador'])){
-                    $coordinador= $_POST['coordinador'];
-                    $result = $Opnf->consulta($coordinador);
-                    if ($result > 0 && $user['nombre'] != $nombre) {
+        if(isset($_POST['nombre'])){
+                    $nombre= $_POST['nombre'];
+                    $Opnf->setnombre($nombre);
+                    $result = $Opnf->consulta();
+                    if ($result > 0 && $user['nombre'] != $nombre){
                         $existe = 1;
                         require('vistas/vista_modificarPnf.php');
                     } 
-                    else { //aca  guardar en la base de datos
-                        $Opnf->actualizarpnf($id_pnf, $_POST['nombre'], $_POST['coordinador']);
+                    else { 
+                        $coordinador=$_POST['coordinador'];
+                        $Opnf->setcoordinador($coordinador);
+                        //aca  guardar en la base de datos
+                        $Opnf->actualizarpnf();
                          
                         $actualizo = 1;
                        

@@ -10,13 +10,16 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Consulta de pruebas</h2>   
-                        <h5> Modulo para la consulta de las pruebas registradas en el sistema </h5>
+                        <h2>Consulta de pruebas</h2>
+                        <ul class="nav nav-tabs">
+                    <li style="float: right;">
+                         <a class="btn btn-infoda" href="?action=registrarApliPruebas">Registrar</a>
+                    </li>
+                </ul>
 
                     </div>
                 </div>
                 <!-- /. ROW  -->
-                <hr />
                
                 <?php if (isset($actualizo)&&$actualizo==1) {?>
                     <div class="alert alert-info alert-dismissible">
@@ -66,12 +69,12 @@ require('core/sist-header.php');
                                                 }
                                                 else { echo $au['medicion']." el  resultado es exelente";
                                                 }}?></td>
-                                                <td><?php foreach ($todosa as $aua){if ($aua['cedula_atleta']==$au['cedula_atleta']) {echo $aua['nombres']." ".$au['cedula_atleta']; }}?></td>
+                                                <td><?php foreach ($todosa as $aua){if ($aua['cedula_atleta']==$au['cedula_atleta']){echo $aua['nombres']." ".$au['cedula_atleta']; }}?></td>
                                                 <td><?php foreach ($todosp as $aud) if ($au['id_prueba']==$aud['id_prueba']) {
                                                 {echo $aud['nombre'];}}?></td>
 
                                                 <td class="center">
-                                                    <?php $uid= $au['id_ap']; ?>
+                                                    <?php $uid= $au['id_ap'];?>
                                                     <!-- Boton para activar el modal MODIFICAR -->
                                                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificaraplipruebas&id_ap=".$uid; ?>">Modificar</button>
                                                 </td>
@@ -87,7 +90,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar la aplicacion de la prueba?</p>
+                                                                    <p>¿Estas segur@ que quieres modificar la aplicación de la prueba?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">

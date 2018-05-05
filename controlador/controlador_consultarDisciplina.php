@@ -10,8 +10,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     	exit;	
     }else {
         include_once('modelos/modelo_disciplina.php');
-        $Cdisciplina= new Cdisciplina();
-        $todos=$Cdisciplina->consultarTodos();
+        $Odisciplina= new Cdisciplina();
+        $todos=$Odisciplina->consultarTodos();
         require('vistas/vista_consultarDisciplina.php');
 
     }

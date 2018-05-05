@@ -9,16 +9,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 		<a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
     	exit;	
     }else {
-        include_once('modelos/modelo_pruebas.php');
-        $Oprueba= new Cprueba();
-        $todos=$Oprueba->consultarTodosp();
-        
-        require_once('vistas/vista_consultarPruebas.php');
-        /*$allusers=$usuario->listarAdm();
-    	require('vistas/vista_consultar.php');*/
+        include_once('modelos/modelo_Pnf.php');
+        $Opnf= new Cpnf();
+        if (isset($_GET['id_pnf'])) {
+            $id_pnf=$_GET['id_pnf'];
+            $Opnf->setid_pnf($id_pnf);
+            $Opnf->borrarpnf();
+            $borrado = 1;
+        }
+        $todos=$Opnf->consultaTodo(); 
+        require('vistas/vista_consultarPnf.php');
     }
     
 } 
+
 else{
     echo "Esta pagina es solo para usuarios registrados.<br>";
     echo "<br><a href='?action=ingresar'>Login</a>";
@@ -26,3 +30,4 @@ else{
 }
 
 ?>
+  

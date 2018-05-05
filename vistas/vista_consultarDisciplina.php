@@ -10,13 +10,15 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Consulta de disciplinas</h2>   
-                        <h5> Modulo para la consulta de las disciplinas registradas en el sistema </h5>
-
+                        <h2>Consulta de disciplinas</h2>
+                        <ul class="nav nav-tabs">
+                    <li style="float: right;">
+                         <a class="btn btn-infoda" href="?action=registrarDisciplina">Registrar</a>
+                    </li>
+                </ul>
                     </div>
                 </div>
                 <!-- /. ROW  -->
-                <hr />
                 <?php if (isset($borrado)&&$borrado==1) {?>
                     <div class="alert alert-danger alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -61,7 +63,7 @@ require('core/sist-header.php');
                                                 </td>
                                                 <td class="center">
                                                     <!-- Boton para activar el modal ELIMINAR -->
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarDisciplina&id=".$uid; ?>">Eliminar</button>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarDisciplina&id_disciplina=".$uid; ?>">Eliminar</button>
                                                         
                                                 </td>
                                             </tr>
@@ -75,7 +77,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar al usuario?</p>
+                                                                    <p>¿Estas segur@ que quieres modificar la disciplina?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -95,7 +97,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres eliminar al usuario?</p>
+                                                                    <p>¿Estas segur@ que quieres eliminar la disciplina?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">

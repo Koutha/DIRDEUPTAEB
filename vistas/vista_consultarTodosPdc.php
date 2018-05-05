@@ -8,39 +8,13 @@ require('core/sist-header.php');
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Registros
-                         <ul class="nav nav-tabs">
-                    <li style="float: right;">
-                         <a class="btn btn-infoda" href="?action=registrarPruebas">Registrar</a>
-                    </li>
-                </ul></h2>   
-                        
-
-                    </div>
-                </div>
-                <!-- /. ROW  -->
-                <hr />
-                <?php if (isset($borrado)&&$borrado==1) {?>
-                    <div class="alert alert-danger alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Eliminacion exitosa!</strong> La prueba se ha eliminado correctamente.
-                    </div>
-                <?php } ?>
-                <?php if (isset($actualizo)&&$actualizo==1) {?>
-                    <div class="alert alert-info alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Actualizado!</strong> Los datos de la prueba han sido modificados exitosamente.
-                    </div>
-                <?php } ?>
+                
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
-                        
                         <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Pruebas reguistradas en el sistema
+                            <div class="panel-heading" style="color: #fcfcfc;">
+                                Planificaciones registradas
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -48,45 +22,29 @@ require('core/sist-header.php');
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
-                                                <th>Descripción</th>
-                                                <th>Tipo de <br/> prueba</th>
-                                                <th>Objetivo</th>
-                                                <th>Unidad</th>
-                                                <th>Condición</th>
-                                                <th>Deficiente</th>
-                                                <th>Regular</th>
-                                                <th>Bueno</th>
-                                                <th>Excelente</th>
+                                                <th>Tipo</th>
+                                                <th>Disciplina</th>
+                                                <th>Fecha de Inicio</th>
+                                                <th>Fecha de Finalización</th>
                                                 <th>Acciones</th>
-                                                <th> </th>
                                             </tr>
                                         </thead>
-                                        <tbody><?php foreach ($todos as $au){ ?>
-                                        <?php if($au['status']== 1 ){ ?>
+                                        <tbody><?php foreach ($pdc as $key){ ?>
                                             <tr class="odd gradeX">
-                                                <td><?php echo $au['nombre'] ?></td>
-                                                <td><?php echo $au['descripcion']; ?></td>
-                                                <td><?php echo $au['tipo_prueba']; ?></td>
-                                                <td><?php echo $au['objetivo'];?></td>
-                                                <td><?php echo $au['unidad']; ?></td>
-                                                <td><?php if ($au['condicion']=='1'){echo "los rangos para excelente son maximos";} else {echo "los rangos para excelente son minimos";}?></td>
-                                                <td><?php echo $au['rango1']; ?></td>
-                                                <td><?php echo $au['rango2']; ?></td>
-                                                <td><?php echo $au['rango3']; ?></td>
-                                                <td><?php echo $au['rango4']; ?></td>
-
+                                                <td><?php echo $key['nombre_pdc']; ?></td>
+                                                <td><?php echo $key['tipo_pdc']; ?></td>
+                                                <td><?php echo $key['nombre_disciplina']; ?></td>
+                                                <td><?php echo $key['fecha_inicio'];?></td>
+                                                <td><?php echo $key['fecha_fin'];?></td>
                                                 <td class="center">
-                                                    <?php $uid= $au['id_prueba']; ?>
-                                                    <!-- Boton para activar el modal MODIFICAR -->
-                                                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificarPruebas&id_prueba=".$uid; ?>">Modificar</button>
-                                                </td>
-                                                <td class="center">
+                                                <?php $uid= $key['nombre_pdc']; ?>
+                                                    <a class="btn btn-warning" href="<?php echo "?action=consultarPdc&id=".$uid; ?>">Mas Detalles</a>
                                                     <!-- Boton para activar el modal ELIMINAR -->
-                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPruebas&id_prueba=".$uid; ?>">Eliminar</button>
-                                                        
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPdc&id=".$uid; ?>">Eliminar</button>
                                                 </td>
                                             </tr>
-                                            <?php }} ?>
+                                            <?php } ?>
+                                            <!-- /contenido del Modal -->
                                             <!-- contenido del Modal MODIFICAR -->
                                                           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
                                                             <div class="modal-dialog modal-sm" role="document">
@@ -96,7 +54,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar la prueba?</p>
+                                                                    <p>¿Estas segur@ que quieres modificar al usuario?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">
@@ -106,7 +64,7 @@ require('core/sist-header.php');
                                                               </div>
                                                             </div>
                                                         </div>
-                                                <!-- /contenido del Modal -->
+                                                
                                              <!-- contenido del Modal ELIMINAR -->
                                                           <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2">
                                                             <div class="modal-dialog modal-sm" role="document">
@@ -116,8 +74,7 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres eliminar la prueba?</p>
-                                                                    
+                                                                    <p>¿Estas segur@ que quieres eliminar al usuario?</p>  
                                                                 </div>
                                                                 <div class="modal-footer">
                                                                     <a class="btn btn-danger" href="">Eliminar</a>
@@ -130,7 +87,6 @@ require('core/sist-header.php');
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                         <!--End Advanced Tables -->
@@ -143,12 +99,8 @@ require('core/sist-header.php');
         </div>
        <!-- /. WRAPPER  -->
     </div>
-
     <!-- SCRIPT PARA LA TABLA-->
-
         <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- script para validaciones -->
-    <script type="text/javascript" src="assets/js/valida.js"></script>
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-1.10.2.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
@@ -161,13 +113,10 @@ require('core/sist-header.php');
     <!-- MORRIS CHART SCRIPTS -->
     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="assets/js/morris/morris.js"></script>
-
-
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable();
         });
-
         $('#myModal2').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var recipient = button.data('id'); // Extract info from data-* attributes

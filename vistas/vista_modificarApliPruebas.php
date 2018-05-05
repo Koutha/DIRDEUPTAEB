@@ -15,23 +15,20 @@ require('core/sist-header.php');
                     </div>
                 </div>
                 <!-- /. ROW  -->
-                <hr />
+              
                 <div class="row">
-                    <div class="row text-center ">
+                    
                         <div class="col-md-12">
-                            <br /><br />
-                            <h2> Formulario para actualizar / modificar pruebas de la direccion de deportes. </h2>
-                
-
-                            <br />
+                            <h2> Actualizar. </h2>
+                               
                         </div>
-                    </div>
+                    
                     <div class="row">
 
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <strong>  Actualizacion o modificacion de datos de la aplicacion de pruebas de la direccion de deportes </strong>  
+                                    <strong>Modificar la aplicación de pruebas </strong>  
                                 </div><div class="panel-body">
                             <div class="row">
                                 
@@ -49,7 +46,7 @@ require('core/sist-header.php');
                                            
 
                                             <div class="form-group">
-                                                <label>seleccione prueba</label>
+                                                <label>Seleccione prueba</label>
                                                 <select name="id_prueba" class="form-control" required>
                                                     <option value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {
                                                     print_r($au['id_prueba']);
@@ -65,22 +62,15 @@ require('core/sist-header.php');
                                                     <?php }}} ?>
                                                 </select>
                                             </div>
-                                       
-                                        
-                                    <div class="form-group">
-                                                <label><h4>Descripcion de la prueba:</h4>
-                                                <?php foreach ($todos   as $au){ if ($au['id_ap']==$id_ap) {$id_prueba=$au['id_prueba'];
-                                                   
-                                                } }?> 
-                                                <?php foreach ($todosp   as $aud){ if ($aud['id_prueba']==$id_prueba) {
-                                                    print_r($aud['descripcion']);
-                                                } }?>
-                                            </label>
+                                                                                          
+                                        <div class="form-group">
+                                                <label>Cedula del atleta</label>
+                                                <input class="form-control" name="cedula_atleta" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {
+                                                    print_r($au['cedula_atleta']);
+                                                } }?>" placeholder="cedula del atleta" required/>
                                             </div>
-                                    
-                                        
-
                                             
+                                        
                                              <div class="form-group">
                                                 <label>Fecha </label>
                                                 <input type="date" class="form-control" name="fecha" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {
@@ -91,25 +81,25 @@ require('core/sist-header.php');
                                            
                                             
                                               <div class="form-group">  
-                                                <label>resultado</label>
+                                                <label>Resultado</label>
                                                 <input name="medicion" type="text" class="form-control" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {
                                                     print_r($au['medicion']);
                                                 } }?>" placeholder="resultado de la prueba:" required />
                                             </div>
-                                            <hr />
-                                        
-
-                                                                                                  
-                                        <div class="form-group">
-                                                <label>cedula del atleta</label>
-                                                <input class="form-control" name="cedula_atleta" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {
-                                                    print_r($au['cedula_atleta']);
-                                                } }?>" placeholder="cedula del atleta" required/>
-                                            </div>
-                                            
 
                                         </div>
-
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label><h4>Descripción de la prueba:</h4>
+                                                <?php foreach ($todos   as $au){ if ($au['id_ap']==$id_ap) {$id_prueba=$au['id_prueba'];
+                                                   
+                                                } }?> 
+                                                <?php foreach ($todosp   as $aud){ if ($aud['id_prueba']==$id_prueba) {
+                                                    print_r($aud['descripcion']);
+                                                } }?>
+                                            </label>
+                                            </div>
+                                            </div>
                                                                                                   
                                         
                                     
@@ -117,7 +107,12 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="id_ap" value="<?php echo $id_ap; ?>">
-                                    <button name="Submit" value="modificarApliPruebas" type="submit" class="btn btn-primary">Actualizar Datos</button>
+                                    <div class="col-md-3">
+                                        <a href="?action=consultarApliPruebas" class="btn btn-danger">  Regresar</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                    <button name="submit" value="modificarApliPruebas" type="submit" class="btn btn-primary">Actualizar Datos</button>
+                                    </div>
                                 </div>
                                 </form>
                             </div>

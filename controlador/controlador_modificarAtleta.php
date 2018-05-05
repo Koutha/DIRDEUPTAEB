@@ -24,7 +24,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             if (isset($_POST['cedula'])) {
                 $cedula=$_POST['cedula'];
                 $atleta_tmp = $Oatleta->consultarDatos($cedula);
-                
                 //validacion
                 if($atleta_tmp>0 && $atleta['cedula_atleta']!=$cedula){
                     $existe= 1;
@@ -34,7 +33,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     require('vistas/vista_modificarAtleta.php');
                 }
                 else{
-                    
                     $nombres=$_POST['nombres'];
                     $apellidos=$_POST['apellidos'];
                     $fecha_nacimiento=$_POST['fecha_nacimiento'];
@@ -194,5 +192,4 @@ else{
     echo "<br><a href='?action=ingresar'>Login</a>";
     exit; 
 }
-
 ?>

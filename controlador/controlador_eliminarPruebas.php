@@ -13,10 +13,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Oprueba= new Cprueba();
         if (isset($_GET['id_prueba'])) {
             $id_prueba=$_GET['id_prueba'];
-            $Oprueba->borrarPrueba($id_prueba);
+            $Oprueba->setid_prueba($id_prueba);
+            $Oprueba->borrarPrueba();
             $borrado = 1;
         }
-        $todos=$Oprueba->consultarTodos(); 
+        $todos=$Oprueba->consultarTodosp(); 
         require('vistas/vista_consultarPruebas.php');
     }
     

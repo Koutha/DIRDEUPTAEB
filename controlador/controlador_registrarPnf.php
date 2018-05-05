@@ -12,18 +12,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     else if (isset($_POST['submit']) && $_POST['submit']=='registrarPnf') {
            
             include_once('modelos/modelo_Pnf.php');
-            $Cpnf= new Cpnf();
+            $Opnf= new Cpnf();
             $nombr=$_POST['nombre'];
-            if ($Cpnf->consulta($nombr)) {
+            if ($Opnf->consulta($nombr)) {
                 //si el nombre existe
                 $existe= 1;
                 require('vistas/vista_registrarPnf.php');
             }
             else{
+                $nombre=$_POST['nombre'];
+                $coordinador=$_POST['coordinador'];
+                $Opnf->setnombre($nombre);
+                $Opnf->setcoordinador($coordinador);
                 //registrarlo
-                $Cpnf->registrarPnf($_POST['nombre'], $_POST['coordinador']);
+                $Opnf->registrarPnf();
                $registro= 1;
-               echo 'entre en registrar';
                require('vistas/vista_registrarPnf.php');
             }
     

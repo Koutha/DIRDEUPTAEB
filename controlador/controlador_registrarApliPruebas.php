@@ -14,7 +14,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         else{
             include_once('modelos/modelo_pruebas.php');
             $Oprueba= new Cprueba();
-                $todos=$Oprueba->consultarTodos(); 
+                $todos=$Oprueba->consultarTodosp(); 
 
             require('vistas/vista_registrarApliPruebas.php');
         }

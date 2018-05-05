@@ -17,25 +17,32 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 
         include_once('modelos/modelo_pruebas.php');
         $Oprueba = new Cprueba();
-        $todosp=$Oprueba->consultarTodos();
+        $todosp=$Oprueba->consultarTodosp();
         $todos=$Oprueba->consultarTodosap();
         if(isset($_POST['cedula_atleta'])){
-          $cedula_atleta=($_POST['cedula_atleta']);
-                if ($Oprueba->consultara($cedula_atleta)) {
+          $cedula=($_POST['cedula_atleta']);
+                if ($Oprueba->consultarDatos($cedula)) {
                //si el atleta existe
                  $existe= 1;
                  }
             else{$existe=0;}
             if ($existe=='1') {          
-                    
+                $id_prueba=$_POST['id_prueba'];
+                $fecha=$_POST['fecha'];
+                $medicion=$_POST['medicion'];
+                $Oprueba->setid_prueba($id_prueba);
+                $Oprueba->setmedicion($medicion);
+                $Oprueba->setCedula($cedula);
+                $Oprueba->setfecha($fecha);
+                $Oprueba->setid_ap($id_ap);
                      //aca  guardar en la base de datos
                     	       				
-                        $Oprueba->actualizarapliprueba($_POST['fecha'], $_POST['medicion'], $_POST['cedula_atleta'], $_POST['id_prueba'], $_POST['id_ap']);
+                        $Oprueba->actualizarapliprueba();
                          
                         $actualizo = 1;
                        
-                        $todosp=$Oprueba->consultarTodos();
-                        $todosa=$Oprueba->consultarTodosa();
+                        $todosp=$Oprueba->consultarTodosp();
+                        $todosa=$Oprueba->consultarTodos();
                         $todos=$Oprueba->consultarTodosap();
                         require_once('vistas/vista_consultarApliPruebas.php');
                     } 
