@@ -158,7 +158,7 @@
         });
     });
 
-  $('input.single-checkbox').on('change', function(evt) {
+  $('input.single-checkbox').on('change', function(evt) {  //Limitar a 2 las opciones en los checkbox de las disciplinas del atleta
             var limit = 2;
             if($("input[name='id_disciplina[]']:checked").length > limit) {
                 this.checked = false;
@@ -166,12 +166,29 @@
         });
 
   $(document).ready(function(){
-            var requiredCheckboxes = $('.checkbox-group :checkbox');
-            requiredCheckboxes.on('change', function(){
-                if(requiredCheckboxes.is(':checked')) {
-                    requiredCheckboxes.removeAttr('required');
-                } else {
-                    requiredCheckboxes.attr('required', 'required');
-                }
-            });
-        });
+    var requiredCheckboxes = $('.checkbox-group :checkbox');
+    requiredCheckboxes.on('change', function(){
+      if(requiredCheckboxes.is(':checked')) {
+        requiredCheckboxes.removeAttr('required');
+      } else {
+        requiredCheckboxes.attr('required', 'required');
+      }
+    });
+  });
+
+//select all checkboxes
+$("#select_all").change(function(){  //"select all" change
+  $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
+});
+
+//".checkbox" change
+$('.checkbox').change(function(){
+//uncheck "select all", if one of the listed checkbox item is unchecked
+  if(false == $(this).prop("checked")){ //if this item is unchecked
+    $("#select_all").prop('checked', false); //change "select all" checked status to false
+  }
+  //check "select all" if all checkbox items are checked
+  if ($('.checkbox:checked').length == $('.checkbox').length ){
+    $("#select_all").prop('checked', true);
+  }
+});

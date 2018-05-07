@@ -207,7 +207,7 @@ class Cpdc extends modelobase {
 
     }
 
-    public function consultarAplicacion(){
+    public function consultarAplicacion(){ //consultar todos los dias de una planificacion
         $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
                         tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
                         tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,
@@ -230,7 +230,7 @@ class Cpdc extends modelobase {
         
     }
 
-    public function consultarAplicacionDia($id_dp){
+    public function consultarAplicacionDia($id_dp){ //consulta los datos del dia recibiendo el id del dia
         $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
                         tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
                         tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,

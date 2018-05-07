@@ -435,7 +435,7 @@ require('core/sist-header.php');
       $(document).ready(function() {
         $('#calendar').fullCalendar({
           header: {
-            left: 'prev,next today',
+            left: 'prev,next,today',
             center: 'title',
             right: 'month'//,agendaWeek,agendaDay,listWeek'
           },

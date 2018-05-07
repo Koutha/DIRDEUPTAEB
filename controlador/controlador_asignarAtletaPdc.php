@@ -14,12 +14,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Opdc= new Cpdc();
         $Odisciplina= new Cdisciplina();
         $disciplinas=$Odisciplina->consultarTodos();
-        $pdc= $Opdc->consultarAplicacionDia($_POST['id_dp']);
-        $end= new DateTime($pdc['fecha_dia']);
-        $end->add(new DateInterval('PT16H')); //16 horas agregadas a la fecha de inicio
-        $fin = (string)$end->format('Y-m-d h:i A');
+        $nombre_pdc=$_POST['nombre_pdc'];
+        $pdc=$Opdc->consultarDatos($nombre_pdc);
+        $atletas = $Opdc->consultarADP($pdc['id_disciplina']);
         require('vistas/vista_asignarAtletaPdc.php');
-
     }
     
 } 

@@ -196,28 +196,27 @@ class Catleta extends Cpersona
         }
 
         public function consultarDatos($cedula){
-
-	        	$sql ='SELECT  ta.cedula_atleta, ta.nombres, ta.apellidos, ta.fecha_nacimiento,
-	                           ta.direccion, ta.tel_movil, ta.tel_fijo, ta.correo, ta.sexo,
-	                           ta.dir_foto, ta.dir_cedula, ta.status, taa.trayecto,
-	                           taa.año_ingreso, taa.dir_planilla, taa.dir_carnet, taa.id_pnf,
-	                           tam.estatura, tam.peso, tam.tipo_sangre, tam.contacto_emergencia,
-	                           tam.tel_contacto, tam.info_discapacidad, tam.observaciones,
-	                           tam.info_alergias, tau.talla_franela, tau.talla_pantalon,
-	                           tau.talla_short, tau.talla_zapato, tau.talla_gorra, tau.talla_chaqueta
-		               FROM "T_atleta" ta
-		               JOIN "T_atleta_academico"  taa ON ta.cedula_atleta=taa.cedula_atleta
-		               JOIN "T_atleta_medico"     tam ON ta.cedula_atleta=tam.cedula_atleta
-		               JOIN "T_atleta_uniforme"   tau ON ta.cedula_atleta=tau.cedula_atleta
-		               WHERE ta.cedula_atleta=?';
+            $sql ='SELECT  ta.cedula_atleta, ta.nombres, ta.apellidos, ta.fecha_nacimiento,
+	                       ta.direccion, ta.tel_movil, ta.tel_fijo, ta.correo, ta.sexo,
+	                       ta.dir_foto, ta.dir_cedula, ta.status, taa.trayecto,
+	                       taa.año_ingreso, taa.dir_planilla, taa.dir_carnet, taa.id_pnf,
+	                       tam.estatura, tam.peso, tam.tipo_sangre, tam.contacto_emergencia,
+	                       tam.tel_contacto, tam.info_discapacidad, tam.observaciones,
+	                       tam.info_alergias, tau.talla_franela, tau.talla_pantalon,
+	                       tau.talla_short, tau.talla_zapato, tau.talla_gorra, tau.talla_chaqueta
+                    FROM "T_atleta" ta
+                    JOIN "T_atleta_academico"  taa ON ta.cedula_atleta=taa.cedula_atleta
+                    JOIN "T_atleta_medico"     tam ON ta.cedula_atleta=tam.cedula_atleta
+                    JOIN "T_atleta_uniforme"   tau ON ta.cedula_atleta=tau.cedula_atleta
+                    WHERE ta.cedula_atleta=?';
 	        $db=$this->db();
 	        $query=$db->prepare($sql);
 	        $query->bindParam(1, $cedula);
 	        $query->execute();
 	        while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
             $resultado=$fila;
-        }
-        if (!empty($resultado)) {
+            }
+            if (!empty($resultado)) {
                 return $resultado;
             }
             else{
@@ -409,6 +408,33 @@ class Catleta extends Cpersona
                 echo $e->getMessage();
                 exit;
             }
+        }
+
+        public function consultarAtletasPorDisciplina($id_disciplina){
+            try {
+                $sql='  SELECT ta.cedula_atleta, ta.nombres, ta.apellidos, td.id_disciplina, td.nombre
+                        FROM "T_atleta" ta 
+                        JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+                        JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+                        WHERE td.id_disciplina=:id_disciplina';
+                $db=$this->db();
+                $query=$db->prepare($sql);
+                $query->bindParam(':id_disciplina', $id_disciplina);
+                $query->execute();
+                while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
+                    $resultado[]=$fila;
+                }
+                if (!empty($resultado)) {
+                    return $resultado;
+                }
+                else{
+                    return 0;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                exit;
+            }
+
         }
 }
  ?>

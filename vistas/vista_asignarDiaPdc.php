@@ -106,20 +106,99 @@ var_dump($pdc);
                             </div>
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h5><strong>Seleccione los atletas</strong></h5>
+                                        <h5><strong>Duración de la sesión</strong></h5>
+                                    </div>
+                                    <div class="panel-body">                                       
+                                        <div class="row" >
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
+                                                    <label>Inicia</label>
+                                                    <div class='input-group date' >
+                                                        <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : $pdc['fecha_dia']; ?>" disabled />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-3'>
+                                                <div class="form-group">
+                                                    <label>Termina</label>
+                                                    <div class='input-group date' >
+                                                        <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : $fin; ?>" disabled />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5><strong>Características de la sesión</strong></h5>
                                     </div>
                                     <div class="panel-body">
+                                        <label>Aspectos a trabajar en la sesión</label>
+                                        <div class="row">
+                                            <div class="checkbox-group form-group">
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="tecnica_dia" required>Técnica</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="tactica_dia" required>Táctica</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="fisico_dia" required>Físico</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="psicologico_dia" required>Psicológico</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4" >
+                                                    <div class="form-group">
+                                                        <div class="checkbox form-control">
+                                                            <label><input class="checkbox" type="checkbox" name="velocidad_dia" required>Velocidad</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                             </div>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h5><strong>Atletas de la sesión</strong></h5>
+                                    </div>
+                                    <div class="panel-body">
+                                        <label>Aspectos a trabajar en la sesión</label>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="checkbox-group form-group">
                                                     <div class="checkbox form-control">
                                                         <label><input type="checkbox" id="select_all"/> Seleccionar todos</label>
-                                                    </div>  
-                                                    <?php foreach ($atletas as $key) { ?>
-                                                       <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
-                                                        </div>  
-                                                   <?php } ?>            
+                                                    </div>             
+                                                    <div class="checkbox form-control">
+                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
+                                                    </div>
+                                                                    
                                                 </div>
                                             </div> <!--/ col-md-12 -->
                                         </div>

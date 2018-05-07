@@ -14,16 +14,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Opdc= new Cpdc();
         $Odisciplina= new Cdisciplina();
         $disciplinas=$Odisciplina->consultarTodos();
-        if (isset($_GET['id'])) {
-            $id=$_GET['id'];
-            $pdc=$Opdc->consultarDatos($id);
-            //$pdc=$Opdc->consultarAplicacion();
-            require('vistas/vista_registrarAplicacionPdc.php');
-        }else{
-            $pdc=$Opdc->consultarTodos();
-            require('vistas/vista_registrarAplicacionTodosPdc.php');
-        }
+        $pdc= $Opdc->consultarAplicacionDia($_POST['id_dp']);
+        $end= new DateTime($pdc['fecha_dia']);
+        $end->add(new DateInterval('PT16H')); //16 horas agregadas a la fecha de inicio
+        $fin = (string)$end->format('Y-m-d h:i A');
+        require('vistas/vista_asignarAtletaPdc.php');
+
     }
+    
 } 
 else{
     echo "Esta pagina es solo para usuarios registrados.<br>";
@@ -32,4 +30,3 @@ else{
 }
 
 ?>
-  

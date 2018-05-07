@@ -54,7 +54,7 @@ require('core/sist-header.php');
                                                             <dd id="end"></dd>
                                                         </dl>
                                                     </div>
-                                                    <input type="hidden" name="nombre_pdc" id="nombre_pdc" value="">
+                                                    <input type="hidden" name="id_dp" id="id_dp" value="">
                                                     <div class="modal-footer">
                                                         <button type="submit" name="submit" value="asignarAtletaPdc" class="btn btn-warning"  >Asignar Atletas + </button>
                                                         <!--<button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button> -->
@@ -143,9 +143,7 @@ require('core/sist-header.php');
             center: 'title',
             right: 'month'  //agendaWeek,agendaDay,listWeek'
           },
-          defaultDate:<?php $f_ini= new DateTime($pdc['fecha_inicio']);
-                            $fe= $f_ini->format('Y-m-d');
-                            echo json_encode($fe);  ?>,
+          defaultDate: Date(),
           navLinks: false, // can click day/week names to navigate views
           editable: false,
           eventLimit: true, // allow "more" link when too many events
@@ -157,7 +155,7 @@ require('core/sist-header.php');
             $('#consultar #tipo_pdc').text(event.tipo_pdc);
             $('#consultar #start').text(event.start.format('LLLL'));
             $('#consultar #end').text(event.end.format('LLLL'));
-            $('#consultar #nombre_pdc').val(event.title);
+            $('#consultar #id_dp').val(event.id);
             //$('#consultar #redir').attr("href","?action=asignarAtletaPdc&id="+event.id);
             $('#consultar').modal('show');
             return false;
@@ -169,23 +167,26 @@ require('core/sist-header.php');
             $('#registrarPdc #end').val(moment(end).format('YYYY-MM-DD h:mm A'));
             $('#registrarPdc').modal('show');
           },*/
-            events: [ 
+            events: [
+                    <?php if(!empty($pdc))foreach ($pdc as $key) { ?>
                         {
-                            id:           '<?php echo $pdc['id_pdc']; ?>',
-                            title:        '<?php echo $pdc['nombre_pdc']; ?>',
-                            desc:         '<?php echo $pdc['descripcion']; ?>',
-                            disciplina:   '<?php echo $pdc['nombre_disciplina']; ?>',
-                            id_disciplina:'<?php echo $pdc['id_disciplina']; ?>',
-                            tipo_pdc:     '<?php echo $pdc['tipo_pdc']; ?>',
-                            start:        '<?php echo $pdc['fecha_inicio']; ?>',
-                            end:          '<?php echo $pdc['fecha_fin']; ?>',
-                            tecnica:      '<?php echo $pdc['tecnica']; ?>',
-                            tactica:      '<?php echo $pdc['tactica']; ?>',
-                            fisico:       '<?php echo $pdc['fisico']; ?>',
-                            psicologico:  '<?php echo $pdc['psicologico']; ?>',
-                            velocidad:    '<?php echo $pdc['velocidad']; ?>',
-                            color: getRandomColor(),
+                      id:    '<?php echo $key['id_dp']; ?>',
+                      title: '<?php echo $key['nombre_pdc']; ?>',
+                      desc:  '<?php echo $key['descripcion']; ?>',
+                      disciplina:  '<?php echo $key['nombre_disciplina']; ?>',
+                      id_disciplina: '<?php echo $key['id_disciplina']; ?>' ,
+                      tipo_pdc:  '<?php echo $key['tipo_pdc']; ?>',
+                      start: '<?php echo $key['fecha_dia']; ?>',
+                      end: '<?php   $end= new DateTime($key['fecha_dia']);
+                                    $end->add(new DateInterval('PT16H')); //16 horas agregadas a la fecha de inicio
+                                    echo $end->format('Y-m-d H:i:s'); ?>',
+                      color: getRandomColor(),
                         },
+                   <?php   }  ?>
+                    {
+                      title: 'All Day Event',
+                      start: '2018-04-24',
+                    },
             ]
         });
 

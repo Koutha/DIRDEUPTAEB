@@ -29,7 +29,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 }else if($_POST['fecha_inicio']>=$_POST['fecha_fin']){
                     //periodo invalido
                     $periodo=1;
-                    echo 'periodo de fechas no valido';
+                    //echo 'periodo de fechas no valido';
                     require('vistas/vista_registrarPdc.php');
                     }else{
                         $descripcion=$_POST['descripcion'];
@@ -54,21 +54,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         $Opdc->setPsicologico($psicologico);
                         $Opdc->setVelocidad($velocidad);
                         $Opdc->registrarPdc();
-                        $pdc_tmp=$Opdc->consultarDatos($nombre);
-                        $periodo_planificacion=$Opdc->determinarPeriodoPorDias($fecha_inicio,$fecha_fin);
+                        $pdc_new=$Opdc->consultarDatos($nombre); //
+                        /*$periodo_planificacion=$Opdc->determinarPeriodoPorDias($fecha_inicio,$fecha_fin);
                         foreach ($periodo_planificacion as $dia) { 
                             $fecha=$dia['begin']->format('Y-m-d H:i:s');
-                            $id_pdc=$pdc_tmp['id_pdc'];
+                            $id_pdc=$pdc_new['id_pdc'];
                             $Opdc->registrarDiaPdc($fecha,$id_pdc);
-                        }
-                    
+                        }*/
                         $registro= 1;
-                        
                         unset($_POST);
                         $_SESSION['registro']=1;
                         //header('Location:?action=registrarPdc');
                         //require('vistas/vista_registrarPdc.php');
-                        header('Location:?action=consultarPdc&id='.$pdc_tmp['nombre_pdc']);
+                        header('Location:?action=consultarPdc&id='.$pdc_new['nombre_pdc']);
                 }
         }
         else{//entrada por enlace o get

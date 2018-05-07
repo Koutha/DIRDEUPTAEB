@@ -38,7 +38,7 @@ require('core/sist-header.php');
                                                 <td><?php echo $key['fecha_fin'];?></td>
                                                 <td class="center">
                                                 <?php $uid= $key['nombre_pdc']; ?>
-                                                    <a class="btn btn-warning" href="<?php echo "?action=consultarPdc&id=".$uid; ?>">Mas Detalles</a>
+                                                    <a class="btn btn-warning" href="<?php echo "?action=registrarAplicacionPdc&id=".$uid; ?>">Mas Detalles</a>
                                                     <!-- Boton para activar el modal ELIMINAR -->
                                                    <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPdc&id=".$uid; ?>">Eliminar</button> -->
                                                 </td>

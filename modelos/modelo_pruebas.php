@@ -213,6 +213,36 @@
         }
 
     }
+
+    public function cta(){
+        $sql= 'SELECT DISTINCT cedula_atleta FROM "T_atleta_prueba" ';
+        $query = $this->db()->query($sql);
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+            $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+
+    }
+
+    public function ca($id_prueba){
+        $sql = 'SELECT * FROM "T_atleta_prueba" WHERE cedula_atleta=?';
+        $db=$this->db();
+        $query=$db->prepare($sql);
+        $query->bindParam(1, $id_prueba);
+        $query->execute();
+        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
+            $resultado=$fila;
+            return $resultado;
+        }
+        else{
+            return 0;
+        }   
+    }
    
 
     public function consultarid($id_prueba){

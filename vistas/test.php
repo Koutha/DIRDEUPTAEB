@@ -54,6 +54,17 @@
 <input type="submit" value="test" name="submit">
 </form>
 <?php
+require_once('modelos/modelo_pruebas.php');
+$Opruebas=new Cprueba();
+$tods=$Opruebas->cta();
+foreach ($tods as $key) {
+    $atleta=$Opruebas->ca($key['cedula_atleta']);
+    echo $atleta['cedula_atleta'];
+    echo '<br>';
+}
+
+
+
 //atletas por disciplina por pdc
 $sql= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
 FROM "T_atleta" ta 
@@ -63,12 +74,28 @@ JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina
 WHERE tpdc.id_disciplina=18';
 //WHERE td.nombre='Ajedrez Masculino';
 
-
+//atletas por disciplina 
+$sql2 ='SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, td.id_disciplina, td.nombre
+FROM "T_atleta" ta 
+JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+WHERE td.id_disciplina=18';
+//WHERE td.nombre='Ajedrez Masculino';
 
 include_once('modelos/modelo_atleta.php');
 include_once('modelos/modelo_disciplina.php');
 include_once('modelos/modelo_pdc.php');
+
+$Oatleta= new Catleta();
  $Opdc= new Cpdc();
+
+ $atpd= $Oatleta->consultarAtletasPorDisciplina(18);
+ $adp= $Opdc->consultarADP(18);
+ var_dump($atpd);
+
+ echo '<br>';
+ var_dump($adp);
+ echo '<br>';
  //var_dump($Opdc->consultarADP($id=16)); consultar atleta por disciplina por pdc
 date_default_timezone_set('America/Caracas');
 setlocale(LC_ALL, "es_VE.utf8");
