@@ -911,7 +911,7 @@ CREATE TABLE "T_equipo_tecnico" (
     correo character varying(255),
     dir_foto character varying(255),
     dir_cedula character varying(255),
-    status integer
+    status integer DEFAULT 1
 );
 
 
@@ -1192,7 +1192,8 @@ ALTER SEQUENCE "T_pdc_id_pdc_seq" OWNED BY "T_pdc".id_pdc;
 CREATE TABLE "T_pnf" (
     id_pnf integer NOT NULL,
     nombre character varying(255) NOT NULL,
-    coordinador character varying(255) NOT NULL
+    coordinador character varying(255) NOT NULL,
+    status integer DEFAULT 1
 );
 
 
@@ -1224,6 +1225,13 @@ COMMENT ON COLUMN "T_pnf".nombre IS 'Nombre del PNF';
 --
 
 COMMENT ON COLUMN "T_pnf".coordinador IS 'Primer nombre y Primer apellido del Coordinador del PNF';
+
+
+--
+-- Name: COLUMN "T_pnf".status; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "T_pnf".status IS 'estado del pnf 1 para visible 0 para oculto';
 
 
 --
@@ -1585,13 +1593,6 @@ ALTER TABLE ONLY "T_pnf" ALTER COLUMN id_pnf SET DEFAULT nextval('"T_pnf_id_pnf_
 
 
 --
--- Name: T_prueba id_prueba; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY "T_prueba" ALTER COLUMN id_prueba SET DEFAULT nextval('"T_prueba_id_prueba_seq"'::regclass);
-
-
---
 -- Name: rol id_rol; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1616,26 +1617,26 @@ ALTER TABLE ONLY usuarios ALTER COLUMN id_usuario SET DEFAULT nextval('usuarios_
 -- Data for Name: T_atleta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_atleta" VALUES ('20350027', 'Alvaro Sofi', 'Tirado Gil', '1992-04-20', 'Carrera 13 esq. Calle 18', '04164645556', '', 'alvarot027@gmail.com', 'masculino', 'assets/img/img_foto_atleta/203500272017-08-27-1310.jpg', 'assets/img/img_ced_atleta/20350027referencia compra de legion para homer de robert.jpg', 1);
 INSERT INTO "T_atleta" VALUES ('2', 'Segundoa', 'DOS', '2018-03-01', 'casa', '2', '2', 'ddos@gmail.com', 'masculino', 'assets/img/img_foto_atleta/2VirtualBox_2018-03-06_20-28-29.png', 'assets/img/img_ced_atleta/2firefox_2018-03-24_12-03-48.png', 1);
+INSERT INTO "T_atleta" VALUES ('20350027', 'Alvaro Sofi', 'Tirado Gil', '1992-04-20', 'Carrera 13 esq. Calle 18', '04164645556', '', 'alvarot027@gmail.com', 'masculino', 'assets/img/img_foto_atleta/203500272017-08-27-1310.jpg', 'assets/img/img_ced_atleta/20350027referencia compra de legion para homer de robert.jpg', 1);
 
 
 --
 -- Data for Name: T_atleta_academico; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_atleta_academico" VALUES (16, '3', '2015', 'assets/img/img_planilla_atleta/20350027VirtualBox_2018-03-06_20-28-29.png', 'assets/img/img_carnet_atleta/20350027firefox_2018-03-18_01-53-16.png', '20350027', 7);
 INSERT INTO "T_atleta_academico" VALUES (17, '3', '2010', 'assets/img/img_planilla_atleta/2firefox_2018-03-18_01-53-16.png', 'assets/img/img_carnet_atleta/2firefox_2018-03-18_01-53-16.png', '2', 2);
+INSERT INTO "T_atleta_academico" VALUES (16, '3', '2015', 'assets/img/img_planilla_atleta/20350027VirtualBox_2018-03-06_20-28-29.png', 'assets/img/img_carnet_atleta/20350027firefox_2018-03-18_01-53-16.png', '20350027', 7);
 
 
 --
 -- Data for Name: T_atleta_disciplina; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_atleta_disciplina" VALUES (7, '20350027', 31);
-INSERT INTO "T_atleta_disciplina" VALUES (8, '20350027', 33);
 INSERT INTO "T_atleta_disciplina" VALUES (90, '2', 16);
 INSERT INTO "T_atleta_disciplina" VALUES (91, '2', 18);
+INSERT INTO "T_atleta_disciplina" VALUES (95, '20350027', 16);
+INSERT INTO "T_atleta_disciplina" VALUES (96, '20350027', 18);
 
 
 --
@@ -1648,49 +1649,186 @@ INSERT INTO "T_atleta_disciplina" VALUES (91, '2', 18);
 -- Data for Name: T_atleta_medico; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_atleta_medico" VALUES (12, 1.72000003, 60, '', 'Maria gil', '02512370787', '', '', '20350027', '');
 INSERT INTO "T_atleta_medico" VALUES (13, 1.73000002, 60, '', 'd', '2', '', 'alergico a', '2', 'asd');
+INSERT INTO "T_atleta_medico" VALUES (12, 1.72000003, 60, '', 'Maria gil', '02512370787', '', '', '20350027', '');
 
 
 --
 -- Data for Name: T_atleta_prueba; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "T_atleta_prueba" VALUES (3, '2018-05-16', '12', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (4, '2018-05-04', '15', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (5, '2018-05-04', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (6, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (7, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (8, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (9, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (10, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (11, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (12, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (13, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (14, '2018-05-17', '50', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (15, '2018-05-30', '45', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (16, '2018-05-30', '45', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (17, '2018-05-30', '45', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (18, '2018-05-24', '40', '20350027', 'EquLibtest');
+INSERT INTO "T_atleta_prueba" VALUES (19, '2018-05-24', '40', '20350027', 'EquLibtest');
 
 
 --
 -- Data for Name: T_atleta_uniforme; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_atleta_uniforme" VALUES (11, 'S', 'M', 'S', '41', 'S', 'M', '20350027');
 INSERT INTO "T_atleta_uniforme" VALUES (12, 'XS', 'XS', 'XS', '45', 'XL', 'XXL', '2');
+INSERT INTO "T_atleta_uniforme" VALUES (11, 'S', 'M', 'S', '41', 'S', 'M', '20350027');
 
 
 --
 -- Data for Name: T_dia_pdc; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_dia_pdc" VALUES (51, '2018-04-02 00:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (52, '2018-04-03 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (53, '2018-04-04 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (54, '2018-04-05 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (55, '2018-04-06 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (56, '2018-04-07 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (57, '2018-04-08 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (58, '2018-04-09 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (59, '2018-04-10 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (60, '2018-04-11 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (61, '2018-04-12 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (62, '2018-04-13 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (63, '2018-04-14 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (64, '2018-04-15 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (65, '2018-04-16 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (66, '2018-04-17 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (67, '2018-04-18 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (68, '2018-04-19 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (69, '2018-04-20 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (70, '2018-04-21 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
-INSERT INTO "T_dia_pdc" VALUES (71, '2018-04-22 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (432, '2018-05-28 01:28:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (433, '2018-05-29 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (434, '2018-05-30 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (435, '2018-05-31 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (436, '2018-06-01 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (437, '2018-06-02 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (438, '2018-06-03 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (439, '2018-06-04 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (440, '2018-06-05 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (441, '2018-06-06 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (442, '2018-06-07 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (443, '2018-06-08 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (444, '2018-06-09 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (445, '2018-06-10 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (446, '2018-06-11 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (447, '2018-06-12 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (448, '2018-06-13 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (449, '2018-06-14 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (450, '2018-06-15 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (451, '2018-06-16 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (452, '2018-06-17 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (453, '2018-06-18 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (454, '2018-06-19 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (455, '2018-06-20 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (456, '2018-06-21 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (457, '2018-06-22 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (458, '2018-06-23 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (459, '2018-06-24 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (460, '2018-06-25 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (461, '2018-06-26 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (259, '2018-04-16 17:39:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (260, '2018-04-17 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (261, '2018-04-18 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (262, '2018-04-19 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (263, '2018-04-20 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (264, '2018-04-21 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (265, '2018-04-22 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (266, '2018-04-23 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (267, '2018-04-24 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (268, '2018-04-25 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (269, '2018-04-26 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (270, '2018-04-27 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (271, '2018-04-28 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (272, '2018-04-29 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (273, '2018-04-30 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (274, '2018-05-01 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (462, '2018-06-27 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (463, '2018-06-28 06:00:00', NULL, NULL, NULL, NULL, 22, NULL);
+INSERT INTO "T_dia_pdc" VALUES (275, '2018-05-02 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (276, '2018-05-03 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (277, '2018-05-04 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (278, '2018-05-05 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (279, '2018-05-06 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (280, '2018-05-07 06:00:00', NULL, NULL, NULL, NULL, 17, NULL);
+INSERT INTO "T_dia_pdc" VALUES (281, '2018-04-02 00:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (282, '2018-04-03 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (283, '2018-04-04 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (284, '2018-04-05 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (285, '2018-04-06 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (286, '2018-04-07 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (287, '2018-04-08 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (288, '2018-04-09 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (289, '2018-04-10 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (290, '2018-04-11 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (291, '2018-04-12 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (292, '2018-04-13 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (293, '2018-04-14 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (294, '2018-04-15 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (295, '2018-04-16 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (296, '2018-04-17 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (297, '2018-04-18 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (298, '2018-04-19 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (299, '2018-04-20 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (300, '2018-04-21 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (301, '2018-04-22 06:00:00', NULL, NULL, NULL, NULL, 18, NULL);
+INSERT INTO "T_dia_pdc" VALUES (302, '2018-12-03 23:35:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (303, '2018-12-04 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (304, '2018-12-05 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (305, '2018-12-06 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (306, '2018-12-07 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (307, '2018-12-08 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (308, '2018-12-09 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (309, '2018-12-10 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (310, '2018-12-11 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (311, '2018-12-12 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (312, '2018-12-13 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (313, '2018-12-14 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (314, '2018-12-15 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (315, '2018-12-16 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (316, '2018-12-17 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (317, '2018-12-18 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (318, '2018-12-19 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (319, '2018-12-20 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (320, '2018-12-21 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (321, '2018-12-22 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (322, '2018-12-23 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (323, '2018-12-24 06:00:00', NULL, NULL, NULL, NULL, 19, NULL);
+INSERT INTO "T_dia_pdc" VALUES (324, '2018-11-05 23:40:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (325, '2018-11-06 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (326, '2018-11-07 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (327, '2018-11-08 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (328, '2018-11-09 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (329, '2018-11-10 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (330, '2018-11-11 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (331, '2018-11-12 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (332, '2018-11-13 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (333, '2018-11-14 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (334, '2018-11-15 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (335, '2018-11-16 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (336, '2018-11-17 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (337, '2018-11-18 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (338, '2018-11-19 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (339, '2018-11-20 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (340, '2018-11-21 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (341, '2018-11-22 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (342, '2018-11-23 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (343, '2018-11-24 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (344, '2018-11-25 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (345, '2018-11-26 06:00:00', NULL, NULL, NULL, NULL, 20, NULL);
+INSERT INTO "T_dia_pdc" VALUES (346, '2018-07-02 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (347, '2018-07-03 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (348, '2018-07-04 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (349, '2018-07-05 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (350, '2018-07-06 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (351, '2018-07-07 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (352, '2018-07-08 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (353, '2018-07-09 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (354, '2018-07-10 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (355, '2018-07-11 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (356, '2018-07-12 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (357, '2018-07-13 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (358, '2018-07-14 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (359, '2018-07-15 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (360, '2018-07-16 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (361, '2018-07-17 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (362, '2018-07-18 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (363, '2018-07-19 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (364, '2018-07-20 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (365, '2018-07-21 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (366, '2018-07-22 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
+INSERT INTO "T_dia_pdc" VALUES (367, '2018-07-23 06:00:00', NULL, NULL, NULL, NULL, 21, NULL);
 
 
 --
@@ -1741,42 +1879,51 @@ INSERT INTO "T_disciplina" VALUES (47, 'Tenis Femenino', 'Pelota', 1);
 -- Data for Name: T_equipo_tecnico; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "T_equipo_tecnico" VALUES ('19263736', 'Osmin Elieser', 'Principal Gonzalez', 'entrenador', '55555555555', 'ada@gmail.com', 'assets/img/img_foto_personal/19263736casos de uso del sistema.png', 'assets/img/img_ced_personal/19263736casos de uso del sistema.png', 1);
 
 
 --
 -- Data for Name: T_equipo_tecnico_disciplina; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO "T_equipo_tecnico_disciplina" VALUES (9, '19263736', 19);
+INSERT INTO "T_equipo_tecnico_disciplina" VALUES (10, '19263736', 23);
 
 
 --
 -- Data for Name: T_pdc; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_pdc" VALUES (18, '2018-04-02 00:00:00', '2018-04-23 00:01:00', 20, 20, 20, 20, 20, 16, 'Preparatorio', 'test 1', 'primera prueba');
+INSERT INTO "T_pdc" VALUES (17, '2018-04-16 17:39:00', '2018-05-07 17:40:00', 20, 20, 20, 20, 20, 16, 'Preparatorio', 'evento 1', 'aqui desc');
+INSERT INTO "T_pdc" VALUES (18, '2018-04-02 00:00:00', '2018-04-23 00:01:00', 20, 20, 20, 20, 20, 18, 'Pre-Compentencia', 'evento modificado 2', 'prueba de registro modificado 1');
+INSERT INTO "T_pdc" VALUES (19, '2018-12-03 23:35:00', '2018-12-24 23:36:00', 20, 20, 20, 20, 20, 40, 'Pre-Compentencia', 'Planificacion', 'adasdsadsad');
+INSERT INTO "T_pdc" VALUES (20, '2018-11-05 23:40:00', '2018-11-26 23:41:00', 20, 20, 20, 20, 20, 39, 'Preparatorio', 'Planificacion 1', 'asdad');
+INSERT INTO "T_pdc" VALUES (21, '2018-07-02 06:00:00', '2018-07-23 22:00:00', 20, 20, 20, 20, 20, 40, 'Preparatorio', 'evento 5', 'adsads');
+INSERT INTO "T_pdc" VALUES (22, '2018-05-28 01:28:00', '2018-06-29 01:29:00', 20, 20, 20, 20, 20, 18, 'Preparatorio', 'evento de carlangas 12345', 'aqui ya son las 1 y media de la mañana programando');
 
 
 --
 -- Data for Name: T_pnf; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_pnf" VALUES (1, 'PNF en Administracion', 'coordinador');
-INSERT INTO "T_pnf" VALUES (2, 'PNF en Ciencias de la Información', 'coordinador');
-INSERT INTO "T_pnf" VALUES (3, 'PNF en Contaduría Publica', 'coordinador');
-INSERT INTO "T_pnf" VALUES (4, 'PNF en Turismo', 'coordinador');
-INSERT INTO "T_pnf" VALUES (5, 'PNF en Agroalimentación', 'coordinador');
-INSERT INTO "T_pnf" VALUES (6, 'PNF en Higiene y seguridad laboral', 'coordinador');
-INSERT INTO "T_pnf" VALUES (7, 'PNF en Informática', 'Jehamar Lovera');
-INSERT INTO "T_pnf" VALUES (8, 'PNF en Sistemas de calidad y ambiente', 'coordinador');
-INSERT INTO "T_pnf" VALUES (9, 'PNF en Deportes', 'coordinador');
+INSERT INTO "T_pnf" VALUES (3, 'PNF en Contaduría Publica', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (4, 'PNF en Turismo', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (5, 'PNF en Agroalimentación', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (6, 'PNF en Higiene y seguridad laboral', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (7, 'PNF en Informática', 'Jehamar Lovera', 1);
+INSERT INTO "T_pnf" VALUES (8, 'PNF en Sistemas de calidad y ambiente', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (1, 'PNF en Deportes', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (2, 'PNF en Ciencias  de la Información', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (9, 'PNF en Administracion', 'coordinador', 1);
+INSERT INTO "T_pnf" VALUES (10, 'prueba', 'qwertyuio', 1);
 
 
 --
 -- Data for Name: T_prueba; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO "T_prueba" VALUES ('1', 'carlos', 'fghjk', 'Resistencia', 'vbn', 'vb', 5, 6, 7, 8, 1, NULL);
-INSERT INTO "T_prueba" VALUES ('2', 'jose', 'vbnm', 'Equilibrio', 'ghj', 'vbn', 4, 5, 6, 7, 1, NULL);
+INSERT INTO "T_prueba" VALUES ('EquLibtest', 'test', '
+vjklm', 'Equilibrio', 'gujyhuji', 'Libras', 30, 60, 90, 120, 1, 1);
 
 
 --
@@ -1793,13 +1940,13 @@ INSERT INTO rol VALUES (2, 'Usuario');
 
 INSERT INTO roles VALUES (3, 1, 4);
 INSERT INTO roles VALUES (12, 1, 13);
-INSERT INTO roles VALUES (13, 1, 14);
 INSERT INTO roles VALUES (20, 2, 21);
 INSERT INTO roles VALUES (24, 1, 25);
 INSERT INTO roles VALUES (1, 2, 1);
 INSERT INTO roles VALUES (2, 1, 2);
+INSERT INTO roles VALUES (13, 1, 14);
 INSERT INTO roles VALUES (19, 2, 20);
-INSERT INTO roles VALUES (5, 1, 6);
+INSERT INTO roles VALUES (5, 2, 6);
 
 
 --
@@ -1808,21 +1955,20 @@ INSERT INTO roles VALUES (5, 1, 6);
 
 INSERT INTO usuarios VALUES (4, 'Osmin', '$2y$10$uaPjldZeqaQntNfKPc4ZA.dptrK7t7FpA8MrHLBX/sIfGN/EK55c.', 'osminprincipal@gmail.com', 1);
 INSERT INTO usuarios VALUES (13, 'a', '$2y$10$LYOx5fevRGcdrCjuYIVgsu1px4UK9Af2Hg35ZByiBB3Qvw8vvEJwW', 'a@g.com', 1);
-INSERT INTO usuarios VALUES (14, 'Alvaro', '$2y$10$q7CiSUnBZK69tvetA5i.h.rR0btcoyU3PUCUOe5PIKGy5JvxtMV9i', 'alvarot027@gmail.com', 1);
 INSERT INTO usuarios VALUES (21, 'Wister', '$2y$10$pIil43i0vJDJsrCgcB3JkObgC1iOWjh5jO1H5V/R7xoIPkPTineri', 'wister@gmail.com', 1);
 INSERT INTO usuarios VALUES (25, 'prueba', '$2y$10$toKI4Jc4pqtgPLI4XBCbA.t24qDhvYf6EtStUPbDc.TrSUppjDwVO', 'prueba@gmail.com', 1);
 INSERT INTO usuarios VALUES (2, 'deb', '$2y$10$rRGEu8ut0Sm6vGPLuDa04eQB6wgXO.D67p.GMV02f/2NP7vFvqVdG', 'deb@gmail.com', 0);
 INSERT INTO usuarios VALUES (1, 'yor', '$2y$10$OceehgEwzhvH4U1QRkPJjOaGIFHx7BmBRYSAcnCO08ft2gG3RV3ii', 'yor@gmail.com', 0);
-INSERT INTO usuarios VALUES (3, 'DEIBYS', '2', 'deasdsad', 1);
-INSERT INTO usuarios VALUES (20, 'b', '$2y$10$ZYQuKQ/dup3BbhD1lYisV.p741j6O6cEAdY6EH8mw.bGwQTQzT.f6', 'b@gmail.com', 1);
-INSERT INTO usuarios VALUES (6, 'c', '$2y$10$VrVpCNsJ4dX91vfo5fK.teLLvFXG0WgREkSBnU/CR10sm13.jVaBa', 'c@h', 1);
+INSERT INTO usuarios VALUES (14, 'wifi', '$2y$10$Usu/CkfZ0alsl2VOdJx7iOcWNjPd1NiTKuTGbZoNH1ZRKbm2Tes0i', 'asdsad@hotmail.com', 1);
+INSERT INTO usuarios VALUES (20, 'b', '$2y$10$tyCuyX09T8LDvQqn7CIB2.vCpCE5mTfuJEJIis5bNSMlDtMgkoA8.', 'b@gmail.com', 1);
+INSERT INTO usuarios VALUES (6, 'c', '$2y$10$P4bs6940273L7MRBaL/cRuz38XwK2TbgNgKnDV2dh4XgUT6Be4M.K', 'c@h', 1);
 
 
 --
 -- Name: T_atleta_academico_id_aa_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_atleta_academico_id_aa_seq"', 18, true);
+SELECT pg_catalog.setval('"T_atleta_academico_id_aa_seq"', 20, true);
 
 
 --
@@ -1836,7 +1982,7 @@ SELECT pg_catalog.setval('"T_atleta_cedula_atleta_seq"', 1, false);
 -- Name: T_atleta_disciplina_id_ad_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_atleta_disciplina_id_ad_seq"', 92, true);
+SELECT pg_catalog.setval('"T_atleta_disciplina_id_ad_seq"', 96, true);
 
 
 --
@@ -1850,56 +1996,56 @@ SELECT pg_catalog.setval('"T_atleta_ejecucion_pdc_id_aep_seq"', 1, false);
 -- Name: T_atleta_medico_id_am_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_atleta_medico_id_am_seq"', 14, true);
+SELECT pg_catalog.setval('"T_atleta_medico_id_am_seq"', 16, true);
 
 
 --
 -- Name: T_atleta_prueba_id_ap_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_atleta_prueba_id_ap_seq"', 2, true);
+SELECT pg_catalog.setval('"T_atleta_prueba_id_ap_seq"', 19, true);
 
 
 --
 -- Name: T_atleta_tiempo_pdc_id_atp_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_atleta_tiempo_pdc_id_atp_seq"', 71, true);
+SELECT pg_catalog.setval('"T_atleta_tiempo_pdc_id_atp_seq"', 463, true);
 
 
 --
 -- Name: T_atleta_uniforme_id_au_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_atleta_uniforme_id_au_seq"', 13, true);
+SELECT pg_catalog.setval('"T_atleta_uniforme_id_au_seq"', 15, true);
 
 
 --
 -- Name: T_disciplina_id_disciplina_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_disciplina_id_disciplina_seq"', 53, true);
+SELECT pg_catalog.setval('"T_disciplina_id_disciplina_seq"', 54, true);
 
 
 --
 -- Name: T_equipo_tecnico_disciplina_id_etd_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_equipo_tecnico_disciplina_id_etd_seq"', 1, false);
+SELECT pg_catalog.setval('"T_equipo_tecnico_disciplina_id_etd_seq"', 12, true);
 
 
 --
 -- Name: T_pdc_id_pdc_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_pdc_id_pdc_seq"', 18, true);
+SELECT pg_catalog.setval('"T_pdc_id_pdc_seq"', 22, true);
 
 
 --
 -- Name: T_pnf_id_pnf_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_pnf_id_pnf_seq"', 9, true);
+SELECT pg_catalog.setval('"T_pnf_id_pnf_seq"', 11, true);
 
 
 --
@@ -1920,14 +2066,14 @@ SELECT pg_catalog.setval('rol_id_rol_seq', 1, false);
 -- Name: roles_id_roles_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('roles_id_roles_seq', 5, true);
+SELECT pg_catalog.setval('roles_id_roles_seq', 6, true);
 
 
 --
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('usuarios_id_usuario_seq', 6, true);
+SELECT pg_catalog.setval('usuarios_id_usuario_seq', 7, true);
 
 
 --
