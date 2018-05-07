@@ -1,6 +1,8 @@
 <?php
 require('core/sist-header.php');
 var_dump($pdc);
+echo '<br>';
+var_dump($atletas);
 ?>
 
 <body>
@@ -30,13 +32,13 @@ var_dump($pdc);
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : $pdc['nombre_pdc']; ?>" disabled/>
+                                                <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : $pdc['nombre_pdc']; ?>" readonly/>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea name="descripcion" class="form-control" placeholder="" disabled><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : $pdc['descripcion']; ?></textarea>
+                                                <textarea name="descripcion" class="form-control" placeholder="" readonly><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : $pdc['descripcion']; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -44,7 +46,7 @@ var_dump($pdc);
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label  class="control-label label-default">Tipo de programa</label>
-                                                <select name="tipo_pdc" class="form-control" disabled>
+                                                <select name="tipo_pdc" class="form-control" readonly>
                                                     <option value="">Seleccione...</option>
                                                     <option value="Preparatorio" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio"){echo 'selected';} else if($pdc['tipo_pdc']=='Preparatorio'){echo 'selected';}?>>Preparatorio</option>
                                                     <option value="Pre-Compentencia" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia"){echo 'selected';} else if($pdc['tipo_pdc']=='Pre-Compentencia'){echo 'selected';}?>>Pre-Compentencia</option>
@@ -56,7 +58,7 @@ var_dump($pdc);
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label  class="control-label label-default">Disciplina</label>
-                                                <select name="id_disciplina" class="form-control" disabled >
+                                                <select name="id_disciplina" class="form-control" readonly >
                                                     <option value="">Seleccione...</option>
                                                     <?php foreach ($disciplinas as $key => $value) { ?>
                                                         <option value="<?php echo $value['id_disciplina']; ?>" <?php if(isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']){echo 'selected';} else if($pdc['id_disciplina']==$value['id_disciplina']){echo 'selected';}?>><?php echo $value['nombre']; ?></option>
@@ -111,21 +113,43 @@ var_dump($pdc);
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="checkbox-group form-group">
-                                                    <div class="checkbox form-control">
-                                                        <label><input type="checkbox" id="select_all"/> Seleccionar todos</label>
-                                                    </div>  
-                                                    <?php foreach ($atletas as $key) { ?>
-                                                       <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
-                                                        </div>  
-                                                   <?php } ?>            
+                                                <?php if(!empty($atletas)){?>
+                                                <div class="checkbox-group">  
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th style="width: 149px;">
+                                                                        <input type="checkbox" id="select_all"/> Seleccionar todos
+                                                                    </th>
+                                                                    <th>Cedula</th>
+                                                                    <th>Nombres</th>
+                                                                    <th>Apellidos</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php foreach ($atletas as $key) { ?>
+                                                                <tr class="odd gradeX">
+                                                                    <td ><input class="checkbox" type="checkbox" id="select_all" name="atletas[]" value="<?php echo $key['cedula_atleta'];?>" required />
+                                                                    </td>
+                                                                    <td><?php echo $key['cedula_atleta'];?></td>
+                                                                    <td><?php echo $key['nombres'];?></td>
+                                                                    <td><?php echo $key['apellidos'];?></td>
+                                                                </tr>
+                                                            <?php } ?>  
+                                                            </tbody>
+                                                        </table>
+                                                    </div>         
                                                 </div>
+                                               <?php }else{ ?>
+                                               <label>No hay atletas registrados en esta disciplina</label>
+                                               <?php } ?>
                                             </div> <!--/ col-md-12 -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <input type="hidden" name="registrarAtletasPdc">
                                     <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-primary">Registrar</button>
                                 </div>
                         </form><!-- End Form Elements -->
@@ -142,6 +166,9 @@ var_dump($pdc);
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
+    <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
     <!-- script para validaciones -->
@@ -159,17 +186,21 @@ var_dump($pdc);
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
     
     <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker({
-                    useCurrent: false,
-                    format: 'YYYY-MM-DD h:mm A'
-                });
-                $('#datetimepicker2').datetimepicker({
-                    useCurrent: false,
-                    format: 'YYYY-MM-DD h:mm A'
-                });
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
             });
-        </script>
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+        });
+    </script>
 
 </body>
 </html>

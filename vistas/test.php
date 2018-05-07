@@ -87,8 +87,12 @@ include_once('modelos/modelo_disciplina.php');
 include_once('modelos/modelo_pdc.php');
 
 $Oatleta= new Catleta();
- $Opdc= new Cpdc();
+$Opdc= new Cpdc();
 
+$dia_pdc=$Opdc->consultarAplicacion($_POST['fecha_inicio'],17);
+echo 'test';
+var_dump($dia_pdc);
+echo '<br>';
  $atpd= $Oatleta->consultarAtletasPorDisciplina(18);
  $adp= $Opdc->consultarADP(18);
  var_dump($atpd);

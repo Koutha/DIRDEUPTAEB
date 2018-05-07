@@ -199,15 +199,27 @@ class Cpdc extends modelobase {
         }
     }
 
-    public function aplicarPdc(){
-
+    public function aplicarPdc($cedula_atleta,$id_dp){
+        try {
+            $sql='INSERT INTO "T_atleta_ejecucion_pdc"(cedula_atleta, id_dp)
+                    VALUES(:cedula_atleta,:id_dp)';
+            $db=$this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(':cedula_atleta', $cedula_atleta);
+            $query->bindParam(':id_dp', $id_dp);
+            $query->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
     }
 
     public function modificarAplicacion(){
 
     }
 
-    public function consultarAplicacion(){ //consultar todos los dias de una planificacion
+    public function consultarAplicacion($fecha, $id_pdc){ /*consulta los datos del dia recibiendo fecha y
+                                                            la id del pdc al que pertenece */ 
         $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
                         tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
                         tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,
@@ -216,10 +228,42 @@ class Cpdc extends modelobase {
                         tp.id_disciplina, tp.tipo_pdc, tp.nombre_pdc, tp.descripcion,
                         td.nombre as nombre_disciplina, td.tipo_disciplina 
                 FROM "T_dia_pdc" tdp JOIN "T_pdc" tp ON tdp.id_pdc=tp.id_pdc 
-                JOIN "T_disciplina" td ON tp.id_disciplina=td.id_disciplina';
-        $query = $this->db()->query($sql);
+                JOIN "T_disciplina" td ON tp.id_disciplina=td.id_disciplina
+                WHERE tdp.fecha = :fecha AND tp.id_pdc= :id_pdc';
+        $db=$this->db();
+        $query=$db->prepare($sql);
+        $query->bindParam(':fecha', $fecha);
+        $query->bindParam(':id_pdc', $$id_pdc);
+        $query->execute();
         while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
-             $resultado[] = $fila;
+             $resultado = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+        
+    }
+
+    public function consultarAplicacionDiaTodos($id_pdc){ /*consulta todos los dias de una plafinicacion */ 
+        $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
+                        tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
+                        tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,
+                        tdp.id_pdc, tp.fecha_inicio, tp.fecha_fin, tp.tecnica,
+                        tp.tactica, tp.fisico, tp.psicologico, tp.velocidad,
+                        tp.id_disciplina, tp.tipo_pdc, tp.nombre_pdc, tp.descripcion,
+                        td.nombre as nombre_disciplina, td.tipo_disciplina 
+                FROM "T_dia_pdc" tdp JOIN "T_pdc" tp ON tdp.id_pdc=tp.id_pdc 
+                JOIN "T_disciplina" td ON tp.id_disciplina=td.id_disciplina
+                WHERE tp.id_pdc= :id_pdc';
+        $db=$this->db();
+        $query = $db->prepare($sql);
+        $query->bindParam(':id_pdc', $$id_pdc);
+        $query->execute();
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+             $resultado[]= $fila;
         }
         if (!empty($resultado)) {
             return $resultado;

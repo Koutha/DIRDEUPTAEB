@@ -1,5 +1,6 @@
 <?php
 require('core/sist-header.php');
+var_dump($pdc);
 ?>
 <body>
 
