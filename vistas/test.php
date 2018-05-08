@@ -62,8 +62,30 @@ foreach ($tods as $key) {
     echo $atleta['cedula_atleta'];
     echo '<br>';
 }
+//join para lista atletas exceptuando a los que ya estan registrados en la ejecucion
+$sql4= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
+FROM "T_atleta" ta 
+JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina
+LEFT JOIN
+(SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos
+FROM "T_atleta" ta 
+JOIN "T_atleta_ejecucion_pdc" taep ON ta.cedula_atleta=taep.cedula_atleta 
+JOIN "T_dia_pdc" tdp ON tdp.id_dp=taep.id_dp
+JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc
+WHERE tpdc.id_pdc=17)as arg
+ON arg.cedula_atleta=ta.cedula_atleta
+WHERE tpdc.id_disciplina=16 AND arg.cedula_atleta IS NULL';
 
+//atletas en tabla ejecucion por pdc
+$sql3= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos
+FROM "T_atleta" ta 
+JOIN "T_atleta_ejecucion_pdc" taep ON ta.cedula_atleta=taep.cedula_atleta 
+JOIN "T_dia_pdc" tdp ON tdp.id_dp=taep.id_dp
+JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc
 
+WHERE tpdc.id_pdc=17';
 
 //atletas por disciplina por pdc
 $sql= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
@@ -91,6 +113,7 @@ $Opdc= new Cpdc();
 
 $dia_pdc=$Opdc->consultarAplicacion($_POST['fecha_inicio'],17);
 echo 'test';
+echo '<br>';
 var_dump($dia_pdc);
 echo '<br>';
  $atpd= $Oatleta->consultarAtletasPorDisciplina(18);

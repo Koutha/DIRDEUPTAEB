@@ -1,6 +1,5 @@
 <?php
 require('core/sist-header.php');
-var_dump($pdc);
 ?>
 <body>
 
@@ -140,11 +139,13 @@ var_dump($pdc);
       $(document).ready(function() {
         $('#calendar').fullCalendar({
           header: {
-            left: 'prev,next,today',
+            left: 'prev,next', //today,
             center: 'title',
             right: 'month'  //agendaWeek,agendaDay,listWeek'
           },
-          defaultDate: Date(),
+          defaultDate: <?php $f_ini= new DateTime($pdc[0]['fecha_inicio']);
+                            $fe= $f_ini->format('Y-m-d');
+                            echo json_encode($fe);  ?>,
           navLinks: false, // can click day/week names to navigate views
           editable: false,
           eventLimit: true, // allow "more" link when too many events

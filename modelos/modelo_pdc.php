@@ -141,12 +141,12 @@ class Cpdc extends modelobase {
     public function registrarDiaPdc($fecha,$id_pdc){
         try{
             $sql =  'INSERT INTO "T_dia_pdc" (fecha,id_pdc) 
-                            VALUES (:fecha,:id_pdc)';
+                            VALUES (?,?)';
                             
             $db = $this->db();
             $query=$db->prepare($sql);
-            $query->bindParam(':fecha',$fecha);
-            $query->bindParam(':id_pdc',$id_pdc);
+            $query->bindParam(1,$fecha);
+            $query->bindParam(2,$id_pdc);
             
             $query->execute();
         } catch (PDOException $e){
@@ -229,11 +229,11 @@ class Cpdc extends modelobase {
                         td.nombre as nombre_disciplina, td.tipo_disciplina 
                 FROM "T_dia_pdc" tdp JOIN "T_pdc" tp ON tdp.id_pdc=tp.id_pdc 
                 JOIN "T_disciplina" td ON tp.id_disciplina=td.id_disciplina
-                WHERE tdp.fecha = :fecha AND tp.id_pdc= :id_pdc';
+                WHERE tdp.fecha = ? AND tdp.id_pdc= ?';
         $db=$this->db();
         $query=$db->prepare($sql);
-        $query->bindParam(':fecha', $fecha);
-        $query->bindParam(':id_pdc', $$id_pdc);
+        $query->bindParam(1, $fecha);
+        $query->bindParam(2, $id_pdc);
         $query->execute();
         while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
              $resultado = $fila;
@@ -260,7 +260,7 @@ class Cpdc extends modelobase {
                 WHERE tp.id_pdc= :id_pdc';
         $db=$this->db();
         $query = $db->prepare($sql);
-        $query->bindParam(':id_pdc', $$id_pdc);
+        $query->bindParam(':id_pdc', $id_pdc);
         $query->execute();
         while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
              $resultado[]= $fila;
@@ -328,6 +328,45 @@ class Cpdc extends modelobase {
         }
         
     }
+
+
+    public function consultarADP1($id_pdc, $id_disciplina){ //consultar atletas por disciplinas por pdc
+        try {
+            $sql= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
+            FROM "T_atleta" ta 
+            JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+            JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+            JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina
+            LEFT JOIN
+            (SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos
+            FROM "T_atleta" ta 
+            JOIN "T_atleta_ejecucion_pdc" taep ON ta.cedula_atleta=taep.cedula_atleta 
+            JOIN "T_dia_pdc" tdp ON tdp.id_dp=taep.id_dp
+            JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc
+            WHERE tpdc.id_pdc=?)as arg
+            ON arg.cedula_atleta=ta.cedula_atleta
+            WHERE tpdc.id_disciplina=? AND arg.cedula_atleta IS NULL';
+            $db = $this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $id_pdc);
+            $query->bindParam(2, $id_disciplina);
+            $query->execute();
+            while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+                $resultado[] = $fila;
+            }
+            if (!empty($resultado)) {
+                return $resultado;
+            }
+            else{
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+        
+    }
+
 
     public function registrarEjecucionAtleta(){
 

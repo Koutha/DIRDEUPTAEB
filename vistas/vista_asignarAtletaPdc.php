@@ -1,8 +1,6 @@
 <?php
 require('core/sist-header.php');
-var_dump($pdc);
-echo '<br>';
-var_dump($atletas);
+
 ?>
 
 <body>
@@ -22,12 +20,6 @@ var_dump($atletas);
                                     <h5><strong>Información del Programa</strong></h5>
                                 </div>
                                 <div class="panel-body">
-                                    <?php if (isset($existe) && $existe == 1) { ?>
-                                        <div class="alert alert-danger alert-dismissible fade in">
-                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                            <strong>El Nombre ya existe</strong> por favor intente con uno diferente
-                                        </div>
-                                    <?php } ?>
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
