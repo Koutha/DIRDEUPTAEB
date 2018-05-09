@@ -301,7 +301,7 @@ class Cpdc extends modelobase {
         
     }
 
-    public function consultarADP($id_disciplina){ //consultar atletas por disciplinas por pdc
+    public function consultarADP($id_disciplina){ //Consultar Atletas disponibles en la disciplina del programa
         try {
             $sql= ' SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
                     FROM "T_atleta" ta 
@@ -330,7 +330,7 @@ class Cpdc extends modelobase {
     }
 
 
-    public function consultarADP1($id_pdc, $id_disciplina){ //consultar atletas por disciplinas por pdc
+    public function consultarADP1($id_pdc, $id_disciplina){ //Cosultar Atletas disponibles excluyendo los ya registrados
         try {
             $sql= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
             FROM "T_atleta" ta 
@@ -346,6 +346,44 @@ class Cpdc extends modelobase {
             WHERE tpdc.id_pdc=?)as arg
             ON arg.cedula_atleta=ta.cedula_atleta
             WHERE tpdc.id_disciplina=? AND arg.cedula_atleta IS NULL';
+            $db = $this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $id_pdc);
+            $query->bindParam(2, $id_disciplina);
+            $query->execute();
+            while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+                $resultado[] = $fila;
+            }
+            if (!empty($resultado)) {
+                return $resultado;
+            }
+            else{
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            exit;
+        }
+        
+    }
+
+    public function consultarADP2($id_pdc, $id_disciplina){ //consultar solo atletas registrados en la planificacion
+        try {
+            $sql= 'SELECT tblA.* 
+                    FROM (SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
+                            FROM "T_atleta" ta 
+                            JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+                            JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+                            JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina) tblA
+                    RIGHT JOIN
+                    (SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos
+                        FROM "T_atleta" ta 
+                        JOIN "T_atleta_ejecucion_pdc" taep ON ta.cedula_atleta=taep.cedula_atleta 
+                        JOIN "T_dia_pdc" tdp ON tdp.id_dp=taep.id_dp
+                        JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc
+                        WHERE tpdc.id_pdc=?) tblB
+                    ON tblB.cedula_atleta=tblA.cedula_atleta
+                    WHERE tblA.id_disciplina=?';
             $db = $this->db();
             $query=$db->prepare($sql);
             $query->bindParam(1, $id_pdc);

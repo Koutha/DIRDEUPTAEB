@@ -1,6 +1,6 @@
 <?php
 require('core/sist-header.php');
-
+var_dump($atletas);
 ?>
 
 <body>
@@ -105,7 +105,7 @@ require('core/sist-header.php');
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <?php if(!empty($atletas)){?>
+                                                <?php if(!empty($atletas) && $atletas!=1){?>
                                                 <div class="checkbox-group">  
                                                     <div class="table-responsive">
                                                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -133,16 +133,24 @@ require('core/sist-header.php');
                                                         </table>
                                                     </div>         
                                                 </div>
-                                               <?php }else{ ?>
-                                               <label>No hay atletas registrados en esta disciplina</label>
-                                               <?php } ?>
+                                               <?php }else if(isset($atletas) && $atletas==1){  ?>
+                                                    <label>Ya estan registrados todos los atletas para esta planificacion</label>
+                                               <?php }else if (isset($atletas) && $atletas==0) { ?>
+                                                   <label>No hay Atletas registrados en esta disciplina</label>
+                                             <?php  } ?>
                                             </div> <!--/ col-md-12 -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" name="registrarAtletasPdc">
-                                    <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-primary">Registrar</button>
+                                    <?php if(!empty($atletas) && $atletas!=1){?>
+                                        <input type="hidden" name="registrarAtletasPdc">
+                                        <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-primary">Asignar Atletas + </button>
+                                    <?php }else if(isset($atletas) && $atletas==1){  ?>
+                                        <label>Ya estan registrados todos los atletas para esta planificacion</label>
+                                    <?php }else if (isset($atletas) && $atletas==0) { ?>
+                                        <label>No hay Atletas registrados en esta disciplina</label>
+                                    <?php  } ?>
                                 </div>
                         </form><!-- End Form Elements -->
                     </div><!-- /. <div class="col-md-12">  -->

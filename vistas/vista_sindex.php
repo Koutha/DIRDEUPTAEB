@@ -78,7 +78,7 @@ require('core/sist-header.php');
                             <a href="?action=consultarPersonal" class="btn btn-sm btn-primary">Agregar Nuevo +</a>
                         </div>
                     </div>
-                   
+                   <!-- paneles para uso futuro
                     <div class="col-md-4 col-sm-6 col-xs-12">                       
                         <div class="panel panel-primary text-center no-boder bg-color-green">
                             <div class="panel-body">
@@ -102,7 +102,7 @@ require('core/sist-header.php');
                                 
                             </div>
                         </div>                         
-                    </div>
+                    </div>  paneles para uso futuro  -->
                 </div>
                 <!-- /. ROW  -->
                 <hr />                
