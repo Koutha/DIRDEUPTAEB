@@ -8,22 +8,12 @@ require('core/sist-header.php');
         <!--/Barras de navegacion-->  
         <div id="page-wrapper" >
             <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h2>Registro de Administradores</h2>   
-                        <h5> Modulo para el registro de administradores del sistema </h5>
-                    </div>
-                </div>
                 <!-- /. ROW  -->
-                <hr />
                 <div class="row">
                     <div class="row text-center ">
                         <div class="col-md-12">
                             <br /><br />
                             <h2> Formulario para registrar Administradores </h2>
-                
-
-                            <h5>( Para registrar voceros que administren el sistema )</h5>
                             <?php if (isset($registro)&&$registro==1) {?>
                                <div class="alert alert-success alert-dismissible">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -35,7 +25,7 @@ require('core/sist-header.php');
                     </div>
                     <div class="row">
 
-                        <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                        <div class="col-md-10 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <strong>  Registrar Nuevo Administrador </strong>  
@@ -71,17 +61,66 @@ require('core/sist-header.php');
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
                                             <input name="rpass" type="password" class="form-control" placeholder="Repita la contraseña" required />
                                         </div>
+                                                             <?php if (isset($existe)&&$existe==0) {?>
+                                                                <div class="alert alert-danger alert-dismissible">
+                                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                    <strong>la cedula del usuario no se encuentra registrada como personal capacitado</strong> por favor intente con una diferente
+                                                                </div>
+                                                            <?php } ?>
+                                                            <?php if (isset($existe)&&$existe==2) {?>
+                                                                    <div class="alert alert-danger alert-dismissible">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        <strong>La cedula del usuario ya esta registrada con otro usuario.</strong> por favor intente con una diferente
+                                                                    </div>
+                                                                <?php } ?>
+                                        
+                                                            <div class="form-group">
+                                                                <label class="control-label label-default">Cedula del Usuario en caso de que este registrado como personal capacitado (Opcional)</label>
+                                                                <input type="text" name="cedula" maxlength="8" class="form-control" placeholder="Ejemplo:26556987" onkeypress="return numero(event);">
+                                                            </div>
                                         <div class="panel panel-info">
-                                            <div class="panel-heading">Funciones / Responsabilidad</div>
-                                            <div class="panel-body">
-                                                <div class="form-group input-group radio">
-                                                    <label><input type="radio" name="optradio" value="1" required>Control total</label>
-                                                </div>
-                                                <div class="form-group input-group radio">
-                                                    <label><input type="radio" name="optradio" value="2">Solo registro</label>
-                                                </div>
-                                            </div>
+                                            <div class="panel-heading checkbox-group">Funciones / Responsabilidad</div>
+                                                        <div class="panel-body">
+                                                        <label><input type="radio" name="optradio" value="1" checked>Control total</label>
+                                                        <label><input type="radio" data-toggle="modal" data-target="#myModal2" name="optradio" value="2">Secretaria</label>
+                                                        <label><input type="radio" name="optradio" value="3">Entrenador</label>
+                                                   
+                                                        <div class="form-group-text" id="2" style="display: none;">
+                                                            <h4>Seleccione los modulos de acceso para el usuario:</h4>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar personal capacitado" >Registrar Personal Capacitado</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Personal Capacitado" >Modificar Personal Capacitado</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Personal Capacitado" >Eliminar Personal Capacitado</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Atleta" >Registrar Atleta</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Atleta" >Modificar Atleta</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Atleta" >Modificar Atleta</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Test" >Registrar Test</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Test" >Modificar Test</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Test" >Eliminar Test</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de Pruebas" >Registrar Aplicación de Pruebas</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de Pruebas" >Modificar Aplicación de Pruebas</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Reporte de la Aplicación de las Pruebas" >Reporte de la Aplicación de las Pruebas</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar PDC" >Registrar PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar PDC" >Modificar PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar PDC" >Eliminar PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de PDC" >Registrar Aplicación de PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de PDC" >Modificar Aplicación de PDC</label>
+                                                        </div>
+                                                        <div class="form-group-text" id="3" style="display: none;">
+                                                            <h4>Seleccione los modulos de acceso para el entrenador:</h4>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de Pruebas" >Registrar Aplicación de Pruebas</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de Pruebas" >Modificar Aplicación de Pruebas</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Reporte de la Aplicación de las Pruebas" >Reporte de la Aplicación de las Pruebas</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar PDC" >Registrar PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar PDC" >Modificar PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar PDC" >Eliminar PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de PDC" >Registrar Aplicación de PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de PDC" >Modificar Aplicación de PDC</label>
+                                                        </div>
+                                                     </div>
+                                                
+                                           
                                         </div>
+                                       
                                         <div class="form-group input-group">
                                             <button name="submit" value="registrarAdm" type="submit" class="btn btn-success">Registrar</button>
                                             <!-- se cambio por button arriba <input name="Submit" type="submit" class="btn btn-success" value="registraradm"/> -->
@@ -104,7 +143,7 @@ require('core/sist-header.php');
         <!-- /. WRAPPER  -->
     </div>
      <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
@@ -119,7 +158,12 @@ require('core/sist-header.php');
     <script src="assets/js/morris/morris.js"></script>
     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
+         <!-- script para validaciones -->
+     <script type="text/javascript" src="assets/js/valida.js"></script>
+   
+    
+    <script src="assets/js/stepform.js" type="text/javascript"></script>
+    <script src="assets/js/img-preview.js" type='text/javascript'></script>
 
 </body>
 </html>

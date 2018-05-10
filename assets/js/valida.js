@@ -149,8 +149,17 @@
   return color;
   }
   
-  $(document).ready(function() {
+  $(document).ready(function() { //REGISTRAR ATLETA - para pulsar y mostrar el input text de descapacidad
         $("input[name$='discapacidad']").click(function() {
+            var test = $(this).val();
+
+            $("div.form-group-text").hide();
+            $("#"+test).show();
+        });
+    });
+  
+  $(document).ready(function() { // 
+        $("input[name$='optradio']").click(function() {
             var test = $(this).val();
 
             $("div.form-group-text").hide();
@@ -165,7 +174,7 @@
             }
         });
 
-  $(document).ready(function(){
+  $(document).ready(function(){ // Para poner un grupo de checkbox en required y desactivar el atributo al seleccionar al menos 1
     var requiredCheckboxes = $('.checkbox-group :checkbox');
     requiredCheckboxes.on('change', function(){
       if(requiredCheckboxes.is(':checked')) {
@@ -177,13 +186,13 @@
   });
 
 //select all checkboxes
-$("#select_all").change(function(){  //"select all" change
+$("#select_all").change(function(){  //"select all" change - para mostrar un checkbox que marque todos en ese grupo
   $(".checkbox").prop('checked', $(this).prop("checked")); //change all ".checkbox" checked status
 });
 
 //".checkbox" change
 $('.checkbox').change(function(){
-//uncheck "select all", if one of the listed checkbox item is unchecked
+//uncheck "select all", if one of the listed checkbox item is unchecked - PARA desmarcar el checkbox Selecionar todos si alguno de la lista no esta marcado
   if(false == $(this).prop("checked")){ //if this item is unchecked
     $("#select_all").prop('checked', false); //change "select all" checked status to false
   }

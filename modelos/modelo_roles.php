@@ -63,8 +63,38 @@ class roles extends modelobase {
         }
         return 0;
     }
+    public function asignarPermisos($permisos, $id_usuario) {
+        /*$query=$this->db->query("INSERT INTO $this->tabla (id,idrol,iduser) VALUES (NULL,?,?)");
+        
+        return 0; */
+        try {
+            $sql='INSERT INTO "T_permisos" (permisos,id_usuario) VALUES (?,?)';
 
+            $db=$this->db();
+            $query=$db->prepare($sql);
 
+            $query->bindParam(1,$permisos);
+            $query->bindParam(2,$id_usuario);
+
+            $result=$query->execute();
+
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+        return 0;
+    }
+    public function borrarPermisos($id_usuario){
+             try {
+                $sql= 'DELETE FROM "T_permisos" WHERE id_usuario=?';
+                $db=$this->db();
+                $query=$db->prepare($sql);
+                $query->bindParam(1, $id_usuario);
+                $query->execute();
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                exit;
+            }
+        }
 
 }
 

@@ -63,18 +63,33 @@ class usuario extends modelobase
             return 0;
         }
     }
+     
+    public function getbycedula($cedula){
+        $sql = 'SELECT * FROM "usuarios" WHERE cedula=?';
+        $db=$this->db();
+        $query=$db->prepare($sql);
+        $query->bindParam(1, $cedula);
+        $query->execute();
+        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
+            $resultado=$fila;
+            return $resultado;
+        }
+        else{
+            return 0;
+        }   
+    }
 
-    public function actualizarUsuario($id,$nombre_usuario, $password, $correo) {
+    public function actualizarUsuario($id,$nombre_usuario, $correo, $cedula) {
         try {
-            $sql="UPDATE $this->tabla SET nombre_usuario=?, password=?,correo=? WHERE id_usuario=?";
+            $sql="UPDATE $this->tabla SET nombre_usuario=?,correo=?,cedula=? WHERE id_usuario=?";
             
             $db=$this->db();
 
             $query=$db->prepare($sql);
 
             $query->bindParam(1,$nombre_usuario);
-            $query->bindParam(2,$password);
-            $query->bindParam(3,$correo);
+            $query->bindParam(2,$correo);
+            $query->bindParam(3,$cedula);
             $query->bindParam(4,$id);
 
             $resultado=$query->execute();
@@ -86,12 +101,52 @@ class usuario extends modelobase
 
 
     }
+    public function actualizarContrasena($nombre_usuario, $password) {
+        try {
+            $sql="UPDATE $this->tabla SET password=? WHERE nombre_usuario=?";
+            
+            $db=$this->db();
 
-    public function ingresarUsuario($nombre_usuario, $password, $correo) {
+            $query=$db->prepare($sql);
+
+            $query->bindParam(1,$password);
+            $query->bindParam(2,$nombre_usuario);
+
+            $resultado=$query->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return 0;
+
+
+    }
+    public function activarUsuario($nombre_usuario, $password) {
+        try {
+            $sql="UPDATE $this->tabla SET status = 1, password=? WHERE nombre_usuario=?";
+            
+            $db=$this->db();
+
+            $query=$db->prepare($sql);
+
+            $query->bindParam(1,$password);
+            $query->bindParam(2,$nombre_usuario);
+
+            $resultado=$query->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+
+        return 0;
+
+
+    }
+
+    public function ingresarUsuario($nombre_usuario, $password, $correo, $cedula) {
 
         try {
 
-            $sql ="INSERT INTO $this->tabla (nombre_usuario,password,correo) VALUES (?,?,?)";
+            $sql ="INSERT INTO $this->tabla (nombre_usuario,password,correo,cedula) VALUES (?,?,?,?)";
 
             $db = $this->db();
 
@@ -100,6 +155,7 @@ class usuario extends modelobase
             $query->bindParam(1, $nombre_usuario);
             $query->bindParam(2, $password);
             $query->bindParam(3, $correo);
+            $query->bindParam(4, $cedula);
 
             $resultado = $query->execute();
 
@@ -111,8 +167,20 @@ class usuario extends modelobase
 
         return 0;
     }
-
-   
+    public function consultarTodosPermisos(){
+        $sql= 'SELECT * FROM "T_permisos" ';
+        $query = $this->db()->query($sql);
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+            $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+    }
+    
    
 }
  ?>

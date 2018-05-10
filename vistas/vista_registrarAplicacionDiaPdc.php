@@ -185,10 +185,7 @@ require('core/sist-header.php');
                       color: getRandomColor(),
                         },
                    <?php   }  ?>
-                    {
-                      title: 'All Day Event',
-                      start: '2018-04-24',
-                    },
+                    
             ]
         });
 

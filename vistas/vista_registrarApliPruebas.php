@@ -47,8 +47,18 @@ require('core/sist-header.php');
                                                     
                                                     <?php }} ?>
                                                 </select>
-                                            </div>                               
-                                    
+                                        </div>                               
+                                        <div class="form-group">
+                                                <label>seleccione la disciplina</label>
+                                                <select name="id_disciplina" class="form-control" required>
+                                                    <option value="">Seleccione...</option>
+                                                    <?php foreach ($todosd as $au){ ?>
+                                                    <?php if($au['status']== 1 ){ ?>
+                                                    <option value="<?php echo $au['id_disciplina']; ?>"><?php echo $au['nombre']; ?> </option>
+                                                    
+                                                    <?php }} ?>
+                                                </select>
+                                        </div>
                                         </div>
                                        </div>                                     
                                 

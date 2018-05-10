@@ -15,7 +15,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $id=$_GET['id'];
             $usuario->borrar_user($id);
             $borrado = 1;
-        }
+        }$valu=1;
+        $todos=$usuario->consultarTodosPermisos();
         $allusers=$usuario->listarAdm();
     	require('vistas/vista_consultarAdm.php');
     }else{

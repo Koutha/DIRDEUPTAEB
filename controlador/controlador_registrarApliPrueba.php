@@ -18,7 +18,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
               $prueba=$Oprueba->consultarDatosa($_POST['cedula_atleta']);
               if (isset($_POST['limpiar'])) {
                 $buscar= '1';
-                $nombr=$_POST['id_prueba'];
+                $nombr=$_POST['id_prueba'];include_once('modelos/modelo_pruebas.php');
+      include_once('modelos/modelo_atleta.php');
+      include_once('modelos/modelo_disciplina.php');
+      $Oprueba= new Cprueba();
+      $Oatleta= new Catleta();
+      $Odisciplina= new Cdisciplina();
+      $todos=$Oprueba->consultarTodosp(); 
+      $todosa=$Oatleta->consultarTodos();  
+      $todosad=$Odisciplina->consultarTodosad();
+      $disci=$_POST['id_disciplina'];
                 require('vistas/vista_registrarApliPrueba.php');
               }
               if ($Oprueba->consultarDatosa($_POST['cedula_atleta'])) {
@@ -38,6 +47,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                   //registrar la aplicacion de la prueba
                   $Oprueba->registrarapliprueba();
                   $registro= 1;
+                  $disci=$_POST['id_disciplina'];
                   $cedula_atleta=$cedula;
                   $nombresA=$prueba['nombres'];
                   $apellidosA=$prueba['apellidos'];
@@ -66,9 +76,17 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       require('vistas/vista_registrarApliPrueba.php');    }
     else{
       include_once('modelos/modelo_pruebas.php');
+      include_once('modelos/modelo_atleta.php');
+      include_once('modelos/modelo_disciplina.php');
       $Oprueba= new Cprueba();
+      $Oatleta= new Catleta();
+      $Odisciplina= new Cdisciplina();
       $todos=$Oprueba->consultarTodosp(); 
+      $todosa=$Oatleta->consultarTodos();  
+      $todosad=$Odisciplina->consultarTodosad();
+
       $nombr=$_POST['id_prueba'];
+      $disci=$_POST['id_disciplina'];
       $buscar= '1';
       require('vistas/vista_registrarApliPrueba.php');
     }

@@ -11,8 +11,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }else if(isset($_SESSION['rol']) && $_SESSION['rol'] == 1) {
         include_once('modelos/modelo_usuario.php');
         $usuario= new usuario();
-        
+        $todos=$usuario->consultarTodosPermisos();
         $allusers=$usuario->listarAdm();
+         $valu=0;
     	require('vistas/vista_consultarAdm.php');
     }else{
         header('Location:?action=sindex');

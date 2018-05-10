@@ -60,19 +60,32 @@ require('core/sist-header.php');
                                                     </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>cedula del atleta</label>
-                                                    <input class="form-control" name="cedula_atleta" value="<?php if (isset($existe)&&$existe=='1'){echo $cedula_atleta;} ?>" maxlength="8" onkeypress="return numero(event);" placeholder="cedula del atleta" required/>
+
+                                                    <label>Seleccione al atleta</label>
+                                                    <select name="cedula_atleta" class="form-control" required>
+                                                         <?php if (isset($nombresA)) {?>
+                                                        <option value="<?php  echo $nombresA." ".$apellidosA;
+                                                        ?>">
+                                                        <?php  echo $nombresA." ".$apellidosA;
+                                                        ?>
+                                                        </option>
+                                                        <?php } else { foreach ($todosad as $au){ if ($au['id_disciplina']==$disci) {?>
+                                                        <option value="<?php foreach ($todosa as $key => $value) {if($value['cedula_atleta']==$au['cedula_atleta']){
+                                                            print_r($value['cedula_atleta']);
+                                                        }
+                                                        } ?>">
+                                                        <?php foreach ($todosa as $key => $value) {if($value['cedula_atleta']==$au['cedula_atleta']){
+                                                            print_r($value['nombres']." ".$value['apellidos']);
+                                                        }
+                                                        } ?>
+                                                        </option>
+                                                        <?php }}} ?>
+                                                    </select>
                                                 </div>
-                                                <div class="form-group">
+                                                
                                                     <input type="hidden" name="prue" value="1">
-                                                    <?php if(isset($buscar) &&$buscar=='1'){ ?><button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Buscar</button>
-                                                   <?php } ?>
-                                                    <?php if(isset($existe)&&$existe=='1'){ ?>
-                                                        <div class="form-group">
-                                                            <label>Atleta: </label>
-                                                           
-                                                            <input name="nombres" type="text" class="form-control" placeholder="Nombres" value="<?php echo $nombresA." ".$apellidosA; ?>" disabled />
-                                                        </div>
+                                                    <input type="hidden" name="id_disciplina" value="<?php echo $disci;?>">
+                                                        
                                                         <div class="form-group">
                                                             <label>Fecha </label>
                                                             <input type="date" class="form-control" value="<?php if(isset($fecha)){ echo $fecha;}?>" name="fecha" required />
@@ -110,24 +123,18 @@ require('core/sist-header.php');
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="col-md-6">
-                                                                <?php if(isset($existe) &&$existe=='1'){ ?>
-                                                                <a href="<?php echo "?action=registrarApliPrueba&id_prueba=".$nombr; ?>" class="btn btn-danger">  Regresar</a><?php }
-                                                                else{ ?>
+                                                               
                                                                 <a href="?action=registrarApliPruebas" class="btn btn-danger">  Regresar</a>
-                                                                <?php } ?>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <?php if(isset($siguiente) &&$siguiente=='1'){ ?><button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Registrar</button><?php } ?>
+                                                                
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <?php if(isset($registro) &&$registro=='1'){ ?>
                                                                 <input type="hidden" name="limpiar" value="1">
-                                                                <button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Siguiente atleta</button><?php } ?>
+                                                                <button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Siguiente atleta</button><?php } else { ?>
+                                                                <button name="submit" value="registrarApliPrueba" type="submit" class="btn btn-primary">Registrar</button><?php } ?>
                                                             </div>
                                                         </div>
 
-                                                    <?php } ?>
-                                                </div>
                                             </div> 
                                             <div class="col-md-6">
                                                 <div class="form-group">

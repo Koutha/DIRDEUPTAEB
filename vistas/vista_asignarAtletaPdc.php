@@ -1,8 +1,6 @@
 <?php
 require('core/sist-header.php');
-var_dump($atletas);
 ?>
-
 <body>
     <div id="wrapper">
         <!--Barras de navegacion-->
@@ -10,7 +8,6 @@ var_dump($atletas);
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Form Elements -->  
@@ -60,16 +57,13 @@ var_dump($atletas);
                                         </div>
                                     </div> 
                                     <div class="row">
-
                                         <div class="col-sm-4">
                                             <label  class="control-label label-default">Fecha de inicio: <?php $fi= new DateTime($pdc['fecha_inicio']);
                                             echo $fi->format('Y-m-d h:i A'); ?></label>
-
                                         </div>
                                         <div class="col-sm-4">
                                             <label  class="control-label label-default">Fecha de Finalizacion: <?php $ff= new DateTime($pdc['fecha_fin']);
                                             echo $ff->format('Y-m-d h:i A'); ?></label>
-                                            
                                         </div>
                                     </div>
                                     <h5><strong>Aspectos a trabajar del Programa</strong></h5>
@@ -145,11 +139,12 @@ var_dump($atletas);
                                 <div class="form-group">
                                     <?php if(!empty($atletas) && $atletas!=1){?>
                                         <input type="hidden" name="registrarAtletasPdc">
-                                        <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-primary">Asignar Atletas + </button>
+                                        <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-success">Asignar Atletas + </button>
+                                        <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc&id=".$pdc['nombre_pdc']; ?>">Volver</a>
                                     <?php }else if(isset($atletas) && $atletas==1){  ?>
-                                        <label>Ya estan registrados todos los atletas para esta planificacion</label>
+                                        <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc&id=".$pdc['nombre_pdc']; ?>">Volver</a>
                                     <?php }else if (isset($atletas) && $atletas==0) { ?>
-                                        <label>No hay Atletas registrados en esta disciplina</label>
+                                        <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc&id=".$pdc['nombre_pdc']; ?>">Volver</a>
                                     <?php  } ?>
                                 </div>
                         </form><!-- End Form Elements -->

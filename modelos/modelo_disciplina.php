@@ -131,6 +131,20 @@
             return 0;
         }   
     }
+    public function consultarTodosad(){
+        $sql= 'SELECT * FROM "T_atleta_disciplina" ';
+        $query = $this->db()->query($sql);
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+            $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+
+    }
      public function borrarDisciplina(){
             try {
             $sql= 'UPDATE "T_disciplina" SET status = 0 WHERE id_disciplina=?';

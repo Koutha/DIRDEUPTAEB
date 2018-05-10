@@ -22,6 +22,12 @@ require('core/sist-header.php');
                         <strong>Eliminacion exitosa!</strong> El usuario se ha eliminado correctamente.
                     </div>
                 <?php } ?>
+                <?php if (isset($activado)&&$activado==1) {?>
+                    <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>El usuario a siado activado exitosamente</strong>
+                    </div>
+                <?php } ?>
                 <?php if (isset($actualizo)&&$actualizo==1) {?>
                     <div class="alert alert-info alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -43,6 +49,7 @@ require('core/sist-header.php');
                                                 <th>Nombre</th>
                                                 <th>Correo</th>
                                                 <th>Rol</th>
+                                                <th>Permisos</th>
                                                 <th>Acciones</th>
                                                 <th> </th>
                                             </tr>
@@ -53,7 +60,9 @@ require('core/sist-header.php');
                                                 <td><?php echo $au['nombre_usuario']; ?></td>
                                                 <td><?php echo $au['correo']; ?></td>
                                                 <td><?php echo $au['rol']; ?></td>
-                                                <td class="center">
+                                                <td><input  type="radio" name="optradio" value="<?php echo $valu;?>" >Ver Permisos<div class="form-group-text" id="<?php echo $valu;?>" style="display: none;">
+                                                    <?php foreach ($todos as $key){if (($key['id_usuario'])==($au['id_usuario'])) {echo "*".$key['permisos'],"<br/>";}} ?></div></td>
+                                                <td class="center"> <?php $valu=$valu+1 ?>
                                                 <?php $uid= $au['id_usuario']; ?>
                                                     <!-- Boton para activar el modal MODIFICAR -->
                                                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificarUser&id=".$uid; ?>">Modificar</button>
@@ -122,7 +131,7 @@ require('core/sist-header.php');
     <!-- SCRIPT PARA LA TABLA-->
         <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
     <!-- METISMENU SCRIPTS -->
@@ -130,9 +139,19 @@ require('core/sist-header.php');
      <!-- DATA TABLE SCRIPTS -->
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="assets/js/custom.js"></script>
     <!-- MORRIS CHART SCRIPTS -->
     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="assets/js/morris/morris.js"></script>
+    <!--DEBE IR AL FINAL-->
+    <!-- CUSTOM SCRIPTS -->
+         <!-- script para validaciones -->
+     <script type="text/javascript" src="assets/js/valida.js"></script>
+   
+    
+    <script src="assets/js/stepform.js" type="text/javascript"></script>
+    <script src="assets/js/img-preview.js" type='text/javascript'></script>
     <script>
         $(document).ready(function () {
             $('#dataTables-example').dataTable();

@@ -10,10 +10,14 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Consulta de pruebas</h2>
-                        <ul class="nav nav-tabs">
+                        <h3 class="row text-center ">Detalle de las pruebas de </h3>
+                        <h2 class="row text-center "><strong><?php echo $todosa['nombres']." ".$todosa['apellidos'];?></strong></h2>
+                        <ul class="nav nav-tabs" style="float: right;">
                     <li style="float: right;">
                          <a class="btn btn-infoda" href="?action=registrarApliPruebas">Registrar</a>
+                    </li>
+                    <li >
+                         <a class="btn btn-danger" href="?action=consultarApliPruebas">Regresar</a>
                     </li>
                 </ul>
 
@@ -21,12 +25,12 @@ require('core/sist-header.php');
                 </div>
                 <!-- /. ROW  -->
                
-                <?php if (isset($actualizo)&&$actualizo==1) {?>
-                    <div class="alert alert-info alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <strong>Usuario Actualizado!</strong> Los datos del usuario han sido modificados exitosamente.
-                    </div>
-                <?php } ?>
+                <?php if (isset($_SESSION['modifico']) && $_SESSION['modifico'] == 1) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Modificada!</strong>  se ha modificado Exitosamente.
+                            </div>
+                        <?php unset($_SESSION['modifico']); } ?>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
@@ -42,15 +46,14 @@ require('core/sist-header.php');
                                             <tr>
                                                 <th>Fecha</th>
                                                 <th>Resultado de <br/>la prueba</th>
-                                                <th>Cedula</th>
                                                 <th>prueba</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                       <tbody> <?php foreach ($todosp as $aud){$condicion=$aud['condicion']; $rango1=$aud['rango1'];$rango2=$aud['rango2'];$rango3=$aud['rango3'];$rango4=$aud['rango4'];
-                                                  } ?>
-                                        <?php foreach ($todos as $au){ ?>
-                                            <tr class="odd gradeX">
+                                       <tbody> 
+                                        <?php foreach ($todos as $au){if(($cedula_atleta)==($au['cedula_atleta'])){ ?>
+                                            <tr class="odd gradeX"><?php foreach ($todosp as $aud){if(($au['id_prueba'])==($aud['id_prueba'])){$condicion=$aud['condicion']; $rango1=$aud['rango1'];$rango2=$aud['rango2'];$rango3=$aud['rango3'];$rango4=$aud['rango4'];
+                                                  }} ?>
                                                 <td><?php echo $au['fecha'] ?></td>
                                                 <td><?php if ($condicion=='1') {
                                                  if ($au['medicion']<=$rango1) { echo $au['medicion']." el  resultado es deficiente";
@@ -69,9 +72,8 @@ require('core/sist-header.php');
                                                 }
                                                 else { echo $au['medicion']." el  resultado es exelente";
                                                 }}?></td>
-                                                <td><?php foreach ($todosa as $aua){if ($aua['cedula_atleta']==$au['cedula_atleta']){echo $aua['nombres']." ".$au['cedula_atleta']; }}?></td>
-                                                <td><?php foreach ($todosp as $aud) if ($au['id_prueba']==$aud['id_prueba']) {
-                                                {echo $aud['nombre'];}}?></td>
+                                                <td><?php foreach ($todosp as $aud){ if ($au['id_prueba']==$aud['id_prueba']) {
+                                                echo $aud['nombre'];}}?></td>
 
                                                 <td class="center">
                                                     <?php $uid= $au['id_ap'];?>
@@ -80,7 +82,7 @@ require('core/sist-header.php');
                                                 </td>
                                                 
                                             </tr>
-                                            <?php } ?>
+                                            <?php }} ?>
                                             <!-- contenido del Modal MODIFICAR -->
                                                           <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
                                                             <div class="modal-dialog modal-sm" role="document">
@@ -101,7 +103,7 @@ require('core/sist-header.php');
                                                             </div>
                                                         </div>
                                                 <!-- /contenido del Modal -->
-                                             
+                                                    
                                         </tbody>
                                     </table>
                                 </div>

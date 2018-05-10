@@ -65,9 +65,12 @@ require('core/sist-header.php');
                                                                                           
                                         <div class="form-group">
                                                 <label>Cedula del atleta</label>
-                                                <input class="form-control" name="cedula_atleta" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {
+                                                <input type="hidden" name="cedula_atleta" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {$cedula_atleta=$au['cedula_atleta'];
                                                     print_r($au['cedula_atleta']);
-                                                } }?>" placeholder="cedula del atleta" required/>
+                                                } }?>">
+                                                <input class="form-control" name="cedula_atleta" value="<?php foreach ($todos as $au){ if ($au['id_ap']==$id_ap) {$cedula_atleta=$au['cedula_atleta'];
+                                                    print_r($au['cedula_atleta']);
+                                                } }?>" placeholder="cedula del atleta" disabled/>
                                             </div>
                                             
                                         
@@ -108,7 +111,7 @@ require('core/sist-header.php');
                                 <div class="form-group">
                                     <input type="hidden" name="id_ap" value="<?php echo $id_ap; ?>">
                                     <div class="col-md-3">
-                                        <a href="?action=consultarApliPruebas" class="btn btn-danger">  Regresar</a>
+                                        <a href="<?php echo "?action=consultarApliPruebas&cedula_atleta=".$cedula_atleta; ?>" class="btn btn-danger">  Regresar</a>
                                     </div>
                                     <div class="col-md-3">
                                     <button name="submit" value="modificarApliPruebas" type="submit" class="btn btn-primary">Actualizar Datos</button>

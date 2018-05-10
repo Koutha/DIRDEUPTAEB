@@ -78,6 +78,7 @@ JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc
 WHERE tpdc.id_pdc=17)as arg
 ON arg.cedula_atleta=tbla.cedula_atleta
 WHERE tbla.id_disciplina=16';
+
 //join para lista atletas exceptuando a los que ya estan registrados en la ejecucion
 $sql4= 'SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
 FROM "T_atleta" ta 

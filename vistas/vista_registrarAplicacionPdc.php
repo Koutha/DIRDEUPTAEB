@@ -20,8 +20,10 @@ require('core/sist-header.php');
                         <!--/ alerta de registro-->
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-default">
+                            <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc"; ?>" style="float: right;">Volver</a>
                             <div class="panel-heading" style="color: #fcfcfc;">
                                 <center>Calendario de planificaciones</center>
+
                             </div>
                             <div class="panel-body">
                                 <div id='calendar'></div> <!--Calendario-->
@@ -34,12 +36,10 @@ require('core/sist-header.php');
                                                 <div class="informacion"> <!-- Seccion Informacion -->
                                                     <div class="modal-header">
                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                        <h4 class="modal-title text-center">Datos de la sesion de entrenamiento</h4>
+                                                        <h4 class="modal-title text-center">Datos del Programa de entrenamiento</h4>
                                                     </div>
                                                     <div class="modal-body">
                                                         <dl class="dl-horizontal">
-                                                            <dt>ID</dt>
-                                                            <dd id="id"></dd>
                                                             <dt>Nombre</dt>
                                                             <dd id="title"></dd>
                                                             <dt>Descripcion</dt>
@@ -57,7 +57,10 @@ require('core/sist-header.php');
                                                     <input type="hidden" name="nombre_pdc" id="nombre_pdc" value="">
                                                     <div class="modal-footer">
                                                         <button type="submit" name="submit" value="asignarAtletaPdc" class="btn btn-warning"  >Asignar Atletas + </button>
-                                                        <!--<button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button> -->
+                                                        <?php if (isset($asigDias)) { ?>
+                                                            <a class="btn btn-warning" href="<?php echo "?action=registrarAplicacionDiaPdc&id=".$pdc['id_pdc']; ?>">Planificar Dias </a>
+                                                       <?php } ?>
+                                                        <!-- boton para desplazar el modal y abrir la seccion asignarAtletas<button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button> -->
                                                         <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
                                                     </div>
                                                 </div><!--/. End Seccion Informacion -->

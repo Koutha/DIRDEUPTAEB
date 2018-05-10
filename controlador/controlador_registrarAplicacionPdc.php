@@ -17,7 +17,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         if (isset($_GET['id'])) {
             $id=$_GET['id'];
             $pdc=$Opdc->consultarDatos($id);
-            //$pdc=$Opdc->consultarAplicacion();
+            if ($Opdc->consultarADP2($pdc['id_pdc'],$pdc['id_disciplina'])) {
+                $asigDias=1;
+            }
             require('vistas/vista_registrarAplicacionPdc.php');
         }else{
             $pdc=$Opdc->consultarTodos();
