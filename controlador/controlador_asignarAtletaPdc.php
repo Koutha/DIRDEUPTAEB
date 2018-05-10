@@ -17,7 +17,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $nombre_pdc=$_POST['nombre_pdc'];
         $pdc=$Opdc->consultarDatos($nombre_pdc);
         if (isset($_POST['registrarAtletasPdc'])) { //input hidden que se envia al hace submit
-            echo 'hola';
             $fecha_inicio= $pdc['fecha_inicio'];
             $fecha_fin= $pdc['fecha_fin'];
             $id_pdc=$pdc['id_pdc'];
@@ -33,7 +32,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 }
             }
             $_SESSION['registro']= 1;
-            echo 'registre';
             header('Location:?action=registrarAplicacionDiaPdc&id='.$id_pdc);
         }else{ //primera entrada desde seleccion en calendario que muestra el programa
             

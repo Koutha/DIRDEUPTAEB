@@ -18,7 +18,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $end= new DateTime($pdc['fecha_dia']);
         $end->add(new DateInterval('PT16H')); //16 horas agregadas a la fecha de inicio
         $fin = (string)$end->format('Y-m-d h:i A');
-        require('vistas/vista_asignarAtletaPdc.php');
+        $atletas = $Opdc->consultarADP2($pdc['id_pdc'],$pdc['id_disciplina']); //registrados en la planificacion
+        require('vistas/vista_asignarDiaPdc.php');
 
     }
     

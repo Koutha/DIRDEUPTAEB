@@ -20,6 +20,7 @@ require('core/sist-header.php');
                         <!--/ alerta de registro-->
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-default">
+                            <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc"; ?>" style="float: right;">Volver</a>
                             <div class="panel-heading" style="color: #fcfcfc;">
                                 <center>Calendario de planificaciones</center>
                             </div>
@@ -56,7 +57,7 @@ require('core/sist-header.php');
                                                     </div>
                                                     <input type="hidden" name="id_dp" id="id_dp" value="">
                                                     <div class="modal-footer">
-                                                        <button type="submit" name="submit" value="asignarAtletaPdc" class="btn btn-warning"  >Asignar Atletas + </button>
+                                                        <button type="submit" name="submit" value="asignarDiaPdc" class="btn btn-warning"  >Planificar día </button>
                                                         <!--<button type="button" class="btn goToAsignar btn-warning"  >Asignar Atletas + </button> -->
                                                         <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
                                                     </div>

@@ -1,6 +1,8 @@
 <?php
 require('core/sist-header.php');
 var_dump($pdc);
+echo '<br>';
+var_dump($atletas);
 ?>
 
 <body>
@@ -147,35 +149,35 @@ var_dump($pdc);
                                                 <div class="col-md-4" >
                                                     <div class="form-group">
                                                         <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="tecnica_dia" required>Técnica</label>
+                                                            <label><input class="checkbox" type="checkbox" name="tecnica_dia" value="1"  required>Técnica</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" >
                                                     <div class="form-group">
                                                         <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="tactica_dia" required>Táctica</label>
+                                                            <label><input class="checkbox" type="checkbox" name="tactica_dia" value="1" required>Táctica</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" >
                                                     <div class="form-group">
                                                         <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="fisico_dia" required>Físico</label>
+                                                            <label><input class="checkbox" type="checkbox" name="fisico_dia" value="1" required>Físico</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" >
                                                     <div class="form-group">
                                                         <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="psicologico_dia" required>Psicológico</label>
+                                                            <label><input class="checkbox" type="checkbox" name="psicologico_dia" value="1" required>Psicológico</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4" >
                                                     <div class="form-group">
                                                         <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="velocidad_dia" required>Velocidad</label>
+                                                            <label><input class="checkbox" type="checkbox" name="velocidad_dia" value="1" required>Velocidad</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,29 +185,45 @@ var_dump($pdc);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="panel panel-default">
+                             
+                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h5><strong>Atletas de la sesión</strong></h5>
+                                        <h5><strong>Atletas registrados en la planificacion</strong></h5>
                                     </div>
                                     <div class="panel-body">
-                                        <label>Aspectos a trabajar en la sesión</label>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="checkbox-group form-group">
-                                                    <div class="checkbox form-control">
-                                                        <label><input type="checkbox" id="select_all"/> Seleccionar todos</label>
-                                                    </div>             
-                                                    <div class="checkbox form-control">
-                                                        <label><input class="checkbox" type="checkbox" name="check[]"> This is Item 1</label>
-                                                    </div>
-                                                                    
-                                                </div>
+                                                <?php if(!empty($atletas) && $atletas!=1){?>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Cedula</th>
+                                                                    <th>Nombres</th>
+                                                                    <th>Apellidos</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <?php foreach ($atletas as $key) { ?>
+                                                                <tr class="odd gradeX">
+                                                                    <td><?php echo $key['cedula_atleta'];?></td>
+                                                                    <td><?php echo $key['nombres'];?></td>
+                                                                    <td><?php echo $key['apellidos'];?></td>
+                                                                </tr>
+                                                            <?php } ?>  
+                                                            </tbody>
+                                                        </table>
+                                                    </div>           
+                                               <?php } ?>
                                             </div> <!--/ col-md-12 -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <button name="submit" value="asignarAtletaPdc" type="submit" class="btn btn-primary">Registrar</button>
+                                    <input type="hidden" name="id_dp" value="<?php echo $pdc['id_dp']?>"/>
+                                    <button name="submit" value="asignarDiaPdc" type="submit" class="btn btn-success">Registrar</button>
+                                    <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionDiaPdc&id="
+                                    .$pdc['id_pdc']; ?>">Volver</a>
                                 </div>
                         </form><!-- End Form Elements -->
                     </div><!-- /. <div class="col-md-12">  -->
@@ -219,6 +237,9 @@ var_dump($pdc);
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
+        <!-- DATA TABLE SCRIPTS -->
+    <script src="assets/js/dataTables/jquery.dataTables.js"></script>
+    <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
     <!-- CUSTOM SCRIPTS -->
@@ -232,23 +253,24 @@ var_dump($pdc);
     <script src="assets/js/bootstrap-datetimepicker.min.js" type="text/javascript" ></script>
     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
-    <!-- script para validaciones -->
-    <script type="text/javascript" src="assets/js/valida.js"></script>
-   <!-- previsualizacion de imagenes -->
-    <script src="assets/js/img-preview.js" type='text/javascript'></script>
+
     
     <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker({
-                    useCurrent: false,
-                    format: 'YYYY-MM-DD h:mm A'
-                });
-                $('#datetimepicker2').datetimepicker({
-                    useCurrent: false,
-                    format: 'YYYY-MM-DD h:mm A'
-                });
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
             });
-        </script>
+            $('#datetimepicker2').datetimepicker({
+                useCurrent: false,
+                format: 'YYYY-MM-DD h:mm A'
+            });
+        });
+    </script>
 
 </body>
 </html>
