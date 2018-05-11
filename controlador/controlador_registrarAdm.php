@@ -10,7 +10,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     	exit;	
     }
     else if(isset($_POST['submit']) && $_POST['submit']=='registrarAdm'){
-            if (isset ($_POST['pass'])&& $_POST['pass']!=$_POST['rpass']){
+            if (isset ($_POST['pass']) && $_POST['pass']!=$_POST['rpass']){
                 //verificamos si las contraseñas coinciden
                 $pass=0;
                 require('vistas/vista_registrarAdm.php'); 
@@ -25,18 +25,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     $existe= 1;
                     require('vistas/vista_registrarAdm.php');
                 }
-                elseif ((isset($_POST['cedula']))&&($_POST['cedula']>0)) {
+                    
+                else{$parar=0;
+                    if ((isset($_POST['cedula'])) && ($_POST['cedula']>0)) {
                     if ($Opersonal->consultarDatos($_POST['cedula'])) {
                         if ($usuario->getbycedula($_POST['cedula'])) {
-                        $existe= 2;
+                        $existe= 2; $parar=1;
                         require('vistas/vista_registrarAdm.php');
                     }}
                     else{
-                        $existe= 0;     
+                        $existe= 0; $parar=1;    
                     require('vistas/vista_registrarAdm.php');}
-                    }
-                    
-                else{
+                    }if ($existe==0){
                     $hash=password_hash($_POST['pass'],PASSWORD_DEFAULT);
                     $usuario->ingresarUsuario($_POST['username'], $hash, $_POST['email'], $_POST['cedula']);
                     $userid=$usuario->getbyuser($_POST['username']);
@@ -51,8 +51,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     
                     $registro = 1;     
                     require('vistas/vista_registrarAdm.php');
-                }
-            } 
+                }}
+            }
     }
     else if(isset($_SESSION['rol']) && $_SESSION['rol'] == 1) {
     	require('vistas/vista_registrarAdm.php');

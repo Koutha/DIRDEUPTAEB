@@ -82,30 +82,19 @@ require('core/sist-header.php');
                                             <div class="panel-heading checkbox-group">Funciones / Responsabilidad</div>
                                                         <div class="panel-body">
                                                         <label><input type="radio" name="optradio" value="1" checked>Control total</label>
-                                                        <label><input type="radio" data-toggle="modal" data-target="#myModal2" name="optradio" value="2">Secretaria</label>
+                                                        <label><input type="radio" name="optradio" value="2">Secretaria</label>
                                                         <label><input type="radio" name="optradio" value="3">Entrenador</label>
                                                    
-                                                        <div class="form-group-text" id="2" style="display: none;">
+                                                        <div class="" id="2" style="display: none;">
                                                             <h4>Seleccione los modulos de acceso para el usuario:</h4>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar personal capacitado" >Registrar Personal Capacitado</label>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Personal Capacitado" >Modificar Personal Capacitado</label>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Personal Capacitado" >Eliminar Personal Capacitado</label>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Atleta" >Registrar Atleta</label>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Atleta" >Modificar Atleta</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Atleta" >Modificar Atleta</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Test" >Registrar Test</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Test" >Modificar Test</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Test" >Eliminar Test</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de Pruebas" >Registrar Aplicación de Pruebas</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de Pruebas" >Modificar Aplicación de Pruebas</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Reporte de la Aplicación de las Pruebas" >Reporte de la Aplicación de las Pruebas</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar PDC" >Registrar PDC</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar PDC" >Modificar PDC</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar PDC" >Eliminar PDC</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de PDC" >Registrar Aplicación de PDC</label>
-                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de PDC" >Modificar Aplicación de PDC</label>
+                                                            <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Eliminar Atleta" >Eliminar Atleta</label>
                                                         </div>
-                                                        <div class="form-group-text" id="3" style="display: none;">
+                                                        <div class="" id="3" style="display: none;">
                                                             <h4>Seleccione los modulos de acceso para el entrenador:</h4>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Registrar Aplicación de Pruebas" >Registrar Aplicación de Pruebas</label>
                                                             <label class="col-md-4 breadcrumb"><input  type="checkbox" name="permisos[]" value="Modificar Aplicación de Pruebas" >Modificar Aplicación de Pruebas</label>

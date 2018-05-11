@@ -22,8 +22,15 @@
     <link href='assets/css/fullcalendar.min.css' rel='stylesheet' />
     <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />  
+    <style type="text/css" media="print">
+        .container{
+            display: :none;
+        }
+        
+    </style>
 </head>
 <body>
+    <a onclick="javascript:window.print()" href="">imprimir</a>
 <form action="" method="post" enctype="multipart/form-data">
 
 <div class="container">
