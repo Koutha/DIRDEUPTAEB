@@ -1,8 +1,5 @@
 <?php
 require('core/sist-header.php');
-var_dump($pdc);
-echo '<br>';
-var_dump($atletas);
 ?>
 
 <body>
@@ -221,7 +218,8 @@ var_dump($atletas);
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="id_dp" value="<?php echo $pdc['id_dp']?>"/>
-                                    <button name="submit" value="asignarDiaPdc" type="submit" class="btn btn-success">Registrar</button>
+                                    <input type="hidden" name="registrarDiasPdc">
+                                    <button name="submit" value="asignarDiaPdc" type="submit" class="btn btn-warning">Planificar Dia</button>
                                     <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionDiaPdc&id="
                                     .$pdc['id_pdc']; ?>">Volver</a>
                                 </div>

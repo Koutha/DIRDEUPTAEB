@@ -156,10 +156,14 @@
                                             <a href="?action=registrarAplicacionPdc">Registrar</a>
                                         </li>
                                         <li>
-                                            <a href="#">Consultar</a>
+                                            <a href="#">Consultar<span class="fa arrow"></span></a>
+                                            <ul class="nav nav-third-level">
+                                                <li><a href="?action=consultarAplicacionPdc">Por programa</a></li>
+                                                <li><a href="?action=consultarAplicacionPdc&at">Por atleta</a></li>
+                                            </ul>
                                         </li>
                                         <li>
-                                            <a href="#">Resultados / Reportes </a>
+                                            <a href="?action=generarReportesPdc">Resultados / Reportes </a>
                                         </li>
                                     </ul>
                             </li>

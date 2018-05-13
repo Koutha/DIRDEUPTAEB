@@ -16,9 +16,17 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $disciplinas=$Odisciplina->consultarTodos();
         if (isset($_GET['id'])) {
             $id=$_GET['id'];
-            $pdc=$Opdc->consultarAplicacionDiaTodos($id);
-            //$pdc=$Opdc->consultarAplicacion();
+            $pdc=$Opdc->consultarAplicacionDiaTodosNoAsignados($id);
+            if ($pdc==0) { //ya estan asignados todos los dias
+                $_SESSION['msg']=1;
+                $pdc_tmp=$Opdc->consultarAplicacionDiaTodos($id);
+                $nombre= $pdc_tmp[0]['nombre_pdc'];
+                //var_dump($pdc_tmp);
+                header('Location:?action=registrarAplicacionPdc&id='.$nombre);
+            }else{ //hay dias sin asignar todavia
+            
             require('vistas/vista_registrarAplicacionDiaPdc.php');
+            }
         }else{
             $pdc=$Opdc->consultarTodos();
             require('vistas/vista_registrarAplicacionTodosPdc.php');

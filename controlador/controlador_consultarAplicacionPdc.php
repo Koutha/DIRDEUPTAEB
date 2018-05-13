@@ -10,21 +10,24 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         exit;   
     }else {
         include_once('modelos/modelo_pdc.php');
+        include_once('modelos/modelo_atleta.php');
         include_once('modelos/modelo_disciplina.php');
         $Opdc= new Cpdc();
+        $Oatleta= new Catleta();
         $Odisciplina= new Cdisciplina();
         $disciplinas=$Odisciplina->consultarTodos();
-        if (isset($_GET['id'])) {
-            $id=$_GET['id'];
-            $pdc=$Opdc->consultarDatos($id);
-            if ($Opdc->consultarADP2($pdc['id_pdc'],$pdc['id_disciplina'])) { //si hay atletas en el programa
-                $asigDias=1;
+        $pdc=$Opdc->consultarTodos();
+        if (isset($_GET['at'])) { //entra a la consultar por alteta
+            
+            $todos=$Oatleta->consultarTodos(); 
+            require('vistas/vista_consultarAplicacionPdcAtletas.php');
+        }else if (isset($_GET['programa'])) {
+                echo 'selecione un programa';
+
+            }else{ //primera entrada a la consultar por programa
+                require('vistas/vista_consultarAplicacionPdc.php');
             }
-            require('vistas/vista_registrarAplicacionPdc.php');
-        }else{
-            $pdc=$Opdc->consultarTodos();
-            require('vistas/vista_registrarAplicacionTodosPdc.php');
-        }
+        
     }
 } 
 else{

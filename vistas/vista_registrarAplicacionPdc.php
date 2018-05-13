@@ -18,6 +18,14 @@ require('core/sist-header.php');
                             </div>
                         <?php unset($_SESSION['registro']); } ?>
                         <!--/ alerta de registro-->
+                        <!--alerta de registro-->
+                    <?php if (isset($_SESSION['msg']) && $_SESSION['msg'] == 1) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>Completado!</strong>  Todos los dias de esta planificacion ya estan asignados.
+                            </div>
+                        <?php unset($_SESSION['msg']); } ?>
+                        <!--/ alerta de registro-->
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-default">
                             <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc"; ?>" style="float: right;">Volver</a>

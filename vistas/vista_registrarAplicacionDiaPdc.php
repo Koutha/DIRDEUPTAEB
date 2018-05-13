@@ -18,6 +18,7 @@ require('core/sist-header.php');
                             </div>
                         <?php unset($_SESSION['registro']); } ?>
                         <!--/ alerta de registro-->
+                        
                     <div class="col-sm-12 col-md-12 col-lg-12">
                         <div class="panel panel-default">
                             <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionPdc"; ?>" style="float: right;">Volver</a>

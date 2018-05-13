@@ -20,7 +20,7 @@ if ($result>0) {
         $_SESSION['username'] = $username;
         $_SESSION['rol'] = $userRol['id_rol'];
         $_SESSION['start'] = time();
-        $_SESSION['expire'] = $_SESSION['start'] + (60*60);
+        $_SESSION['expire'] = $_SESSION['start'] + (60*90);
         foreach ($permisos as $key => $value) {if($value['id_usuario']==$result['id_usuario']){$userpermisos[]=$value['permisos'];}
         }if (isset($userpermisos)) {
             $_SESSION['permisos'] = $userpermisos;
