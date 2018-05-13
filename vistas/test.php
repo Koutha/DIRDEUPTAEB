@@ -31,6 +31,19 @@
 </head>
 <body>
     <a onclick="javascript:window.print()" href="">imprimir</a>
+
+<!--  EJEMPLO IMPRIMIR PDF SENCILLO
+<style media="print">
+        #sidebar, .header, .site-footer, .invoice-btn, #titulo {
+            display: none;
+        }
+        #contenido_DIV {
+            display:block;
+        }
+    </style>
+
+<a onclick="javascript:javascript:window.print();" >Print</a>
+-->    
 <form action="" method="post" enctype="multipart/form-data">
 
 <div class="container">
