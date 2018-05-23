@@ -8,8 +8,16 @@ require('core/sist-header.php');
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                
                 <div class="row">
+                    <div class="col-md-12">
+                        <h2>Programas directos de competencia</h2>
+                        <h5>Donde se establece la estructura del programa de entrenamiento con miras a la obtención de logros deportivos en corto tiempo. </h5>   
+                        
+                    </div>
+                </div>
+                <hr /><!-- /. ROW  -->
+                <div class="row">
+
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">

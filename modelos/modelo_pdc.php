@@ -301,7 +301,7 @@ class Cpdc extends modelobase {
         
     }
 
-    public function consultarAplicacionDiaTodosAsignados($id_pdc){ /*consulta todos los dias de una plafinicacion no asignados */ 
+    public function consultarAplicacionDiaTodosAsignados($id_pdc){ /*consulta todos los dias de una plafinicacion asignados */ 
         $sql= 'SELECT   id_dp, fecha as fecha_dia, tdp.tecnica as tecnica_dia,
                         tdp.tactica as tactica_dia, tdp.fisico as fisico_dia,
                         tdp.velocidad as velocidad_dia, tdp.psicologico as psicologico_dia,

@@ -18,16 +18,56 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $disciplinas=$Odisciplina->consultarTodos();
         $pdc=$Opdc->consultarTodos();
         if (isset($_GET['at'])) { //entra a la consultar por alteta
-            
-            $todos=$Oatleta->consultarTodos(); 
-            require('vistas/vista_consultarAplicacionPdcAtletas.php');
-        }else if (isset($_GET['programa'])) {
-                echo 'selecione un programa';
-
-            }else{ //primera entrada a la consultar por programa
+            if (isset($_GET['atleta'])) { //selecciono un atleta
+                $atleta=$_GET['atleta'];
+                $atleta = $Oatleta->consultarDatos($atleta);
+                $atletaDisciplinas=$Odisciplina->getDisciplinasPorAtleta($atleta['cedula_atleta']);
+                switch ($atleta['id_pnf']) {
+                    case '1':
+                        $pnf=' Administracion';
+                        break;
+                    case '2':
+                        $pnf=' Ciencias de la Información';
+                        break;
+                    case '3':
+                        $pnf=' Contaduría Publica';
+                        break;
+                    case '4':
+                        $pnf=' Turismo';
+                        break;
+                    case '5':
+                        $pnf=' Agroalimentación';
+                        break;
+                    case '6':
+                        $pnf=' Higiene y seguridad laboral';
+                        break;
+                    case '7':
+                        $pnf=' Informática';
+                        break;
+                    case '8':
+                        $pnf=' Sistemas de calidad y ambiente';
+                        break;
+                    case '9':
+                        $pnf=' Deportes';
+                        break;
+                }
+                require('vistas/vista_consultarAplicacionPdcAtleta.php');
+            } else{ //primera entrada a la consultar por atleta - no se han seleccionado atletas
+                $todos=$Oatleta->consultarTodos(); 
+                require('vistas/vista_consultarAplicacionPdcAtletasTodos.php');
+                }
+        }else if (isset($_GET['programa'])) { // selecciono un programa
+                $pdc= $Opdc->consultarDatos($_GET['programa']);
+                $id_pdc=$pdc['id_pdc'];
+                if ($Opdc->consultarADP2($pdc['id_pdc'],$pdc['id_disciplina'])) {
+                    $atletas = $Opdc->consultarADP2($pdc['id_pdc'],$pdc['id_disciplina']); //registrados en la planificacion
+                } else{
+                        $atletas = 0; //No hay Atletas para la disciplina a la que pertenece el pdc
+                    }
+                require('vistas/vista_consultarAplicacionPdcUnico.php');
+            }else{ //primera entrada desde el menu para mostrar todos los programas
                 require('vistas/vista_consultarAplicacionPdc.php');
             }
-        
     }
 } 
 else{

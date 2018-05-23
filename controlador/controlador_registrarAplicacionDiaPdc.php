@@ -24,8 +24,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 //var_dump($pdc_tmp);
                 header('Location:?action=registrarAplicacionPdc&id='.$nombre);
             }else{ //hay dias sin asignar todavia
-            
-            require('vistas/vista_registrarAplicacionDiaPdc.php');
+                require('vistas/vista_registrarAplicacionDiaPdc.php');
             }
         }else{
             $pdc=$Opdc->consultarTodos();

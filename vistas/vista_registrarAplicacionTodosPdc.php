@@ -8,7 +8,14 @@ require('core/sist-header.php');
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Aplicacion de Programas directos de competencia</h2>
+                        <h5>Donde se asignan los atletas y se planifican los dias a trabajar</h5>   
+                        
+                    </div>
+                </div>
+                <hr /><!-- /. ROW  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->

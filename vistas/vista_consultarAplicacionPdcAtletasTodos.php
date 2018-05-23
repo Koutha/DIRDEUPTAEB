@@ -10,18 +10,19 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Nomina Abierta</h2>   
-                        <h5> Atletas inscritos</h5>
+                        <h2>Consultando la aplicacion de programas directos de competencia</h2>
+                        <h5>Donde se visualizan los detalles de las planificaciones aplicadas</h5>   
+                        
                     </div>
                 </div>
-                <!-- /. ROW  -->
+                <hr /><!-- /. ROW  -->
                 <hr />
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
                         <div class="panel panel-default">
                             <div class="panel-heading" style="color: #fcfcfc;">
-                                Registros de la base de datos
+                                Atletas registrados
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
@@ -52,11 +53,10 @@ require('core/sist-header.php');
                                                 </td>
                                                 <td class="center">
                                                 <?php $uid= $au['cedula_atleta']; ?>
-                                                    <a class="btn btn-warning" href="<?php echo "?action=consultarAplicacionPdcAtletaDetalles&id=".$uid; ?>">Ver Programas</a>
+                                                    <a class="btn btn-warning" href="<?php echo "?action=consultarAplicacionPdc&at&atleta=".$uid; ?>">Ver Programas</a>
                                                 </td>
                                             </tr>
                                             <?php }} ?>
-
                                         </tbody>
                                     </table>
                                 </div>

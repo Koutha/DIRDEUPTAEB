@@ -8,7 +8,14 @@ require('core/sist-header.php');
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Consultar la aplicacion de programas directos de competencia</h2>
+                        <h5>Donde se visualizan los detalles de las planificaciones aplicadas</h5>   
+                        
+                    </div>
+                </div>
+                <hr /><!-- /. ROW  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
@@ -44,46 +51,7 @@ require('core/sist-header.php');
                                                 </td>
                                             </tr>
                                             <?php } ?>
-                                            <!-- /contenido del Modal -->
-                                            <!-- contenido del Modal MODIFICAR -->
-                                                          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal">
-                                                            <div class="modal-dialog modal-sm" role="document">
-                                                              <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-                                                                    <h4 class="modal-title">Confirmación</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar al usuario?</p>
-                                                                    
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <a class="btn btn-warning" href="">Modificar</a>
-                                                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </div>
-                                                
-                                             <!-- contenido del Modal ELIMINAR -->
-                                                          <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2">
-                                                            <div class="modal-dialog modal-sm" role="document">
-                                                              <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
-                                                                    <h4 class="modal-title">Confirmación</h4>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres eliminar al usuario?</p>  
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <a class="btn btn-danger" href="">Eliminar</a>
-                                                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
-                                                                </div>
-                                                              </div>
-                                                            </div>
-                                                        </div>
-                                                <!-- /contenido del Modal -->
+                                           
                                         </tbody>
                                     </table>
                                 </div>

@@ -34,19 +34,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $_SESSION['registro']= 1;
             header('Location:?action=registrarAplicacionDiaPdc&id='.$id_pdc);
         }else{ //primera entrada desde seleccion en calendario que muestra el programa
-            
             if ($Opdc->consultarADP1($pdc['id_pdc'],$pdc['id_disciplina'])) {
-                
                 $atletas = $Opdc->consultarADP1($pdc['id_pdc'],$pdc['id_disciplina']); //atletas por disciplina por pdc
             }else if ($Opdc->consultarADP($pdc['id_disciplina'])) {
-                
-                $atletas = 1; //Ya estan registrados todos los atletas
+                    $atletas = 1; //Ya estan registrados todos los atletas
                 }else if ($Opdc->consultarADP($pdc['id_disciplina'])==0){
-                    
-                    $atletas = 0; //No hay Atletas para la disciplina a la que pertenece el pdc
-                }
-            //$atletas = $Opdc->consultarADP1($pdc['id_pdc'],$pdc['id_disciplina']); //atletas por disciplina por pdc
-
+                        $atletas = 0; //No hay Atletas para la disciplina a la que pertenece el pdc
+                    }
             require('vistas/vista_asignarAtletaPdc.php');
         }
     }

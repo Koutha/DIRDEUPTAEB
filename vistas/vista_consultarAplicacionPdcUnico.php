@@ -9,7 +9,14 @@ require('core/sist-header.php');
         <!--/Barras de navegacion-->
         <div id="page-wrapper" >
             <div id="page-inner">
-                
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Consulta la aplicacion de programas directos de competencia</h2>
+                        <h5>Donde se visualizan los detalles de las planificaciones aplicadas</h5>   
+                        
+                    </div>
+                </div>
+                <hr /><!-- /. ROW  -->
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Form Elements -->  
@@ -19,18 +26,17 @@ require('core/sist-header.php');
                                     <h5><strong>Información del Programa</strong></h5>
                                 </div>
                                 <div class="panel-body">
-                                   
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Nombre</label>
-                                                <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : $pdc['nombre_pdc']; ?>" disabled/>
+                                                <input type="text" class="form-control" name="nombre_pdc" placeholder="" value="<?php echo isset($_POST['nombre_pdc']) ? $_POST['nombre_pdc'] : $pdc['nombre_pdc']; ?>" readonly/>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>Descripción</label>
-                                                <textarea name="descripcion" class="form-control" placeholder="" disabled><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : $pdc['descripcion']; ?></textarea>
+                                                <textarea name="descripcion" class="form-control" placeholder="" readonly><?php echo isset($_POST['descripcion']) ? $_POST['descripcion'] : $pdc['descripcion']; ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -38,7 +44,7 @@ require('core/sist-header.php');
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label  class="control-label label-default">Tipo de programa</label>
-                                                <select name="tipo_pdc" class="form-control" disabled>
+                                                <select name="tipo_pdc" class="form-control" readonly>
                                                     <option value="">Seleccione...</option>
                                                     <option value="Preparatorio" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Preparatorio"){echo 'selected';} else if($pdc['tipo_pdc']=='Preparatorio'){echo 'selected';}?>>Preparatorio</option>
                                                     <option value="Pre-Compentencia" <?php if(isset($_POST['tipo_pdc']) && $_POST['tipo_pdc'] == "Pre-Compentencia"){echo 'selected';} else if($pdc['tipo_pdc']=='Pre-Compentencia'){echo 'selected';}?>>Pre-Compentencia</option>
@@ -50,7 +56,7 @@ require('core/sist-header.php');
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label  class="control-label label-default">Disciplina</label>
-                                                <select name="id_disciplina" class="form-control" disabled >
+                                                <select name="id_disciplina" class="form-control" readonly >
                                                     <option value="">Seleccione...</option>
                                                     <?php foreach ($disciplinas as $key => $value) { ?>
                                                         <option value="<?php echo $value['id_disciplina']; ?>" <?php if(isset($_POST['id_disciplina']) && $_POST['id_disciplina'] == $value['id_disciplina']){echo 'selected';} else if($pdc['id_disciplina']==$value['id_disciplina']){echo 'selected';}?>><?php echo $value['nombre']; ?></option>
@@ -98,86 +104,6 @@ require('core/sist-header.php');
                                     </div>   
                                 </div>
                             </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h5><strong>Duración de la sesión</strong></h5>
-                                    </div>
-                                    <div class="panel-body">                                       
-                                        <div class="row" >
-                                            <div class='col-sm-3'>
-                                                <div class="form-group">
-                                                    <label>Inicia</label>
-                                                    <div class='input-group date' >
-                                                        <input type='text' name="fecha_inicio" id='datetimepicker1' class="form-control" value="<?php echo isset($_POST['fecha_inicio']) ? $_POST['fecha_inicio'] : $pdc['fecha_dia']; ?>" disabled />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class='col-sm-3'>
-                                                <div class="form-group">
-                                                    <label>Termina</label>
-                                                    <div class='input-group date' >
-                                                        <input type='text' name="fecha_fin" id='datetimepicker2' class="form-control"  value="<?php echo isset($_POST['fecha_fin']) ? $_POST['fecha_fin'] : $fin; ?>" disabled />
-                                                        <span class="input-group-addon">
-                                                            <span class="glyphicon glyphicon-calendar"></span>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                           
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h5><strong>Características de la sesión</strong></h5>
-                                    </div>
-                                    <div class="panel-body">
-                                        <label>Aspectos a trabajar en la sesión</label>
-                                        <div class="row">
-                                            <div class="checkbox-group form-group">
-                                                <div class="col-md-4" >
-                                                    <div class="form-group">
-                                                        <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="tecnica_dia" value="1"  required>Técnica</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4" >
-                                                    <div class="form-group">
-                                                        <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="tactica_dia" value="1" required>Táctica</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4" >
-                                                    <div class="form-group">
-                                                        <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="fisico_dia" value="1" required>Físico</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4" >
-                                                    <div class="form-group">
-                                                        <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="psicologico_dia" value="1" required>Psicológico</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4" >
-                                                    <div class="form-group">
-                                                        <div class="checkbox form-control">
-                                                            <label><input class="checkbox" type="checkbox" name="velocidad_dia" value="1" required>Velocidad</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                             </div>   
-                                        </div>
-                                    </div>
-                                </div>
-                             
                                  <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h5><strong>Atletas registrados en la planificacion</strong></h5>
@@ -206,17 +132,17 @@ require('core/sist-header.php');
                                                             </tbody>
                                                         </table>
                                                     </div>           
-                                               <?php } ?>
+                                               <?php }else if (isset($atletas) && $atletas==0) { ?>
+                                                   <label>No hay Atletas registrados en esta planificación</label>
+                                             <?php  } ?>
                                             </div> <!--/ col-md-12 -->
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="hidden" name="id_dp" value="<?php echo $pdc['id_dp']?>"/>
-                                    <input type="hidden" name="registrarDiasPdc">
-                                    <button name="submit" value="asignarDiaPdc" type="submit" class="btn btn-warning">Planificar Dia</button>
-                                    <a class="btn btn-info" href="<?php echo "?action=registrarAplicacionDiaPdc&id="
-                                    .$pdc['id_pdc']; ?>">Volver</a>
+                                    <input type="hidden" name="id_pdc" value="<?php echo $id_pdc;?>">
+                                    <button name="submit" value="consultarAplicacionPdcDias" type="submit" class="btn btn-warning">Ver Dias</button>
+                                    <a class="btn btn-info" href="<?php echo "?action=consultarAplicacionPdc"; ?>">Volver</a>
                                 </div>
                         </form><!-- End Form Elements -->
                     </div><!-- /. <div class="col-md-12">  -->
