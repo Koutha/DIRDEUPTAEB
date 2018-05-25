@@ -1,6 +1,8 @@
 <?php
 require('core/sist-header.php');
+var_dump($pdc_atleta);
 ?>
+
 <body>
     <div id="wrapper">
         <!--Barras de navegacion-->
@@ -14,20 +16,20 @@ require('core/sist-header.php');
                             <h2>Información del Atleta</h2>
                             
                             <ul class="nav nav-tabs">
-                                <li class="active"><a data-toggle="tab" href="#datos_personales">Personales</a></li>
+                                <li><a data-toggle="tab" href="#datos_personales">Personales</a></li>
                                 <li><a data-toggle="tab" href="#datos_academicos">Académicos</a></li>
                                 <li><a data-toggle="tab" href="#datos_medicos">Médicos</a></li>
                                 <li><a data-toggle="tab" href="#datos_uniforme">Uniforme</a></li>
-                                <li><a data-toggle="tab" href="#datos_deportivos">Deportivos</a></li>
+                                <li class="active"><a data-toggle="tab" href="#datos_deportivos">Deportivos</a></li>
                                 <li style="float: right;">
                                     <a class="btn btn-dangerda" href="?action=modificarAtleta&id=<?php echo $atleta['cedula_atleta']; ?>">Modificar</a>
                                 </li>
                                 <li style="float: right;">
-                                    <a class="btn btn-infoda" href="?action=consultarAtleta">Volver</a>
+                                    <a class="btn btn-infoda" href="?action=consultarAplicacionPdc&at">Volver</a>
                                 </li>
                             </ul>
                             <div class="tab-content">
-                                <div id="datos_personales" class="tab-pane fade in active">
+                                <div id="datos_personales" class="tab-pane fade">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="thumbnail">
@@ -123,7 +125,7 @@ require('core/sist-header.php');
                                         </div>
                                     </div>
                                 </div>
-                                <div id="datos_deportivos" class="tab-pane fade">
+                                <div id="datos_deportivos" class="tab-pane fade in active">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="thumbnail">
@@ -144,6 +146,35 @@ require('core/sist-header.php');
                                                 <strong> <?php echo $atletaDisciplinas[1]['nombre'];?></strong>
                                             </p>
                                             <?php } ?>
+                                             <p><strong>Planificaciones en las que participa:</strong></p>
+                                             <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nombre</th>
+                                                            <th>Tipo</th>
+                                                            <th>Disciplina</th>
+                                                            <th>Fecha de Inicio</th>
+                                                            <th>Fecha de Finalización</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody><?php foreach ($pdc_atleta as $key){ ?>
+                                                        <tr class="odd gradeX">
+                                                            <td><?php echo $key['nombre_pdc']; ?></td>
+                                                            <td><?php echo $key['tipo_pdc']; ?></td>
+                                                            <td><?php echo $key['nombre_disciplina']; ?></td>
+                                                            <td><?php echo $key['fecha_inicio'];?></td>
+                                                            <td><?php echo $key['fecha_fin'];?></td>
+                                                            <td class="center">
+                                                            <?php $uid= $key['nombre_pdc']; ?>
+                                                                <a class="btn btn-warning" href="<?php echo "?action=consultarAplicacionPdc&programa=".$uid; ?>">Mas Detalles</a>
+                                                            </td>
+                                                        </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -163,13 +194,35 @@ require('core/sist-header.php');
     <!-- DATA TABLE SCRIPTS -->
     <script src="assets/js/dataTables/jquery.dataTables.js"></script>
     <script src="assets/js/dataTables/dataTables.bootstrap.js"></script>
-    <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
+    
     <!-- MORRIS CHART SCRIPTS -->
     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="assets/js/morris/morris.js"></script>
-    <!--DEBE IR AL FINAL-->
+   
+    <script>
+        $(document).ready(function () {
+            $('#dataTables-example').dataTable();
+        });
+        $('#myModal2').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var recipient = button.data('id'); // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        modal.find('a.btn.btn-danger').attr('href', recipient);
+        });
+        $('#myModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Button that triggered the modal
+        var recipient = button.data('id'); // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this);
+        modal.find('a.btn.btn-warning').attr('href', recipient);
+        });
+    </script>
+     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
 </body>
+
 </html>

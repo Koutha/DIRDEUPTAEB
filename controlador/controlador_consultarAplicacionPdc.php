@@ -19,9 +19,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $pdc=$Opdc->consultarTodos();
         if (isset($_GET['at'])) { //entra a la consultar por alteta
             if (isset($_GET['atleta'])) { //selecciono un atleta
-                $atleta=$_GET['atleta'];
-                $atleta = $Oatleta->consultarDatos($atleta);
+                $cedula_atleta=$_GET['atleta'];
+                $atleta = $Oatleta->consultarDatos($cedula_atleta);
                 $atletaDisciplinas=$Odisciplina->getDisciplinasPorAtleta($atleta['cedula_atleta']);
+                $pdc_atleta= $Opdc->consultarEjecucionPdcAtleta($cedula_atleta);
                 switch ($atleta['id_pnf']) {
                     case '1':
                         $pnf=' Administracion';

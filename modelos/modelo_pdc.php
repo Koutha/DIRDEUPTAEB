@@ -479,7 +479,49 @@ class Cpdc extends modelobase {
         }
     }
 
-    public function consultarEjecucion(){
+    public function consultarEjecucionPdcAtleta($cedula_atleta){ //consulta la informacion de los pdc por atleta
+        /*$sql= 'SELECT tblB.*,tblA.nombre as nombre_disciplina
+                    FROM (SELECT DISTINCT ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_disciplina, td.nombre
+                            FROM "T_atleta" ta 
+                            JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+                            JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+                            JOIN "T_pdc" tpdc ON td.id_disciplina=tpdc.id_disciplina) tblA
+                    RIGHT JOIN
+                    (SELECT DISTINCT    ta.cedula_atleta, ta.nombres, ta.apellidos, tpdc.id_pdc,
+                                        tpdc.nombre_pdc, tpdc.tipo_pdc, tpdc.descripcion,tpdc.fecha_inicio,
+                                        tpdc.fecha_fin,tpdc.tecnica,tpdc.tactica,tpdc.fisico,tpdc.psicologico,
+                                        tpdc.velocidad 
+                        FROM "T_atleta" ta 
+                        JOIN "T_atleta_ejecucion_pdc" taep ON ta.cedula_atleta=taep.cedula_atleta 
+                        JOIN "T_dia_pdc" tdp ON tdp.id_dp=taep.id_dp
+                        JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc) tblB
+                    ON tblB.cedula_atleta=tblA.cedula_atleta
+                    WHERE tblA.cedula_atleta=?';*/
+        $sql = 'SELECT DISTINCT ta.cedula_atleta,ta.nombres,ta.apellidos,tpdc.id_pdc,
+                                tpdc.nombre_pdc,tpdc.tipo_pdc,tpdc.descripcion,
+                                tpdc.fecha_inicio,tpdc.fecha_fin,tpdc.tecnica,
+                                tpdc.tactica,tpdc.fisico,tpdc.psicologico,tpdc.velocidad,
+                                tpdc.id_disciplina, td.nombre as nombre_disciplina
+                FROM "T_atleta" ta
+                JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta
+                JOIN "T_atleta_ejecucion_pdc" taep ON ta.cedula_atleta=taep.cedula_atleta 
+                JOIN "T_dia_pdc" tdp ON tdp.id_dp=taep.id_dp
+                JOIN "T_pdc" tpdc ON tpdc.id_pdc=tdp.id_pdc
+                JOIN "T_disciplina" td ON tpdc.id_disciplina=td.id_disciplina
+                WHERE ta.cedula_atleta = ?';
+        $db = $this->db();
+        $query=$db->prepare($sql);
+        $query->bindParam(1, $cedula_atleta);
+        $query->execute();
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+             $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
 
     }
 
@@ -487,7 +529,7 @@ class Cpdc extends modelobase {
     	
     }
 
-    public function consultarTodos(){
+    public function consultarTodos(){ //consulta todas los pdc
         $sql= 'SELECT   id_pdc,tipo_pdc,nombre_pdc,descripcion,
                         fecha_inicio, fecha_fin, tecnica, tactica,
                         fisico, psicologico,velocidad,
@@ -507,7 +549,7 @@ class Cpdc extends modelobase {
         }
     }
 
-    public function consultarDatos($nombre){
+    public function consultarDatos($nombre){ //consulta un pdc recibiendo el nombre
         $sql ='SELECT   id_pdc,tipo_pdc,nombre_pdc,descripcion,
                         fecha_inicio, fecha_fin, tecnica, tactica,
                         fisico, psicologico,velocidad,
