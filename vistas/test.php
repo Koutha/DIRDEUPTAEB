@@ -21,16 +21,13 @@
     <!-- CALENDAR-->
     <link href='assets/css/fullcalendar.min.css' rel='stylesheet' />
     <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-    <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />  
-    <style type="text/css" media="print">
-        .container{
-            display: :none;
-        }
-        
-    </style>
+    <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' /> 
+
+   
 </head>
 <body>
-    <a onclick="javascript:window.print()" href="">imprimir</a>
+    <button id="gpdf">Generate PDF</button>
+
 
 <!--  EJEMPLO IMPRIMIR PDF SENCILLO
 <style media="print">
@@ -46,7 +43,7 @@
 -->    
 <form action="" method="post" enctype="multipart/form-data">
 
-<div class="container">
+<div  class="container">
     <div class="row">
         <div class='col-sm-3'>
             <div class="form-group">
@@ -71,6 +68,9 @@
         
     </div>
 </div>
+
+
+        
 <input type="submit" value="test" name="submit">
 </form>
 <?php
@@ -360,7 +360,7 @@ include_once('modelos/modelo_atleta.php');
                 
  }
  ?>
-
+<div id="PDFcontent">
 <form action="" method="post" enctype="multipart/form-data" role="form"> 
                     <div class="row setup-content" id="step-1">
                         <div class="col-xs-6 col-md-offset-3">
@@ -426,6 +426,7 @@ include_once('modelos/modelo_atleta.php');
                     <button name="submit" type="submit" value="registrarAtleta" class="btn btn-success btn-lg pull-right" >Submit</button>
 
                 </form>
+               </div>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
     <script src="assets/js/jquery-3.3.1.min.js"></script>
@@ -466,7 +467,25 @@ include_once('modelos/modelo_atleta.php');
             });
         });
     </script>
-    
+    <script src="assets/js/jspdf.debug.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var pdfdoc = new jsPDF();
+        var specialElementHandlers = {
+            '#ignoreContent': function (element, renderer) {
+            return true;
+            }
 
+        };
+
+        $(document).ready(function(){
+            $("#gpdf").click(function(){
+                pdfdoc.fromHTML($('#PDFcontent').html(), 10, 10, {
+                    'width': 110,
+                    'elementHandlers': specialElementHandlers
+                });
+            pdfdoc.save('First.pdf');
+            });
+        });
+    </script>
 </body>
 </html>
