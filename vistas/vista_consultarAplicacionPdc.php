@@ -37,6 +37,7 @@ require('core/sist-header.php');
                                             </tr>
                                         </thead>
                                         <tbody><?php foreach ($pdc as $key){ ?>
+                                            <?php if(!empty($Opdc->consultarADP2($key['id_pdc'],$key['id_disciplina']))){ ?>
                                             <tr class="odd gradeX">
                                                 <td><?php echo $key['nombre_pdc']; ?></td>
                                                 <td><?php echo $key['tipo_pdc']; ?></td>
@@ -50,7 +51,7 @@ require('core/sist-header.php');
                                                    <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPdc&id=".$uid; ?>">Eliminar</button> -->
                                                 </td>
                                             </tr>
-                                            <?php } ?>
+                                            <?php }} ?>
                                            
                                         </tbody>
                                     </table>

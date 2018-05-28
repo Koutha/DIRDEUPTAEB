@@ -467,23 +467,32 @@ include_once('modelos/modelo_atleta.php');
             });
         });
     </script>
-    <script src="assets/js/jspdf.debug.js" type="text/javascript"></script>
+    <script src="assets/js/jspdf.min.js" type="text/javascript"></script>
+    <script src="assets/js/html2canvas.js" type="text/javascript"></script>
     <script type="text/javascript">
-        var pdfdoc = new jsPDF();
-        var specialElementHandlers = {
-            '#ignoreContent': function (element, renderer) {
-            return true;
-            }
-
-        };
-
+        
         $(document).ready(function(){
             $("#gpdf").click(function(){
-                pdfdoc.fromHTML($('#PDFcontent').html(), 10, 10, {
-                    'width': 110,
+                var pdfdoc = new jsPDF(
+                    {
+                         orientation: 'p',
+                         unit: 'cm',
+                         format: 'a4',
+                         hotfixes: [] // an array of hotfix strings to enable
+                    }
+                );
+                var specialElementHandlers = {
+                    '#ignoreContent': function (element, renderer) {
+                    return true;
+                    }
+                };
+                pdfdoc.fromHTML($('#PDFcontent').html(), 2, 2, {
+                    'width': 900,
                     'elementHandlers': specialElementHandlers
                 });
-            pdfdoc.save('First.pdf');
+            var d = new Date();
+            pdfdoc.output('dataurlnewwindow');
+            //pdfdoc.save('doc'+d.toLocaleString()+'.pdf'); //nombre + fecha + formato
             });
         });
     </script>
