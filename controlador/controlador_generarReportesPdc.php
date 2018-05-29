@@ -65,21 +65,26 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     body {
                         
                     }
+                    .subtitulo{
+                        text-align: center;
+                        font-size: 14pt;
+                        font-weight: bold;
+                    }
                     </style>
                 </head>'.
                 '<body>'.   
                     '<div >'.
-                        '<img style="height: 45px;width: 100%;" src="assets/img/membrete.png">'.
+                        '<img style="height: 47px;width: 100%;" src="assets/img/membrete.png">'.
                     '</div>'.
                     
-                    '<h2 style="text-align: center;">Programa Directo de Competencia</h2>'.
+                    '<p class="subtitulo">Programa Directo de Competencia.</p>'.
                     '<p><strong>Nombre del programa: </strong>'.$pdc['nombre_pdc'].'</p>'.
                     '<p><strong>Descripcion: </strong>'.$pdc['descripcion'].'</p>'.
                     '<p><strong>Tipo de planificación: </strong>'.$pdc['tipo_pdc'].'</p>'.
                     '<p><strong>Disciplina: </strong>'.$html_discipliplina.'</p>'.
                     '<p><strong>Fecha de inicio: </strong>'.$begin.'</p>'.
                     '<p><strong>Fecha de finalización: </strong>'.$end.'</p>'.
-                    '<h3 style="text-align: center;">Aspectos a trabajar:</h3>'.
+                    '<p class="subtitulo">Aspectos a trabajar:</p>'.
                     '<div style="text-align: center;">
                         <span>
                             Técnico: '.$pdc['tecnica'].'%
@@ -97,9 +102,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                             Velocidad: '.$pdc['velocidad'].'%
                         </span>
                     </div>'.
-                    '<h3 style="text-align: center;">Atletas asignados:</h3>'.
+                    '<p class="subtitulo">Atletas asignados:</p>'.
                     '<table>
-                        
                           <tr>
                             <th>Cedula</th>
                             <th>Nombres</th>
@@ -114,11 +118,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $dompdf->setPaper('A4', 'portrait'); //tamaño y orientacion (landscape = horizontal, portrait = vertial)
             $dompdf->render();
             date_default_timezone_set('America/Caracas');
-            $doctitle = 'PDC_'.strftime( "%Y-%m-%d_%H-%M-%S", time());
+            $doctitle = 'PDC_'.strftime( "%Y-%m-%d_%H-%M-%S", time()); //titulo + fecha y hora
             $dompdf->stream(
                 $doctitle,
                 array(
-                    "Attachment"=> false
+                    "Attachment"=> false  //descarga automatica true - false
                 )
             );
         }else{

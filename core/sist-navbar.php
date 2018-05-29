@@ -107,7 +107,18 @@
                                 <a href="?action=registrarAtleta">Registrar</a>
                             </li>
                             <li>
-                                <a href="?action=consultarAtleta">Consultar </a>
+                                <a href="?action=consultarAtleta">Consultar</a>
+                            </li>
+                            <li>
+                                <a href="#">Reportes<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="?action=generarReportesAtleta&at">Por Atleta</a>
+                                    </li>
+                                    <li>
+                                        <a href="?action=generarReportesAtleta">Por Disciplina </a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </li>
@@ -158,12 +169,16 @@
                                         <li>
                                             <a href="#">Consultar<span class="fa arrow"></span></a>
                                             <ul class="nav nav-third-level">
-                                                <li><a href="?action=consultarAplicacionPdc">Por programa</a></li>
-                                                <li><a href="?action=consultarAplicacionPdc&at">Por atleta</a></li>
+                                                <li>
+                                                    <a href="?action=consultarAplicacionPdc">Por programa</a>
+                                                </li>
+                                                <li>
+                                                    <a href="?action=consultarAplicacionPdc&at">Por atleta</a>
+                                                </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="?action=generarReportesPdc">Resultados / Reportes </a>
+                                            <a href="?action=generarReportesPdc">Reportes</a>
                                         </li>
                                     </ul>
                             </li>
