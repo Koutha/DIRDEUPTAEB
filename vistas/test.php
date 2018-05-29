@@ -22,10 +22,50 @@
     <link href='assets/css/fullcalendar.min.css' rel='stylesheet' />
     <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' /> 
-
+    <style type="text/css">
+            #contenedor{  
+            background-color:#F4ABF2;  
+            border:2px solid #FF0000;  
+    }  
+    #cabecera{  
+            background-color:#E5BC7A;  
+            height:20%;  
+    }  
+    #menu{  
+            height:10%;  
+            background-color:#C8CACC;  
+    }  
+    #izquierda{  
+            height:50%;  
+            background-color:#BDD2EF;  
+            float:left;  
+            width:50%;  
+    }  
+    #derecha{  
+            height:50%;  
+            background-color:#DAF7E2;  
+            float:right;  
+            width:50%;  
+    }  
+    #pie{  
+            height:20%;  
+            background-color:#D3D1C1;  
+            clear:both;  
+    }  
+    </style>
    
 </head>
 <body>
+
+        <div id ="contenedor">  
+            <div id ="cabecera">CABECERA</div>  
+            <div id ="menu">MENU</div>  
+            <div id ="izquierda">DIV IZQUIERDO</div>  
+            <div id ="derecha">DIV DERECHO</div>  
+            <div id ="pie">PIE DE PAGINA</div>  
+        </div>  
+      
+ 
     <button id="gpdf">Generate PDF</button>
 
 
