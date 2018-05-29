@@ -23,46 +23,71 @@
     <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' /> 
     <style type="text/css">
-            #contenedor{  
-            background-color:#F4ABF2;  
-            border:2px solid #FF0000;  
+    .contenedor{   
+        border:2px solid #FF0000;  
     }  
-    #cabecera{  
-            background-color:#E5BC7A;  
-            height:20%;  
+    .cabecera{    
+        height:20%;  
     }  
-    #menu{  
-            height:10%;  
-            background-color:#C8CACC;  
+    .menu{  
+        text-align: center;
+        font-size: 14pt;
+        font-weight: bold;
+        height:10%;  
     }  
-    #izquierda{  
-            height:50%;  
-            background-color:#BDD2EF;  
-            float:left;  
-            width:50%;  
+    .foto{  
+        height:50%; 
+        float:left;  
+        width:20%;  
     }  
-    #derecha{  
-            height:50%;  
-            background-color:#DAF7E2;  
-            float:right;  
-            width:50%;  
-    }  
-    #pie{  
-            height:20%;  
-            background-color:#D3D1C1;  
-            clear:both;  
-    }  
+    .izquierda{  
+        height:50%;  
+        background-color:#DAF7E2;  
+        float:left;  
+        width:50%;  
+    } 
+    .derecha{
+        height:50%;  
+        background-color:#5AAF23;  
+        float:right;  
+        width:40%; 
+    }
+    .pie{  
+        height:20%;  
+        background-color:#D3D1C1;  
+        clear:both;  
+    }
+    .datos{
+        
+    }
     </style>
    
 </head>
 <body>
 
-        <div id ="contenedor">  
-            <div id ="cabecera">CABECERA</div>  
-            <div id ="menu">MENU</div>  
-            <div id ="izquierda">DIV IZQUIERDO</div>  
-            <div id ="derecha">DIV DERECHO</div>  
-            <div id ="pie">PIE DE PAGINA</div>  
+        <div class ="contenedor">  
+            <div class ="cabecera">
+                <img style="height: 47px;width: 100%;" src="assets/img/membrete.png">
+            </div>  
+            <div class ="menu">DIRECCIÓN DE DEPORTES</div>  
+            <div class ="foto">
+                <img style="height: 200px" src="assets/img/img_foto_atleta/203500272017-08-27-1310.jpg">
+            </div>  
+            <div class ="izquierda">
+                <p>Cedula: <span>V-</span>20350027</p>
+            </div>  
+            <div class ="izquierda">
+                <p>Nombres: Alvaro Sofi</p>
+            </div>
+            <div class ="izquierda">
+                <p>Apellidos: Tirado Gil</p>
+            </div> 
+            <div class ="izquierda">
+                <p>Fecha de nacimiento: 1992-24-04</p>
+            </div>  
+            <div class ="pie">
+                <p style="text-align: center;">PIEEEEEEEEEE</p>
+            </div>  
         </div>  
       
  
