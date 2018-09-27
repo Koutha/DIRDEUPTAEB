@@ -1,10 +1,10 @@
 <?php 
 	class db {
 		private 
-				$host_db = "localhost",
-				$user_db = "postgres",
-				$pass_db = "123456",
-				$db_name = "DIRDEUPTAEB",
+				$host_db = "b915mj1agx05hlp-postgresql.services.clever-cloud.com",
+				$user_db = "ulcfizzz3pgben6ktefs",
+				$pass_db = "WCBfcc0qWhOEzatXODoy",
+				$db_name = "b915mj1agx05hlp",
 				$db_port = 5432;
 				//$tbl_name = "usuarios";
 

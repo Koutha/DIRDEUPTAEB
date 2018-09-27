@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once('assets/dompdf/autoload.inc.php');
 use Dompdf\Dompdf;
 $now = time();
