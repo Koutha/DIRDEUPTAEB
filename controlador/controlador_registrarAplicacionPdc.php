@@ -21,9 +21,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 $asigDias=1;
             }
             require('vistas/vista_registrarAplicacionPdc.php');
-        }else{
+        }else if(isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1){
+            unset($_SESSION['imgCorrect']);
             $pdc=$Opdc->consultarTodos();
             require('vistas/vista_registrarAplicacionTodosPdc.php');
+        }else{
+            header('Location:?action=sindex');
         }
     }
 } 

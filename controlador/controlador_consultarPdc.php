@@ -18,10 +18,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $id=$_GET['id'];
             $pdc=$Opdc->consultarDatos($id);
             require('vistas/vista_consultarPdc.php');
-        }else{
+        }else if(isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1){
+            unset($_SESSION['imgCorrect']);
             $pdc=$Opdc->consultarTodos();
-            
             require('vistas/vista_consultarTodosPdc.php');
+            }else{
+                header('Location:?action=sindex');
             }
     }  
 } 

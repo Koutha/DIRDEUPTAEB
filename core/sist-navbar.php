@@ -154,31 +154,31 @@
                             <li><a href="#">Programas / PDC <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="?action=validarImg&mod=RegistrarPdc">Registrar</a>
+                                            <a href="?action=validarImg&mod=registrarPdc">Registrar</a>
                                         </li>
                                         <li>
-                                            <a href="?action=consultarPdc">Consultar</a>
+                                            <a href="?action=validarImg&mod=consultarPdc">Consultar</a>
                                         </li>
                                     </ul>
                             </li>
                             <li><a href="#">Aplicación<span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="?action=registrarAplicacionPdc">Registrar</a>
+                                            <a href="?action=validarImg&mod=registrarAplicacionPdc">Registrar</a>
                                         </li>
                                         <li>
                                             <a href="#">Consultar<span class="fa arrow"></span></a>
                                             <ul class="nav nav-third-level">
                                                 <li>
-                                                    <a href="?action=consultarAplicacionPdc">Por programa</a>
+                                                    <a href="?action=validarImg&mod=consultarAplicacionPdc">Por programa</a>
                                                 </li>
                                                 <li>
-                                                    <a href="?action=consultarAplicacionPdc&at">Por atleta</a>
+                                                    <a href="?action=validarImg&mod=consultarAplicacionPdc&at">Por atleta</a>
                                                 </li>
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="?action=generarReportesPdc">Reportes</a>
+                                            <a href="?action=validarImg&mod=generarReportesPdc">Reportes</a>
                                         </li>
                                     </ul>
                             </li>

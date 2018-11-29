@@ -53,6 +53,12 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="seleccion" value="<?php echo $seleccion; ?>">
+                                    <?php if(isset($seleccion2)){ ?> 
+                                        <input type="hidden" name="seleccion2" value="<?php echo $seleccion2; ?>">
+                                     <?php   }  ?>
+
+                                   
+                                    
                                     <button name="submit" value="validarImg" type="submit" class="btn btn-primary">Continuar</button>
                                 </div>
                         </form><!-- End Form Elements -->

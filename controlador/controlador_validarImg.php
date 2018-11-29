@@ -11,19 +11,33 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
     }
     else if (isset($_POST['submit']) && $_POST['submit']=='validarImg') { //via post para validar
             $imgSelected = $_POST['imgValid'];
-            echo $_POST['seleccion'];
+            $modulo =  $_POST['seleccion'];
+            if (isset($_POST['seleccion2'])){
+                $modulo2 = $_POST['seleccion2'];
+            }
             include_once('modelos/modelo_cifrado.php');
             $ss = new StreamSteganography($imgSelected);
             
             $userSecret =  $ss->Read(); //leer el mensaje
-            if ($userSecret == base64_decode($_SESSION['secretKey'])) {
-                echo '<div class="col-sm-9 bg-info">
+            if ($userSecret == base64_decode($_SESSION['secretKey'])) { //valido la imagen
+                $_SESSION['imgCorrect'] = 1;
+                if (isset($modulo2)){
+                    header('Location:?action='.$modulo.'&'.$modulo2);
+                }else{
+                    $_SESSION['imgCorrect'] = 1;
+                    header('Location:?action='.$modulo);
+                }
+                /*echo '<div class="col-sm-9 bg-info">
                 <img src="'.$imgSelected.'" width="100px" height="100px" />
                 </div>';
-                echo 'imagen correcta';
-            }else{
+                echo 'imagen correcta';*/
+            }else{ //imagen incorecta
                 $_SESSION['imgIncorrect'] = 1;
-                header('Location:?action=validarImg&mod='.$_POST['seleccion']);
+                if (isset($modulo2)){
+                    header('Location:?action=validarImg&mod='.$_POST['seleccion'].'&'.$modulo2);
+                }else{
+                    header('Location:?action=validarImg&mod='.$_POST['seleccion']);
+                }
             }
         }
         else{//entrada por enlace o get primera pantalla
@@ -46,6 +60,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             array_push($arr,$secretImg ); //se introduce la imagen del user al arreglo
             shuffle($arr); //mezclamos el arreglo
             $seleccion  = $_GET['mod'];
+            if (isset($_GET['at'])){ //para consultarAplicacionPdc&at
+                $seleccion2 = 'at' ; 
+            }
             require('vistas/vista_validarImg.php');
         }
 }

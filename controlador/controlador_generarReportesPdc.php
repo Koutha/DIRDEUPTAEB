@@ -125,9 +125,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     "Attachment"=> false  //descarga automatica true - false
                 )
             );
-        }else{
+        }else if(isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1){
+            unset($_SESSION['imgCorrect']);
             $pdc=$Opdc->consultarTodos();
             require('vistas/vista_generarReportesPdc.php');
+            }else {
+                 header('Location:?action=validarImg&mod=generarReportesPdc');
             }
     }  
 } 

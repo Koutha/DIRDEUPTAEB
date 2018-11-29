@@ -69,11 +69,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         header('Location:?action=consultarPdc&id='.$pdc_new['nombre_pdc']);
                 }
         }
-        else{//entrada por enlace o get
+        else if (isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1) {
             include_once('modelos/modelo_disciplina.php');
             $Odisciplina= new Cdisciplina();
             $disciplinas=$Odisciplina->consultarTodos();
+            unset($_SESSION['imgCorrect']);
             require('vistas/vista_registrarPdc.php');
+        }else{//entrada por enlace o get
+            header('Location:?action=sindex');
         }
 }
 else{

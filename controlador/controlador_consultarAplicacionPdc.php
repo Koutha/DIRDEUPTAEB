@@ -66,8 +66,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         $atletas = 0; //No hay Atletas para la disciplina a la que pertenece el pdc
                     }
                 require('vistas/vista_consultarAplicacionPdcUnico.php');
-            }else{ //primera entrada desde el menu para mostrar todos los programas
+            }else if (isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1) { //primera entrada desde el menu para mostrar todos los programas
+                unset($_SESSION['imgCorrect']);
                 require('vistas/vista_consultarAplicacionPdc.php');
+            }else{
+                header('Location:?action=validarImg&mod=consultarAplicacionPdc');
             }
     }
 } 
