@@ -154,7 +154,7 @@
                             <li><a href="#">Programas / PDC <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>
-                                            <a href="?action=registrarPdc">Registrar</a>
+                                            <a href="?action=validarImg&mod=RegistrarPdc">Registrar</a>
                                         </li>
                                         <li>
                                             <a href="?action=consultarPdc">Consultar</a>

@@ -22,5 +22,34 @@
     <link href='assets/css/fullcalendar.min.css' rel='stylesheet' />
     <link href='assets/css/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />
+    <style type="text/css">
+    .div-general-img
+{
+display: inline-flex;
+}
+ 
+.img
+{
+background-color: #fff;
+margin: 25px;
+padding:25px;
+}
+ 
+.img-selected
+{
+border: 3px dashed #099a9f;
+margin:25px;
+padding:25px;
+}
+.check
+{
+    opacity:0.5;
+    color:#996;
+}
+.box{
+    margin-bottom:5px;
+}
+</style>
+
 
 </head>

@@ -116,34 +116,5 @@ class StreamSteganography
  
 }
  
-// New Image
-$ss = new StreamSteganography("img/test7.png");  // instancia del objeto con la imagen donde se insertara el mensaje
-//$secret = "Este es el mensaje secreto ".date("Y-m-d H:i:s")."- Nuevo mensaje modif"; //el texto a insertar
-$secret = "Hola soy el secreto";
-$ss->Write($secret, 'userimg/outputuserimg1.png'); //insertar el texto y guardar la nueva imagen en el destino correspondiente
 
-
-// Read in Image  
-
-print $ss->Read(); //leer el mensaje
-
- /*echo '<br>';
-$codificado = base64_encode($secret);
-print $codificado;
-
-echo '<br>';
-$decodificado = base64_decode($codificado);
-echo $decodificado; */
-
-// Concat Data in Image
-//$ss->Write(  $ss->Read(). " - Me gusta comer empanadas de pabellón");
-
-// Read in Image
-//print $ss->Read();
- 
-// Data in Image
-/*
-$ss = new StreamSteganography("img/test7.png");
-print $ss->Read()."\n";
- */
 ?>
