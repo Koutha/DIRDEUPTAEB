@@ -19,7 +19,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             $ss = new StreamSteganography($imgSelected);
             
             $userSecret =  $ss->Read(); //leer el mensaje
-            if ($userSecret == base64_decode($_SESSION['secretKey'])) { //valido la imagen
+            $decoded = base64_decode($userSecret);
+            if ($decoded == base64_decode($_SESSION['secretKey'])) { //valido la imagen
                 $_SESSION['imgCorrect'] = 1;
                 if (isset($modulo2)){
                     header('Location:?action='.$modulo.'&'.$modulo2);

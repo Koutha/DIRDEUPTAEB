@@ -41,7 +41,7 @@ require('core/sist-header.php');
                                                 echo '<div class="img">
                                                         <label >
                                                             <img src="'.$value.'.png" width="100px" height="100px" />
-                                                            <input type="radio" name="imgValid" value="'.$value.'.png" class="hidden">
+                                                            <input type="radio" name="imgValid" value="'.$value.'.png" class="hidden" required>
                                                         </label>
                                                     </div>';
                                             }
@@ -107,7 +107,7 @@ require('core/sist-header.php');
             $(this).addClass("img-selected");
             });
             });
-        </script>
+    </script>
 
 </body>
 </html>

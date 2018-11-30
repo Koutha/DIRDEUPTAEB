@@ -14,12 +14,12 @@ require('core/sist-header.php');
                         <div class="col-md-12">
                             <br /><br />
                             <h2> Formulario para registrar Administradores </h2>
-                            <?php if (isset($registro)&&$registro==1) {?>
+                            <?php if (isset($_SESSION['registro'])&&$_SESSION['registro']==1) {?>
                                <div class="alert alert-success alert-dismissible">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                         <strong>Registrado!</strong> El usuario ha sido registrado exitosamente.
                                 </div>
-                            <?php } ?>
+                            <?php unset($_SESSION['registro']);} ?>
                             <br />
                         </div>
                     </div>
@@ -61,6 +61,33 @@ require('core/sist-header.php');
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
                                             <input name="rpass" type="password" class="form-control" placeholder="Repita la contraseña" required />
                                         </div>
+                                        <div class="form-group input-group">
+                                            <span class="input-group-addon"><i class="fa fa-circle-notch"  ></i></span>
+                                            <input name="secretKey" type="text" class="form-control" placeholder="Frase Secreta" required />
+
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                            <h5><strong>Seleccione una imagen</strong></h5>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="col-sm-9">
+                                                <div class="div-general-img">
+                                                <?php foreach ($arr as $key => $value) {
+                                                        echo '<div class="img">
+                                                                    <label >
+                                                                        <img src="'.$value.'.png" width="100px" height="100px" />
+                                                                        <input type="radio" name="imgValid" value="'.$value.'" class="hidden" required>
+                                                                    </label>
+                                                                </div>';
+                                                        }
+                                                ?>
+                                                </div>
+                                       
+                                                </div>
+                                            </div>
+                                        </div>
+
                                                              <?php if (isset($existe)&&$existe==0) {?>
                                                                 <div class="alert alert-danger alert-dismissible">
                                                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -145,6 +172,23 @@ require('core/sist-header.php');
     <!-- MORRIS CHART SCRIPTS -->
     <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
     <script src="assets/js/morris/morris.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function(){
+ 
+                
+            //recibe evento al realizar click dentro del elemento que contiene la clase img
+            $(".img").click(function(){
+ 
+            //comprobamos si existe una imagen seleccionada
+            if ( $( ".img" ).hasClass( "img-selected" ) ) {
+            /*en el caso que exista ya una imagen seleccionada la eliminamos para que únicamente solo se tenga una imagen seleccionada*/
+            $(".img").removeClass("img-selected");
+            }
+            //añadimos la clase de la imagen seleccionada
+            $(this).addClass("img-selected");
+            });
+            });
+    </script>
     <!--DEBE IR AL FINAL-->
     <!-- CUSTOM SCRIPTS -->
          <!-- script para validaciones -->

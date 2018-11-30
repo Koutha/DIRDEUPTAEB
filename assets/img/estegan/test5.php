@@ -115,14 +115,25 @@ class StreamSteganography
     } 
  
 }
- 
+/*
+$rstr = openssl_random_pseudo_bytes(5);
+var_dump(bin2hex($rstr));
+echo '<br>';
+$bytes = random_bytes(5);
+var_dump(bin2hex($bytes));
+echo '<br>';
+$rstr = openssl_random_pseudo_bytes(5);
+$path = 'assets/img/estegan/userimg/'.bin2hex($rstr).'.png';
+echo $path; */
+
 // New Image
-$ss = new StreamSteganography("img/test7.png");  // instancia del objeto con la imagen donde se insertara el mensaje
+$ss = new StreamSteganography("userimg/outputuserimg1.png");  // instancia del objeto con la imagen donde se insertara el mensaje
 //$secret = "Este es el mensaje secreto ".date("Y-m-d H:i:s")."- Nuevo mensaje modif"; //el texto a insertar
-$secret = "Hola soy el secreto";
-$ss->Write($secret, 'userimg/outputuserimg1.png'); //insertar el texto y guardar la nueva imagen en el destino correspondiente
+/*$secret = "Hola soy el secreto";
+$codificado = base64_encode($secret);
+$ss->Write($codificado, 'userimg/outputuserimg1.png'); //insertar el texto y guardar la nueva imagen en el destino correspondiente
 
-
+*/
 // Read in Image  
 
 print $ss->Read(); //leer el mensaje
