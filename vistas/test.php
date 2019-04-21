@@ -65,7 +65,7 @@
 </head>
 <body>
 
-        <div class ="contenedor">  
+        <!--<div class ="contenedor">  
             <div class ="cabecera">
                 <img style="height: 47px;width: 100%;" src="assets/img/membrete.png">
             </div>  
@@ -91,7 +91,7 @@
         </div>  
       
  
-    <button id="gpdf">Generate PDF</button>
+    <button id="gpdf">Generate PDF</button> -->
 
 
 <!--  EJEMPLO IMPRIMIR PDF SENCILLO
@@ -139,6 +139,167 @@
 <input type="submit" value="test" name="submit">
 </form>
 <?php
+
+class StreamSteganography
+{
+ 
+    var $img_path;
+    var $img_object = null;
+ 
+    function StreamSteganography( $img_path , $w = 640 , $h = 480 )
+    {
+        if ( !is_file( $img_path ) )
+        {
+            if ( is_writable($img_path) )
+                die("nThe image path is not writable");
+            $this->img_object = imagecreatetruecolor($w,$h);
+            imagepng($this->img_object, $img_path  );
+        }
+        else
+        {
+            $inf = @getimagesize($img_path);
+            if ( $inf == null )
+                die("nThe image is not valid");
+ 
+            if ( !  ( $inf["mime"] == "image/jpeg"  OR $inf["mime"] == "image/png" OR $inf["mime"] == "image/gif" ) )
+                die("nThe image must be jpeg/png/gif");
+ 
+            if ( $inf["mime"] == "image/gif"  )
+                $this->img_object = imagecreatefromgif( $img_path );
+            if ( $inf["mime"] == "image/jpeg"   )
+                $this->img_object = imagecreatefromjpeg( $img_path );
+            if ( $inf["mime"] == "image/png"  )
+                $this->img_object = imagecreatefrompng( $img_path );     
+ 
+        }
+        $this->img_path = $img_path;
+    }
+    
+    function readImg(){
+        return $this->img_object;
+    }
+
+    function Write($data)
+    {
+        $bits=$this->_asc2bin($data);
+        $lenbit=strlen($bits);
+        $nx=imagesx($this->img_object);
+        $ny=imagesy($this->img_object);
+        for($x=0,$bit=0; $x<$nx; $x++)
+        {
+            for($y=0; $y<$ny; $y++)
+            {
+                $pix=$this->_getcolor($this->img_object,$x,$y);
+                foreach(array('R','G','B') as $C)
+                    $col[$C]=$bit<$lenbit?($pix[$C]|$bits[$bit])&(254|$bits[$bit++]):$pix[$C];
+                imagesetpixel($this->img_object,$x,$y,$this->_setcolor($this->img_object,$col['R'],$col['G'],$col['B']));
+            }
+        }
+        //imagepng($this->img_object, $path);
+    }
+ 
+    function Read()
+    {
+        $nx=imagesx($this->img_object);
+        $ny=imagesy($this->img_object);
+        $data='';
+        for($x=0; $x<$nx; $x++ )
+        {
+            for($y=0; $y<$ny; $y++)
+            {
+                $pix=$this->_getcolor($this->img_object,$x,$y);
+                $data.=($pix['R']&1).($pix['G']&1).($pix['B']&1);
+            }
+        }
+        return $this->_bin2asc($data);
+    }
+ 
+    function _bin2asc($str)
+    {
+        $len = strlen($str);
+        $data='';
+        for ($i=0;$i<$len;$i+=8){ 
+            $ch=chr(bindec(substr($str,$i,8))); 
+            if(!ord($ch))break; $data.=$ch; 
+        }
+        return $data;
+    }
+ 
+    function _asc2bin($str)
+    {
+        $len = strlen($str);
+        $data='';
+        for($i=0;$i<$len;$i++)
+            $data.=str_pad(decbin(ord($str[$i])),8,'0',STR_PAD_LEFT);
+        return $data.'00000000';
+    }
+ 
+    function _getcolor($img,$x,$y)
+    {
+        $color = imagecolorat($img,$x,$y);
+        return array('R'=>($color>>16)&0xFF,'G'=>($color>>8)&0xFF,'B'=>$color&0xFF);
+    } 
+ 
+    function _setcolor($img,$r,$g,$b)
+    {
+        $c=imagecolorexact($img,$r,$g,$b); if($c!=-1)return $c;
+        $c=imagecolorallocate($img,$r,$g,$b); if($c!=-1)return $c;
+        return imagecolorclosest($img,$r,$g,$b);
+    } 
+ 
+}
+$imgtest = 'assets/img/estegan/img1/test1';
+$ss = new StreamSteganography($imgtest.'.png');
+$fimg = $ss->readImg();
+var_dump($fimg);
+echo '<br>';
+echo '<br>';
+ob_start(); // Let's start output buffering.
+imagepng($fimg);//This will normally output the image, but because of ob_start(), it won't.
+$contents = ob_get_contents(); // read from buffer //Instead, output above is saved to $contents
+ob_end_clean(); //End the output buffer.
+$sd = base64_encode($contents);
+//$z = gzcompress($sd, 9);
+echo 'string md5 de imagen sin secreto';
+echo '<br>';
+$md5 = md5($sd);
+var_dump($md5);
+echo '<br>';
+echo '<br>';
+
+echo 'string md5 de imagen con el secreto dentro';
+echo '<br>';
+$ss1 = new StreamSteganography($imgtest.'.png');
+
+$secreto = 'hola soy el secreto';
+$ss1->Write($secreto);
+$fimg1 = $ss1->readImg();
+ob_start(); // Let's start output buffering.
+imagepng($fimg1);//This will normally output the image, but because of ob_start(), it won't.
+$contents1 = ob_get_contents(); // read from buffer //Instead, output above is saved to $contents
+ob_end_clean(); //End the output buffer.
+$sd1 = base64_encode($contents1);
+$md51 = md5($sd1);
+var_dump($md51);
+
+
+echo '<br>';
+echo '<br>';
+echo '<br>';
+ 
+echo '<br>';
+echo '<br>';
+$secretKey = bin2hex(random_bytes(5));
+
+$ska = base64_encode($secretKey);
+echo '<br>';
+var_dump($ska);
+
+echo '<br>';
+echo $ska;
+echo '<br>';
+echo '<br>';
+
 require_once('modelos/modelo_pruebas.php');
 $Opruebas=new Cprueba();
 $tods=$Opruebas->cta();

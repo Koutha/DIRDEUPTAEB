@@ -41,18 +41,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     else{ //continua el flujo por POST sin conflictos para registrar
                         $hash=password_hash($_POST['pass'],PASSWORD_DEFAULT);
                         $imgSelected = $_POST['imgValid']; //imagen selecionada
-                        $secretKey = $_POST['secretKey']; //frase secreta
                         //cifrado
-                        $skCifrada = base64_encode($secretKey); //frase secreta cifrada
+                        $secretKey = bin2hex(random_bytes(5)); //llave secreta unica generada para el usuario
+                        $skCifrada = base64_encode($secretKey); //llave secreta cifrada a base64 
                         $imgSCifrada = base64_encode($imgSelected); //imagen seleccionada cifrada
-                        $rstr = openssl_random_pseudo_bytes(5);
-                        $path = 'assets/img/estegan/userimg/'.bin2hex($rstr); //destino de la imagen secreta select
-                        $secretImg = base64_encode($path); //imagen secreta cifrada
-                        include_once('modelos/modelo_cifrado.php');
-                        $ss = new StreamSteganography($imgSelected.'.png');
-                        $ss->Write($skCifrada, $path.'.png');//insertar el texto y guardar la imagen en $path
-
-                        $usuario->ingresarUsuario($_POST['username'], $hash, $_POST['email'], $_POST['cedula'],$skCifrada,$secretImg,$imgSCifrada);
+                        // end cifrado
+                        $usuario->ingresarUsuario($_POST['username'], $hash, $_POST['email'], $_POST['cedula'],$skCifrada,$imgSCifrada);
                         $userid=$usuario->getbyuser($_POST['username']);
                         include_once('modelos/modelo_roles.php');
                         $roles=new roles();
@@ -64,13 +58,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         }
                         $_SESSION['registro'] = 1;
                         header('Location:?action=registrarAdm'); 
-                        //$registro = 1; 
-                        //require('vistas/vista_registrarAdm.php');
+                 
                     }
                 }
             }
         }
-    else if(isset($_SESSION['rol']) && $_SESSION['rol'] == 1) { //primera entrada dede el menu via get
+    else if(isset($_SESSION['rol']) && $_SESSION['rol'] == 1) { //primera entrada desde el menu via get
         function randomGen($min, $max, $quantity, $imgcheck = null) {
             $numbers = range($min, $max); //generamos el arreglo
                 foreach ($numbers as &$value) {

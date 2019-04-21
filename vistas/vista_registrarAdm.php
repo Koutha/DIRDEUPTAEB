@@ -61,11 +61,6 @@ require('core/sist-header.php');
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
                                             <input name="rpass" type="password" class="form-control" placeholder="Repita la contraseña" required />
                                         </div>
-                                        <div class="form-group input-group">
-                                            <span class="input-group-addon"><i class="fa fa-circle-notch"  ></i></span>
-                                            <input name="secretKey" type="text" class="form-control" placeholder="Frase Secreta" required />
-
-                                        </div>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                             <h5><strong>Seleccione una imagen</strong></h5>

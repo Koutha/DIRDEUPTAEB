@@ -45,8 +45,12 @@ class StreamSteganography
         }
         $this->img_path = $img_path;
     }
- 
-    function Write( $data, $path )
+    
+    function readImg(){
+        return $this->img_object;
+    }
+
+    function Write($data)
     {
         $bits=$this->_asc2bin($data);
         $lenbit=strlen($bits);
@@ -62,7 +66,7 @@ class StreamSteganography
                 imagesetpixel($this->img_object,$x,$y,$this->_setcolor($this->img_object,$col['R'],$col['G'],$col['B']));
             }
         }
-        imagepng($this->img_object, $path);
+        //imagepng($this->img_object, $path);
     }
  
     function Read()

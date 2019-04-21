@@ -142,12 +142,12 @@ class usuario extends modelobase
 
     }
 
-    public function ingresarUsuario($nombre_usuario, $password, $correo, $cedula, $secret_key, $secret_img, $img_select) {
+    public function ingresarUsuario($nombre_usuario, $password, $correo, $cedula, $secret_key, $img_select) {
 
         try {
 
-            $sql ="INSERT INTO $this->tabla (nombre_usuario,password,correo,cedula, secret_key, secret_img, img_select) 
-                            VALUES (?,?,?,?,?,?,?)";
+            $sql ="INSERT INTO $this->tabla (nombre_usuario,password,correo,cedula, secret_key, img_select) 
+                            VALUES (?,?,?,?,?,?)";
 
             $db = $this->db();
 
@@ -158,8 +158,7 @@ class usuario extends modelobase
             $query->bindParam(3, $correo);
             $query->bindParam(4, $cedula);
             $query->bindParam(5, $secret_key);
-            $query->bindParam(6, $secret_img);
-            $query->bindParam(7, $img_select);
+            $query->bindParam(6, $img_select);
 
             $resultado = $query->execute();
 

@@ -10,17 +10,36 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
         exit;
     }
     else if (isset($_POST['submit']) && $_POST['submit']=='validarImg') { //via post para validar
-            $imgSelected = $_POST['imgValid'];
-            $modulo =  $_POST['seleccion'];
+            $imgSelected = $_POST['imgValid']; //imagen seleccionada en pantalla de validacion
+            $modulo =  $_POST['seleccion']; // modulo que se esta validando
             if (isset($_POST['seleccion2'])){
-                $modulo2 = $_POST['seleccion2'];
+                $modulo2 = $_POST['seleccion2'];// modulo que se esta validando
             }
             include_once('modelos/modelo_cifrado.php');
+            //imagen seleccionada
             $ss = new StreamSteganography($imgSelected);
-            
-            $userSecret =  $ss->Read(); //leer el mensaje
-            $decoded = base64_decode($userSecret);
-            if ($decoded == base64_decode($_SESSION['secretKey'])) { //valido la imagen
+            $ss->Write($_SESSION['secretKey']);
+            $img1 = $ss->readImg();
+            ob_start(); // Let's start output buffering.
+            imagepng($img1);//This will normally output the image, but because of ob_start(), it won't.
+            $contents = ob_get_contents(); // read from buffer //Instead, output above is saved to $contents
+            ob_end_clean(); //End the output buffer.
+            $img1string = base64_encode($contents);
+            $img1md5 = md5($img1string);
+
+            //imagen del usuario
+            $Userimg = base64_decode($_SESSION['imgSelect']);
+            $UserSS = new StreamSteganography($Userimg.'.png');
+            $UserSS->Write($_SESSION['secretKey']);
+            $UserSSimg = $UserSS->readImg();
+            ob_start(); // Let's start output buffering.
+            imagepng($UserSSimg);//This will normally output the image, but because of ob_start(), it won't.
+            $UserContents = ob_get_contents(); // read from buffer //Instead, output above is saved to $contents
+            ob_end_clean(); //End the output buffer.
+            $UserSSimgString = base64_encode($UserContents);
+            $UserSSimgMd5 = md5($UserSSimgString);
+
+            if ($img1md5 == $UserSSimgMd5) { //valido la imagen
                 $_SESSION['imgCorrect'] = 1;
                 if (isset($modulo2)){
                     header('Location:?action='.$modulo.'&'.$modulo2);
@@ -41,7 +60,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 }
             }
         }
-        else{//entrada por enlace o get primera pantalla
+        else{//entrada por enlace o get primera entrada
             
             function randomGen($min, $max, $quantity, $imgcheck = null) {
                 $numbers = range($min, $max); //generamos el arreglo
@@ -56,11 +75,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 return array_slice($numbers, 0, $quantity); // devolvemos la cantidad que $quantity nos indique sin repetirlos
             }
             $imgchek = base64_decode($_SESSION['imgSelect']); //imagen del patron selecionada para verificar no repetirla
-            $secretImg = base64_decode($_SESSION['secretImg']); //imagen secreta del usuario
+            //$secretImg = base64_decode($_SESSION['secretImg']); //imagen secreta del usuario
             $arr = randomGen(1,18,3,$imgchek);
-            array_push($arr,$secretImg ); //se introduce la imagen del user al arreglo
+            array_push($arr,$imgchek ); //se introduce la imagen del user al arreglo
             shuffle($arr); //mezclamos el arreglo
-            $seleccion  = $_GET['mod'];
+            $seleccion  = $_GET['mod']; //se indica el modulo a validar
             if (isset($_GET['at'])){ //para consultarAplicacionPdc&at
                 $seleccion2 = 'at' ; 
             }
