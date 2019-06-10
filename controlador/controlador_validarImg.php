@@ -42,15 +42,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             if ($img1md5 == $UserSSimgMd5) { //valido la imagen
                 $_SESSION['imgCorrect'] = 1;
                 if (isset($modulo2)){
-                    header('Location:?action='.$modulo.'&'.$modulo2);
+                    // header('Location:?action='.$modulo.'&'.$modulo2);
+                    header('Location:?action=validarCode&mod='.$modulo.'&at');
                 }else{
                     $_SESSION['imgCorrect'] = 1;
-                    header('Location:?action='.$modulo);
+                    //header('Location:?action='.$modulo);
+                    header('Location:?action=validarCode&mod='.$modulo);
                 }
-                /*echo '<div class="col-sm-9 bg-info">
-                <img src="'.$imgSelected.'" width="100px" height="100px" />
-                </div>';
-                echo 'imagen correcta';*/
+                //echo 'imagen correcta';
             }else{ //imagen incorecta
                 $_SESSION['imgIncorrect'] = 1;
                 if (isset($modulo2)){

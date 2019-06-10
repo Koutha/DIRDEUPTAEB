@@ -140,8 +140,7 @@
 </form>
 <?php
 
-class StreamSteganography
-{
+class StreamSteganography{
  
     var $img_path;
     var $img_object = null;
@@ -248,7 +247,7 @@ class StreamSteganography
     } 
  
 }
-$imgtest = 'assets/img/estegan/img1/test1';
+/*$imgtest = 'assets/img/estegan/img1/test1';
 $ss = new StreamSteganography($imgtest.'.png');
 $fimg = $ss->readImg();
 var_dump($fimg);
@@ -281,7 +280,11 @@ ob_end_clean(); //End the output buffer.
 $sd1 = base64_encode($contents1);
 $md51 = md5($sd1);
 var_dump($md51);
+*/
+$token = bin2hex(random_bytes(16));
+var_dump($token);
 
+mail('alvarot027@gmail.com', 'hola estoy es prueba', 'mensaje de prueba');
 
 echo '<br>';
 echo '<br>';
