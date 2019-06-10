@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set('America/caracas');
 $now = time();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     if ($now > $_SESSION['expire']) {
@@ -15,6 +15,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $id_prueba = $_GET['id_prueba'];
         }
         include_once('modelos/modelo_pruebas.php');
+        require_once ('modelos/modelo_bitacora.php');
+        require_once ('modelos/modelo_usuario.php');
+        $Obitacora=new Cbitacora();
+        $Ousuario=new usuario();
+        $username=$_SESSION['username'];
+        $t_usuario=$Ousuario->getbyuser($username);
+        $id_usuario=$t_usuario['id_usuario'];
+        $fecha=date('d/m/y');
+        $hora=date('h:i:s');
+        $actividad="Modifico una Prueba";
+        $Obitacora->setid_usuarios($id_usuario);
+        $Obitacora->setfecha($fecha);
+        $Obitacora->sethora($hora);
+        $Obitacora->setactividad($actividad);
+        $Obitacora->registrarbitacora();
         $Oprueba = new Cprueba();
        $todos=$Oprueba->consultarTodosp();
          

@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set('America/caracas');
 $now = time();
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 	if ($now > $_SESSION['expire']) {
@@ -12,22 +12,38 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     else if (isset($_POST['submit']) && $_POST['prue']=='1') {
                      //registrarlo
               include_once('modelos/modelo_pruebas.php');
+              require_once ('modelos/modelo_bitacora.php');
+              require_once ('modelos/modelo_usuario.php');
+              $Obitacora=new Cbitacora();
+              $Ousuario=new usuario();
+              $username=$_SESSION['username'];
+              $t_usuario=$Ousuario->getbyuser($username);
+              $id_usuario=$t_usuario['id_usuario'];
+              $fecha=date('d/m/y');
+              $hora=date('h:i:s');
+              $actividad="registro la Aplicacion de una Prueba";
+              $Obitacora->setid_usuarios($id_usuario);
+              $Obitacora->setfecha($fecha);
+              $Obitacora->sethora($hora);
+              $Obitacora->setactividad($actividad);
+              $Obitacora->registrarbitacora();
               $Oprueba= new Cprueba();
               $todos=$Oprueba->consultarTodosp();
               $id_prueba=($_POST['id_prueba']);
               $prueba=$Oprueba->consultarDatosa($_POST['cedula_atleta']);
               if (isset($_POST['limpiar'])) {
                 $buscar= '1';
-                $nombr=$_POST['id_prueba'];include_once('modelos/modelo_pruebas.php');
-      include_once('modelos/modelo_atleta.php');
-      include_once('modelos/modelo_disciplina.php');
-      $Oprueba= new Cprueba();
-      $Oatleta= new Catleta();
-      $Odisciplina= new Cdisciplina();
-      $todos=$Oprueba->consultarTodosp(); 
-      $todosa=$Oatleta->consultarTodos();  
-      $todosad=$Odisciplina->consultarTodosad();
-      $disci=$_POST['id_disciplina'];
+                $nombr=$_POST['id_prueba'];
+              include_once('modelos/modelo_pruebas.php');
+              include_once('modelos/modelo_atleta.php');
+              include_once('modelos/modelo_disciplina.php');
+              $Oprueba= new Cprueba();
+              $Oatleta= new Catleta();
+              $Odisciplina= new Cdisciplina();
+              $todos=$Oprueba->consultarTodosp(); 
+              $todosa=$Oatleta->consultarTodos();  
+              $todosad=$Odisciplina->consultarTodosad();
+              $disci=$_POST['id_disciplina'];
                 require('vistas/vista_registrarApliPrueba.php');
               }
               if ($Oprueba->consultarDatosa($_POST['cedula_atleta'])) {

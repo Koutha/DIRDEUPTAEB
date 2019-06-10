@@ -51,7 +51,7 @@
                                 <a href="#">Bitácora<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
-                                        <a href="#">Consultar</a>
+                                        <a href="?action=consultarBitacora">Consultar</a>
                                     </li>
                                 </ul>
                             </li>
@@ -109,7 +109,7 @@
                             <li>
                                 <a href="?action=consultarAtleta">Consultar</a>
                             </li>
-                            <li>
+                             <!--li>
                                 <a href="#">Reportes<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
@@ -119,7 +119,7 @@
                                         <a href="?action=generarReportesAtleta">Por Disciplina </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li-->
                         </ul>
                     </li>
                     <li><a href="#"><i class="fas fa-chart-line fa-2x"></i> Pruebas (Test)<span class="fa arrow"></span></a>
@@ -142,9 +142,9 @@
                                         <li>
                                             <a href="?action=consultarApliPruebas">Consultar</a>
                                         </li>
-                                        <li>
+                                        <!--li>
                                             <a href="#">Resultados / Reportes </a>
-                                        </li>
+                                        </li-->
                                     </ul>
                             </li>
                         </ul> 
