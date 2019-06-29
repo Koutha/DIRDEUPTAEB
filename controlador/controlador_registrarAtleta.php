@@ -26,7 +26,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $Obitacora->setfecha($fecha);
             $Obitacora->sethora($hora);
             $Obitacora->setactividad($actividad);
-            $Obitacora->registrarbitacora();
+            
             $Oatleta= new Catleta();
             $Odisciplina= new Cdisciplina();
             $cedula=$_POST['cedula'];
@@ -113,6 +113,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 $Oatleta->setTalla_gorra($talla_gorra);
                 $Oatleta->setTalla_chaqueta($talla_chaqueta);
                 $Oatleta->registrarAtleta();
+                $Obitacora->registrarbitacora();
                 if(!empty($_POST['id_disciplina'])){
                     foreach ($_POST['id_disciplina'] as $key => $value) {
                         $Oatleta->asignarDisciplina($value);

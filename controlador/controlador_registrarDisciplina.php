@@ -20,16 +20,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $t_usuario=$Ousuario->getbyuser($username);
             $id_usuario=$t_usuario['id_usuario'];
             $fecha=date('d/m/y');
-            $hora=date('h:i:s');
+            $hora=date('H:i:s');
             $actividad="registro una Disciplina";
-            $Obitacora->setid_usuarios($id_usuario);
-            $Obitacora->setfecha($fecha);
-            $Obitacora->sethora($hora);
-            $Obitacora->setactividad($actividad);
-            $Obitacora->registrarbitacora();
+            
             $Odisciplina= new Cdisciplina();
             $nomb=$_POST['nombre'];
-            if ($Odisciplina->consultar($nomb)) {
+            $Odisciplina->setnombre($nomb);
+            if ($Odisciplina->consultar()) {
                 //si el nombre existe
                 $existe= 1;
                 require('vistas/vista_registrarDisciplina.php');
@@ -42,6 +39,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 //registrarlo
                 $Odisciplina->registrarDisciplina();
                $registro= 1;
+               $Obitacora->setid_usuarios($id_usuario);
+                $Obitacora->setfecha($fecha);
+                $Obitacora->sethora($hora);
+                $Obitacora->setactividad($actividad);
+                $Obitacora->registrarbitacora();
                require('vistas/vista_registrarDisciplina.php');
             }
     

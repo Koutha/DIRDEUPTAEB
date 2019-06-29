@@ -88,6 +88,17 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#">Mantenimiento<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="?action=validarImg&mod=backupRestore">Respaldo / Restauracion </a>
+                                    </li>
+                                    <li>
+                                        <a href="?action=validarImg&mod=restoreAutoSave">Punto de control</a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fas fa-street-view fa-2x"></i>Personal Capacitado<span class="fa arrow"></span></a>
@@ -109,7 +120,7 @@
                             <li>
                                 <a href="?action=consultarAtleta">Consultar</a>
                             </li>
-                             <!--li>
+                             <li>
                                 <a href="#">Reportes<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
@@ -119,7 +130,7 @@
                                         <a href="?action=generarReportesAtleta">Por Disciplina </a>
                                     </li>
                                 </ul>
-                            </li-->
+                            </li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fas fa-chart-line fa-2x"></i> Pruebas (Test)<span class="fa arrow"></span></a>

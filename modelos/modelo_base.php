@@ -107,6 +107,21 @@ class modelobase
 		return $resultado;
 	}
 
+	public function getAutoSaves(){
+		$sql= 'SELECT   *
+                FROM "db_backup_autosave"';
+        $query = $this->db->query($sql);
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+             $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
+            return $resultado;
+        }
+        else{
+            return 0;
+        }
+	}
+
 	
 }
 

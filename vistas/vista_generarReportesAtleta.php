@@ -35,6 +35,7 @@ require('core/sist-header.php');
                                                 <th>Telefonos</th>
                                                 <th>Disciplinas</th>
                                                 <th>Acciones</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody><?php foreach ($todos as $au){ ?>
@@ -54,6 +55,9 @@ require('core/sist-header.php');
                                                 <td class="center">
                                                 <?php $uid= $au['cedula_atleta']; ?>
                                                     <a class="btn btn-warning" href="<?php echo "?action=generarReportesAtleta&at&atleta=".$uid; ?>">Ver Ficha en PDF</a>
+                                                </td>
+                                                <td class="center">
+                                                    <a class="btn btn-infoda" href="<?php echo "?action=generarReportesAtleta&at&const&atleta=".$uid; ?>">Generar constancia</a>
                                                 </td>
                                             </tr>
                                             <?php }} ?>

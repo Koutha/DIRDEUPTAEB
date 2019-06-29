@@ -9,59 +9,47 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         <a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;   
     }else {
-        include_once('modelos/modelo_pdc.php');
         include_once('modelos/modelo_atleta.php');
         include_once('modelos/modelo_disciplina.php');
-        $Opdc= new Cpdc();
+        include_once('modelos/modelo_Pnf.php');
+        $Opnf= new Cpnf();
         $Oatleta= new Catleta();
         $Odisciplina= new Cdisciplina();
-        $disciplinas=$Odisciplina->consultarTodos();
-        $pdc=$Opdc->consultarTodos();
+        date_default_timezone_set('America/caracas');
         if (isset($_GET['at'])) { //entra a la consultar por alteta
-            if (isset($_GET['atleta'])) { //selecciono un atleta
+            if (isset($_GET['const'])) { //selecciono un atleta
                 $cedula_atleta=$_GET['atleta'];
                 $atleta = $Oatleta->consultarDatos($cedula_atleta);
                 $atletaDisciplinas=$Odisciplina->getDisciplinasPorAtleta($atleta['cedula_atleta']);
-                $pdc_atleta= $Opdc->consultarEjecucionPdcAtleta($cedula_atleta);
-                switch ($atleta['id_pnf']) {
-                    case '1':
-                        $pnf=' Administracion';
-                        break;
-                    case '2':
-                        $pnf=' Ciencias de la Información';
-                        break;
-                    case '3':
-                        $pnf=' Contaduría Publica';
-                        break;
-                    case '4':
-                        $pnf=' Turismo';
-                        break;
-                    case '5':
-                        $pnf=' Agroalimentación';
-                        break;
-                    case '6':
-                        $pnf=' Higiene y seguridad laboral';
-                        break;
-                    case '7':
-                        $pnf=' Informática';
-                        break;
-                    case '8':
-                        $pnf=' Sistemas de calidad y ambiente';
-                        break;
-                    case '9':
-                        $pnf=' Deportes';
-                        break;
-                }
-                //require('vistas/vista_consultarAplicacionPdcAtleta.php');
-                echo 'selecione un atleta';
+                $fecha=strtotime(date('Y/m/d'));
+                $fecha1=date('d/m/Y');
+                $fase=strtotime(date('Y/6/1'));
+                require('vistas/vista_generar_pdf_constancia.php');
+               
+            }
+            else if (isset($_GET['atleta'])) { //selecciono un atleta
+                $cedula_atleta=$_GET['atleta'];
+                $atleta = $Oatleta->consultarDatos($cedula_atleta);
+                $atletaDisciplinas=$Odisciplina->getDisciplinasPorAtleta($atleta['cedula_atleta']);
+                $Opnf->setid_pnf($atleta['id_pnf']);
+                $atletaPNF = $Opnf->consultarid_Pnf();
+                require('vistas/vista_generar_pdf_atleta.php');
             } else{ //primera entrada a la consultar por atleta - no se han seleccionado atletas
                 $todos=$Oatleta->consultarTodos(); 
                     require('vistas/vista_generarReportesAtleta.php');
                 }
         }else if (isset($_GET['disciplina'])) { // selecciono una disciplina
-                echo 'Selecione una disciplina';
+                $id_disciplina=$_GET['disciplina'];
+                $atletaDisciplinas=$Odisciplina->consultarTodosad();
+                $Odisciplina->setid_disciplina($id_disciplina);
+                $disciplina = $Odisciplina->consultarid();
+                $pnf = $Opnf->consultaTodo();
+                $fecha=strtotime(date('Y/m/d'));
+                $fecha1=date('d/m/Y');
+                $fase=strtotime(date('Y/6/1'));
+                require('vistas/vista_generar_pdf_atletaDisciplina.php');
             }else{ //primera entrada desde el menu para mostrar todos los programas
-                
+                $disciplinas=$Odisciplina->consultarTodos();
                 require('vistas/vista_generarReportesAtletaDisciplina.php');
             }
     }

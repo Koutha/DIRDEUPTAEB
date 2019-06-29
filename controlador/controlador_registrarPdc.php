@@ -20,13 +20,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             $t_usuario=$Ousuario->getbyuser($username);
             $id_usuario=$t_usuario['id_usuario'];
             $fecha=date('d/m/y');
-            $hora=date('h:i:s');
+            $hora=date('H:i:s');
             $actividad="registro un Pdc";
             $Obitacora->setid_usuarios($id_usuario);
             $Obitacora->setfecha($fecha);
             $Obitacora->sethora($hora);
             $Obitacora->setactividad($actividad);
-            $Obitacora->registrarbitacora();
+            
             $Opdc= new Cpdc();
             $Odisciplina= new Cdisciplina();
             $disciplinas=$Odisciplina->consultarTodos();
@@ -46,7 +46,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                     $periodo=1;
                     //echo 'periodo de fechas no valido';
                     require('vistas/vista_registrarPdc.php');
-                    }else{
+                    }else{ //Todo correcto validaciones OK
                         $descripcion=$_POST['descripcion'];
                         $id_disciplina=$_POST['id_disciplina'];
                         $tipo_pdc= $_POST['tipo_pdc'];
@@ -69,6 +69,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                         $Opdc->setPsicologico($psicologico);
                         $Opdc->setVelocidad($velocidad);
                         $Opdc->registrarPdc();
+                        $Obitacora->registrarbitacora();
                         $pdc_new=$Opdc->consultarDatos($nombre); //
                         /*$periodo_planificacion=$Opdc->determinarPeriodoPorDias($fecha_inicio,$fecha_fin);
                         foreach ($periodo_planificacion as $dia) { 

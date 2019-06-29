@@ -895,6 +895,43 @@ ALTER SEQUENCE "T_atleta_uniforme_id_au_seq" OWNED BY "T_atleta_uniforme".id_au;
 
 
 --
+-- Name: T_bitacora; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE "T_bitacora" (
+    id_bitacora integer NOT NULL,
+    id_usuarios integer,
+    fecha date,
+    hora time without time zone,
+    actividad character varying(255)
+);
+
+
+ALTER TABLE "T_bitacora" OWNER TO postgres;
+
+--
+-- Name: T_bitacora_id_bitacora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE "T_bitacora_id_bitacora_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE "T_bitacora_id_bitacora_seq" OWNER TO postgres;
+
+--
+-- Name: T_bitacora_id_bitacora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE "T_bitacora_id_bitacora_seq" OWNED BY "T_bitacora".id_bitacora;
+
+
+--
 -- Name: T_disciplina; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -1692,6 +1729,13 @@ ALTER TABLE ONLY "T_atleta_uniforme" ALTER COLUMN id_au SET DEFAULT nextval('"T_
 
 
 --
+-- Name: T_bitacora id_bitacora; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "T_bitacora" ALTER COLUMN id_bitacora SET DEFAULT nextval('"T_bitacora_id_bitacora_seq"'::regclass);
+
+
+--
 -- Name: T_dia_pdc id_dp; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1780,7 +1824,6 @@ INSERT INTO "T_atleta_disciplina" VALUES (90, '2', 16);
 INSERT INTO "T_atleta_disciplina" VALUES (91, '2', 18);
 INSERT INTO "T_atleta_disciplina" VALUES (95, '20350027', 16);
 INSERT INTO "T_atleta_disciplina" VALUES (96, '20350027', 18);
-INSERT INTO "T_atleta_disciplina" VALUES (97, '23654987', 16);
 
 
 --
@@ -1921,6 +1964,15 @@ INSERT INTO "T_atleta_prueba" VALUES (27, '2018-05-25', '70', '2', 'EquLibtest')
 INSERT INTO "T_atleta_uniforme" VALUES (12, 'XS', 'XS', 'XS', '45', 'XL', 'XXL', '2');
 INSERT INTO "T_atleta_uniforme" VALUES (11, 'S', 'M', 'S', '41', 'S', 'M', '20350027');
 INSERT INTO "T_atleta_uniforme" VALUES (16, '', '', '', '', '', '', '23654987');
+
+
+--
+-- Data for Name: T_bitacora; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO "T_bitacora" VALUES (1, 4, '2019-06-10', '11:50:00', 'sasddsd');
+INSERT INTO "T_bitacora" VALUES (2, 13, '2019-06-10', '12:12:16', 'registro un Disciplina');
+INSERT INTO "T_bitacora" VALUES (3, 13, '2019-06-10', '12:16:27', 'Modifico una Disciplina');
 
 
 --
@@ -2105,12 +2157,11 @@ INSERT INTO "T_pnf" VALUES (3, 'PNF en Contaduría Publica', 'coordinador', 1);
 INSERT INTO "T_pnf" VALUES (4, 'PNF en Turismo', 'coordinador', 1);
 INSERT INTO "T_pnf" VALUES (5, 'PNF en Agroalimentación', 'coordinador', 1);
 INSERT INTO "T_pnf" VALUES (6, 'PNF en Higiene y seguridad laboral', 'coordinador', 1);
-INSERT INTO "T_pnf" VALUES (7, 'PNF en Informática', 'Jehamar Lovera', 1);
 INSERT INTO "T_pnf" VALUES (8, 'PNF en Sistemas de calidad y ambiente', 'coordinador', 1);
 INSERT INTO "T_pnf" VALUES (1, 'PNF en Deportes', 'coordinador', 1);
 INSERT INTO "T_pnf" VALUES (2, 'PNF en Ciencias  de la Información', 'coordinador', 1);
 INSERT INTO "T_pnf" VALUES (9, 'PNF en Administracion', 'coordinador', 1);
-INSERT INTO "T_pnf" VALUES (10, 'prueba', 'qwertyuio', 1);
+INSERT INTO "T_pnf" VALUES (7, 'PNF en Informática', 'Leany ', 1);
 
 
 --
@@ -2145,6 +2196,7 @@ INSERT INTO roles VALUES (15, 1, NULL);
 INSERT INTO roles VALUES (16, 1, NULL);
 INSERT INTO roles VALUES (17, 1, 15);
 INSERT INTO roles VALUES (18, 2, 16);
+INSERT INTO roles VALUES (19, 1, 17);
 
 
 --
@@ -2158,6 +2210,7 @@ INSERT INTO usuarios VALUES (21, 'pruebas', '$2y$10$pIil43i0vJDJsrCgcB3JkObgC1iO
 INSERT INTO usuarios VALUES (13, 'a', '$2y$10$LYOx5fevRGcdrCjuYIVgsu1px4UK9Af2Hg35ZByiBB3Qvw8vvEJwW', 'a@g.com', 1, NULL, 'SG9sYSBzb3kgZWwgc2VjcmV0bw==', 'YXNzZXRzL2ltZy9lc3RlZ2FuL3VzZXJpbWcvb3V0cHV0dXNlcmltZzE=', 'YXNzZXRzL2ltZy9lc3RlZ2FuL2ltZy90ZXN0Nw==');
 INSERT INTO usuarios VALUES (15, 'c', '$2y$10$stu1BNQfRlkORztEN13bKesP91NABvvIu9cX.8vi37z49GSLv4Vzi', 'c@gma', 1, '', 'RXN0ZSBlcyBlbCBzZWNyZXRvIG1hcyBndWFyZGFkbyBkZWwgdW5pdmVyc28=', 'YXNzZXRzL2ltZy9lc3RlZ2FuL3VzZXJpbWcvNWJiY2YwZTU1YQ==', 'YXNzZXRzL2ltZy9lc3RlZ2FuL2ltZy90ZXN0MTE=');
 INSERT INTO usuarios VALUES (16, 'isliany', '$2y$10$t06y6yKWK6Gpnyo02vUa.OHepa0wGJeI/KzjzFIWdSerp7Etz4Yeu', 'islianydiaz123@hotmail.es', 1, '', 'U295IGxhIE1lam9y', 'YXNzZXRzL2ltZy9lc3RlZ2FuL3VzZXJpbWcvMmVjYjhlNjIzYw==', 'YXNzZXRzL2ltZy9lc3RlZ2FuL2ltZy90ZXN0MQ==');
+INSERT INTO usuarios VALUES (17, 'b', '$2y$10$IitCsWtvYVSMgiswR1N4nubvKj.9OL5284SSNm5HiTiNBY37Kz0pu', 'b@gmail.com', 1, '', 'M2NhMzM5OWI1MA==', NULL, 'YXNzZXRzL2ltZy9lc3RlZ2FuL2ltZy90ZXN0Ng==');
 
 
 --
@@ -2217,10 +2270,17 @@ SELECT pg_catalog.setval('"T_atleta_uniforme_id_au_seq"', 16, true);
 
 
 --
+-- Name: T_bitacora_id_bitacora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('"T_bitacora_id_bitacora_seq"', 3, true);
+
+
+--
 -- Name: T_disciplina_id_disciplina_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_disciplina_id_disciplina_seq"', 54, true);
+SELECT pg_catalog.setval('"T_disciplina_id_disciplina_seq"', 56, true);
 
 
 --
@@ -2248,7 +2308,7 @@ SELECT pg_catalog.setval('"T_permisos_id_permisos_seq"', 16, true);
 -- Name: T_pnf_id_pnf_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('"T_pnf_id_pnf_seq"', 11, true);
+SELECT pg_catalog.setval('"T_pnf_id_pnf_seq"', 13, true);
 
 
 --
@@ -2269,14 +2329,14 @@ SELECT pg_catalog.setval('rol_id_rol_seq', 1, false);
 -- Name: roles_id_roles_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('roles_id_roles_seq', 18, true);
+SELECT pg_catalog.setval('roles_id_roles_seq', 19, true);
 
 
 --
 -- Name: usuarios_id_usuario_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('usuarios_id_usuario_seq', 16, true);
+SELECT pg_catalog.setval('usuarios_id_usuario_seq', 17, true);
 
 
 --
@@ -2341,6 +2401,14 @@ ALTER TABLE ONLY "T_dia_pdc"
 
 ALTER TABLE ONLY "T_atleta_uniforme"
     ADD CONSTRAINT "T_atleta_uniforme_pkey" PRIMARY KEY (id_au);
+
+
+--
+-- Name: T_bitacora T_bitacora_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "T_bitacora"
+    ADD CONSTRAINT "T_bitacora_pkey" PRIMARY KEY (id_bitacora);
 
 
 --
@@ -2525,6 +2593,14 @@ ALTER TABLE ONLY "T_atleta_prueba"
 
 ALTER TABLE ONLY "T_atleta_uniforme"
     ADD CONSTRAINT "T_atleta_uniforme_cedula_atleta_fkey" FOREIGN KEY (cedula_atleta) REFERENCES "T_atleta"(cedula_atleta) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: T_bitacora T_bitacora_usuario_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "T_bitacora"
+    ADD CONSTRAINT "T_bitacora_usuario_fk" FOREIGN KEY (id_usuarios) REFERENCES usuarios(id_usuario) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --

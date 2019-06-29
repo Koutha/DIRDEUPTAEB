@@ -6,6 +6,7 @@
     <title>Sistema de Registro</title>
     <!-- BOOTSTRAP STYLES-->
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
+    <link href="assets/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
      <!-- FONTAWESOME STYLES-->
      <link href="assets/css/fontawesome-all.min.css" rel="stylesheet" />
     

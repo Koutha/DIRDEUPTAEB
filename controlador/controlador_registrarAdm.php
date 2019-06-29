@@ -12,6 +12,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     else if(isset($_POST['submit']) && $_POST['submit']=='registrarAdm'){
             if (isset ($_POST['pass']) && $_POST['pass']!=$_POST['rpass']){
                 //verificamos si las contraseñas coinciden
+                function randomGen($min, $max, $quantity, $imgcheck = null) {
+                    $numbers = range($min, $max); //generamos el arreglo
+                        foreach ($numbers as &$value) {
+                            $value = 'assets/img/estegan/img/test'.$value; //agregamos la ruta de las imagenes
+                        }
+                        if (array_search($imgcheck, $numbers)) {  //buscamos la imagen para no repetirla
+                            $key = array_search($imgcheck, $numbers);
+                            unset($numbers[$key]);
+                        }
+                        shuffle($numbers); //mezclamos el orden aleatoriamente
+                        return array_slice($numbers, 0, $quantity); // devolvemos la cantidad que $quantity nos indique sin repetirlos
+                }
+                $arr = randomGen(1,18,4);
                 $pass=0;
                 require('vistas/vista_registrarAdm.php'); 
             }else{ //coinciden las contraseñas enviadas
@@ -22,19 +35,23 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 $Opersonal=new Cpersonal();
                 $usuario=new usuario();
                 $username=$_SESSION['username'];
-                $t_usuario=$usuario->getbyuser($username);
-                $id_usuario=$t_usuario['id_usuario'];
-                $fecha=date('d/m/y');
-                $hora=date('h:i:s');
-                $actividad="registro un Usuario";
-                $Obitacora->setid_usuarios($id_usuario);
-                $Obitacora->setfecha($fecha);
-                $Obitacora->sethora($hora);
-                $Obitacora->setactividad($actividad);
-                $Obitacora->registrarbitacora();
+                
                 if ($usuario->getbyuser($_POST['username'])) {
                     //verificamos si el usuario existe
                     $existe= 1;
+                    function randomGen($min, $max, $quantity, $imgcheck = null) {
+                        $numbers = range($min, $max); //generamos el arreglo
+                        foreach ($numbers as &$value) {
+                            $value = 'assets/img/estegan/img/test'.$value; //agregamos la ruta de las imagenes
+                        }
+                        if (array_search($imgcheck, $numbers)) {  //buscamos la imagen para no repetirla
+                            $key = array_search($imgcheck, $numbers);
+                            unset($numbers[$key]);
+                        }
+                        shuffle($numbers); //mezclamos el orden aleatoriamente
+                        return array_slice($numbers, 0, $quantity); // devolvemos la cantidad que $quantity nos indique sin repetirlos
+                    }
+                    $arr = randomGen(1,18,4); 
                     require('vistas/vista_registrarAdm.php');
                 }else{
                     $parar=0;
@@ -43,11 +60,37 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                             if ($usuario->getbycedula($_POST['cedula'])) { //otro usuario tiene la misma cedula
                                 $existe= 2; 
                                 $parar=1;
+                                function randomGen($min, $max, $quantity, $imgcheck = null) {
+                                $numbers = range($min, $max); //generamos el arreglo
+                                foreach ($numbers as &$value) {
+                                    $value = 'assets/img/estegan/img/test'.$value; //agregamos la ruta de las imagenes
+                                }
+                                if (array_search($imgcheck, $numbers)) {  //buscamos la imagen para no repetirla
+                                $key = array_search($imgcheck, $numbers);
+                                unset($numbers[$key]);
+                                }
+                                shuffle($numbers); //mezclamos el orden aleatoriamente
+                                return array_slice($numbers, 0, $quantity); // devolvemos la cantidad que $quantity nos indique sin repetirlos
+                                }
+                                $arr = randomGen(1,18,4); 
                                 require('vistas/vista_registrarAdm.php');
                             }
                         }else{ //no existe la cedula en la tabla personal
                             $existe=0; 
-                            $parar=1;    
+                            $parar=1;
+                            function randomGen($min, $max, $quantity, $imgcheck = null) {
+                                $numbers = range($min, $max); //generamos el arreglo
+                                foreach ($numbers as &$value) {
+                                    $value = 'assets/img/estegan/img/test'.$value; //agregamos la ruta de las imagenes
+                                }
+                                if (array_search($imgcheck, $numbers)) {  //buscamos la imagen para no repetirla
+                                $key = array_search($imgcheck, $numbers);
+                                unset($numbers[$key]);
+                                }
+                                shuffle($numbers); //mezclamos el orden aleatoriamente
+                                return array_slice($numbers, 0, $quantity); // devolvemos la cantidad que $quantity nos indique sin repetirlos
+                            }
+                            $arr = randomGen(1,18,4);     
                             require('vistas/vista_registrarAdm.php');
                         }
                     } 
@@ -70,6 +113,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                             }
                         }
                         $_SESSION['registro'] = 1;
+                        $t_usuario=$usuario->getbyuser($username);
+                        $id_usuario=$t_usuario['id_usuario'];
+                        $fecha=date('d/m/y');
+                        $hora=date('H:i:s');
+                        $actividad="registro un Usuario";
+                        $Obitacora->setid_usuarios($id_usuario);
+                        $Obitacora->setfecha($fecha);
+                        $Obitacora->sethora($hora);
+                        $Obitacora->setactividad($actividad);
+                        $Obitacora->registrarbitacora();
                         header('Location:?action=registrarAdm'); 
                  
                     }
@@ -89,7 +142,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 shuffle($numbers); //mezclamos el orden aleatoriamente
                 return array_slice($numbers, 0, $quantity); // devolvemos la cantidad que $quantity nos indique sin repetirlos
             }
-        $arr = randomGen(1,18,4);
+            $arr = randomGen(1,18,4);
 
     	require('vistas/vista_registrarAdm.php');
 

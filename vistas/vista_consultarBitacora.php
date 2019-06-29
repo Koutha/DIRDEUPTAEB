@@ -34,20 +34,20 @@ require('core/sist-header.php');
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
+                                                <th>Hora</th>
                                                 <th>Nombre</th>
                                                 <th>Fecha</th>
-                                                <th>Hora</th>
                                                 <th>Actividad</th>
                                                 </tr>
                                         </thead>
                                         <tbody><?php foreach ($todos as $bitacora){ ?>
                                             <tr class="odd gradeX">
+                                                <td><?php echo $bitacora['hora']; ?></td>
                                                 <td><?php foreach ($todosu as $key => $usuarios) {
                                                                 if ($bitacora['id_usuarios']==$usuarios['id_usuario']) {
                                                                 echo $usuarios['nombre_usuario'];}
                                                             } ?></td>
                                                 <td><?php echo $bitacora['fecha']; ?></td>
-                                                <td><?php echo $bitacora['hora']; ?></td>
                                                 <td><?php echo $bitacora['actividad'];?></td>
                                                
 
