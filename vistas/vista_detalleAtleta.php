@@ -19,9 +19,12 @@ require('core/sist-header.php');
                                 <li><a data-toggle="tab" href="#datos_medicos">Médicos</a></li>
                                 <li><a data-toggle="tab" href="#datos_uniforme">Uniforme</a></li>
                                 <li><a data-toggle="tab" href="#datos_deportivos">Deportivos</a></li>
-                                <li style="float: right;">
+                                <?php if ($validacion == 1) { ?>
+                                     <li style="float: right;">
                                     <a class="btn btn-dangerda" href="?action=modificarAtleta&id=<?php echo $atleta['cedula_atleta']; ?>">Modificar</a>
                                 </li>
+                                <?php  } ?>
+                               
                                 <li style="float: right;">
                                     <a class="btn btn-infoda" href="?action=consultarAtleta">Volver</a>
                                 </li>

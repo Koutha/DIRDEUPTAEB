@@ -25,13 +25,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $t_usuario=$Ousuario->getbyuser($username);
             $id_usuario=$t_usuario['id_usuario'];
             $fecha=date('d/m/y');
-            $hora=date('h:i:s');
+            $hora=date('H:i:s');
             $actividad="Modifico un Atleta";
             $Obitacora->setid_usuarios($id_usuario);
             $Obitacora->setfecha($fecha);
             $Obitacora->sethora($hora);
             $Obitacora->setactividad($actividad);
-            $Obitacora->registrarbitacora();
             $Oatleta= new Catleta();
             $Odisciplina= new Cdisciplina();
             $atleta = $Oatleta->consultarDatos($id);
@@ -188,17 +187,30 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         $pnf=' Deportes';
                         break;
                     $registro= 1;
+                    $Obitacora->registrarbitacora();
                     } // switch
                     header('Location:?action=detalleAtleta&id='.$id);
                   // require('vistas/vista_detalleAtleta.php');
                 } //else linea 31 validacion
             }//if de la entrada por post linea 22
-            else {
+            else{
                 //entra por get
                 $Odisciplina= new Cdisciplina();
                 $disciplinas=$Odisciplina->consultarTodos();
                 $atletaDisciplinas=$Odisciplina->getDisciplinasPorAtleta($id);
-                require('vistas/vista_modificarAtleta.php');
+                $validacion  = 0; 
+                foreach ($_SESSION['permisos'] as $key => $value) {
+                    if ($value == "Modificar Atleta") {
+                        $validacion = 1 ; 
+                    }
+                    
+                }
+                if ($validacion == 1) {
+                    require('vistas/vista_modificarAtleta.php');
+                }else{
+                    header('Location:?action=sindex');
+                }
+
             } //else del get linea 169
         }//else linea 12
 } //if linea 5 validacion de sesion

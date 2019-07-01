@@ -10,54 +10,47 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Registros
-                         <ul class="nav nav-tabs">
-                    
-                </ul></h2>   
                         
-
+                        <h2>Generar reporte del personal que labora en las disciplinas</h2>
+                        <h5>Donde se selecciona la disciplina para ver la nomina en PDF</h5>   
                     </div>
                 </div>
+                <hr>
                 <!-- /. ROW  -->
-                <hr />
-                
+               
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Advanced Tables -->
-                        
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                Bitacora del sistema:
+                                Registros de la base de datos
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
-                                                <th>Hora</th>
-                                                <th>Nombre</th>
-                                                <th>Fecha</th>
-                                                <th>Actividad</th>
+                                                <th>Nombre de la disciplina</th>
+                                                <th>Tipo</th>
+                                                <th> </th>
+                                                
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <?php if (!empty($todos)){
-                                                foreach ($todos as $bitacora){ ?>
-                                            
+                                        <tbody><?php foreach ($disciplinas as $au){ ?>
+										<?php if($au['status']== 1 ){ ?>
                                             <tr class="odd gradeX">
-                                                <td><?php echo $bitacora['hora']; ?></td>
-                                                <td><?php foreach ($todosu as $key => $usuarios) {
-                                                                if ($bitacora['id_usuarios']==$usuarios['id_usuario']) {
-                                                                echo $usuarios['nombre_usuario'];}
-                                                            } ?></td>
-                                                <td><?php echo $bitacora['fecha']; ?></td>
-                                                <td><?php echo $bitacora['actividad'];?></td>
-                                               
-
-                                               
+                                                <td><?php echo $au['nombre'] ?></td>
+                                                <td><?php echo $au['tipo_disciplina']; ?></td>
+                                                <td class="center">
+                                                    <?php $uid= $au['id_disciplina']; ?>
+                                                    <a class="btn btn-warning" href="<?php echo "?action=generarReportesPersonal&disciplina=".$uid; ?>">Ver Ficha en PDF</a>
+                                                    
+                                                </td>
+                                                
                                             </tr>
-                                            <?php }} ?>
-                                            
+                                            <?php }}?>
+                                           
+                                             
                                         </tbody>
                                     </table>
                                 </div>

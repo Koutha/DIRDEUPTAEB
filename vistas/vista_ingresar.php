@@ -21,6 +21,12 @@ require('core/sist-header.php');
                         		<strong> <center>Ingreso al sistema</center> </strong>  
                             </div>
                             <div class="panel-body">
+                              <?php if (isset($_GET['recupero']) && $_GET['recupero'] == 1) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>se actualizo su contraseña exitosamente</strong>  
+                            </div>
+                        <?php } ?>
                               <?php if (isset($pw)&&$pw==0) {?>
                                       <div class="alert alert-danger alert-dismissible">
                                           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -46,7 +52,7 @@ require('core/sist-header.php');
                                       <div class="form-group" >
                                           <button name="submit" value="login" type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>
                                         	<!-- <input type="submit" name="Submit" value="login" class="btn btn-primary "> -->
-                                          <a href="?action=index" class="btn btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+                                          <a href="?action=recuperarContraseña" class="btn btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Recuperar Contraseña</a>
                                       </div>
                                     <hr />
                                 </form>

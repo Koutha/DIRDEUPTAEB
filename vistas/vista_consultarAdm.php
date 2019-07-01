@@ -62,7 +62,7 @@ require('core/sist-header.php');
                                                 <td><?php echo $au['rol']; ?></td>
                                                 <td><input  type="radio" name="optradio" value="<?php echo $valu;?>" >Ver Permisos<div class="form-group-text" id="<?php echo $valu;?>" style="display: none;">
                                                     <?php foreach ($todos as $key){if (($key['id_usuario'])==($au['id_usuario'])) {echo "*".$key['permisos'],"<br/>";}} ?></div></td>
-                                                <td class="center"> <?php $valu=$valu+1 ?>
+                                                <td class="center"> <?php $valu=$valu+1; ?>
                                                 <?php $uid= $au['id_usuario']; ?>
                                                     <!-- Boton para activar el modal MODIFICAR -->
                                                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificarUser&id=".$uid; ?>">Modificar</button>

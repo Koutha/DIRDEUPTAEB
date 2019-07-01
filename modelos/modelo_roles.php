@@ -13,7 +13,7 @@ class roles extends modelobase {
     
 
     public function getRol($iduser) {
-        $sql="SELECT id_rol FROM $this->tabla WHERE id_usuario='$iduser'";
+        $sql="SELECT id_rol FROM roles WHERE id_usuario='$iduser'";
         $db=$this->db();
         $query=$db->query($sql);
         if($fila = $query->fetch(PDO::FETCH_ASSOC)) {
@@ -26,7 +26,7 @@ class roles extends modelobase {
     public function actualizarRol($idrol,$iduser) {
     	
     	try {
-    		$sql= "UPDATE $this->tabla SET id_rol=? WHERE id_usuario=?";
+    		$sql= "UPDATE roles SET id_rol=? WHERE id_usuario=?";
     		$db=$this->db();
 
     		$query=$db->prepare($sql);
@@ -48,7 +48,7 @@ class roles extends modelobase {
         
         return 0; */
         try {
-            $sql="INSERT INTO $this->tabla (id_rol,id_usuario) VALUES (?,?)";
+            $sql="INSERT INTO roles (id_rol,id_usuario) VALUES (?,?)";
 
             $db=$this->db();
             $query=$db->prepare($sql);

@@ -45,6 +45,14 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     $pnf=' Deportes';
                     break;
             }
+            $validacion  = 0; 
+            foreach ($_SESSION['permisos'] as $key => $value) {
+                if ($value == "Modificar Atleta") {
+                     $validacion = 1 ; 
+                }
+                    
+            }
+                
         require('vistas/vista_detalleAtleta.php');
     }
         

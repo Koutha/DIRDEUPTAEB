@@ -20,13 +20,13 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
               $t_usuario=$Ousuario->getbyuser($username);
               $id_usuario=$t_usuario['id_usuario'];
               $fecha=date('d/m/y');
-              $hora=date('h:i:s');
+              $hora=date('H:i:s');
               $actividad="registro la Aplicacion de una Prueba";
               $Obitacora->setid_usuarios($id_usuario);
               $Obitacora->setfecha($fecha);
               $Obitacora->sethora($hora);
               $Obitacora->setactividad($actividad);
-              $Obitacora->registrarbitacora();
+              
               $Oprueba= new Cprueba();
               $todos=$Oprueba->consultarTodosp();
               $id_prueba=($_POST['id_prueba']);
@@ -63,6 +63,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                   //registrar la aplicacion de la prueba
                   $Oprueba->registrarapliprueba();
                   $registro= 1;
+                  $Obitacora->registrarbitacora();
                   $disci=$_POST['id_disciplina'];
                   $cedula_atleta=$cedula;
                   $nombresA=$prueba['nombres'];
