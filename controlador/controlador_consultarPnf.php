@@ -11,6 +11,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }else {
         include_once('modelos/modelo_Pnf.php');
         $Cpnf= new Cpnf();
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $todos=$Cpnf->consultaTodo();
         require('vistas/vista_consultarPnf.php');
 

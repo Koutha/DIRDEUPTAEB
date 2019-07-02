@@ -15,6 +15,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $todos=$Obitacora->consultarTodosb();
         $todosu=$Ousuario->listarAdm();
         $todos=$Obitacora->consultarTodosb();
+        
+       
         require_once('vistas/vista_consultarBitacora.php');
        
     }

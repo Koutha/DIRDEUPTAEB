@@ -11,6 +11,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }else {
         include_once('modelos/modelo_atleta.php');
         include_once('modelos/modelo_disciplina.php'); 
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $Oatleta= new Catleta();
         $Odisciplina= new Cdisciplina();
         $todos=$Oatleta->consultarTodos(); 

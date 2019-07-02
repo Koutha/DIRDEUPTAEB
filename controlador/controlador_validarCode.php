@@ -41,6 +41,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
         }
         else{//primera entrada despues de validar la imagen
 
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
             $seleccion  = $_GET['mod']; //se indica el modulo a validar
             if (isset($_GET['at'])){ //para consultarAplicacionPdc&at
                 $seleccion2 = 'at' ; 

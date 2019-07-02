@@ -12,6 +12,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include_once('modelos/modelo_pdc.php');
         include_once('modelos/modelo_atleta.php');
         include_once('modelos/modelo_disciplina.php');
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $Opdc= new Cpdc();
         $Oatleta= new Catleta();
         $Odisciplina= new Cdisciplina();

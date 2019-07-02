@@ -76,6 +76,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         else{
             include_once('modelos/modelo_disciplina.php');
             $Odisciplina= new Cdisciplina();
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
             $disciplinas=$Odisciplina->consultarTodos();
             require('vistas/vista_registrarPersonal.php');
         }

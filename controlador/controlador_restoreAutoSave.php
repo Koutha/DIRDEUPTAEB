@@ -17,6 +17,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
          //include_once('modelos/modelo_base.php');
          //$Omodelo_base= new modelobase();
         include_once('modelos/modelo_bitacora.php');
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $Obitacora = new Cbitacora();
         $all = $Obitacora->getAutoSaves();
         //var_dump($all);

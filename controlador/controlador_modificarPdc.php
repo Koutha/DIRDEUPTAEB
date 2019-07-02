@@ -94,6 +94,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
         else{//entrada por enlace o get
             include_once('modelos/modelo_disciplina.php');
             $Odisciplina= new Cdisciplina();
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
             $disciplinas=$Odisciplina->consultarTodos();
             require('vistas/vista_registrarPdc.php');
         }

@@ -18,6 +18,7 @@ if ($result>0) {
     if (password_verify($password, $result['password'])) {
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $username;
+        $_SESSION['id_usuario'] = $result['id_usuario'];
         $_SESSION['rol'] = $userRol['id_rol'];
         $_SESSION['start'] = time();
         $_SESSION['expire'] = $_SESSION['start'] + (60*90);

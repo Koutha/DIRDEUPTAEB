@@ -11,6 +11,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }else {
         include_once('modelos/modelo_personal.php');
         include_once('modelos/modelo_disciplina.php');
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $Opersonal= new Cpersonal();
         $Odisciplina= new Cdisciplina();
         date_default_timezone_set('America/caracas');

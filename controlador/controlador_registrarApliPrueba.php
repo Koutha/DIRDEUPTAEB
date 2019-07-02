@@ -85,6 +85,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }
 
     else if (isset($_GET['id_prueba'])) {
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
       include_once('modelos/modelo_pruebas.php');
       $Oprueba= new Cprueba();
       $todos=$Oprueba->consultarTodosp(); 
@@ -95,6 +97,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       include_once('modelos/modelo_pruebas.php');
       include_once('modelos/modelo_atleta.php');
       include_once('modelos/modelo_disciplina.php');
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
       $Oprueba= new Cprueba();
       $Oatleta= new Catleta();
       $Odisciplina= new Cdisciplina();

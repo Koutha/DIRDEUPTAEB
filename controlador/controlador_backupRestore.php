@@ -97,6 +97,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 //echo "estoy aqui";
         }
         else if (isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1) { //entrada despues de validacion de usuario se puede agregar variable de tiempo
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
             unset($_SESSION['imgCorrect']); //IMPORTANTE DECOMENTAR AL FINALIZAR EL DESARROLLO
             require('vistas/vista_backupRestore.php');
         }else if (isset($_SESSION['restoring'])&& $_SESSION['restoring']== 1){

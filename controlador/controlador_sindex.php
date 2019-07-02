@@ -12,6 +12,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         require('modelos/modelo_atleta.php');
         require('modelos/modelo_personal.php');
         require('modelos/modelo_disciplina.php');
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $Oatleta=new Catleta();
         $Odisciplina=new Cdisciplina();
         $Opersonal=new Cpersonal();

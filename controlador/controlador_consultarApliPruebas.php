@@ -11,6 +11,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     }else if (isset($_GET['cedula_atleta'])){
         include_once('modelos/modelo_pruebas.php');
         $Oprueba = new Cprueba();
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $cedula_atleta=$_GET['cedula_atleta'];
         $todos=$Oprueba->consultarTodosap();
         $todosa=$Oprueba->consultarDatosa($cedula_atleta);
@@ -27,6 +29,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             }
         require_once('modelos/modelo_pruebas.php');
         $Oprueba=new Cprueba();
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
         $todos=$Oprueba->cta();
         require_once('vistas/vista_consultarAplicacionPruebas.php');
         /*$allusers=$usuario->listarAdm();

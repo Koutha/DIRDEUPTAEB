@@ -104,7 +104,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                   $todos=$usuario->consultarTodosPermisos(); 
                     require('vistas/vista_modificarUser.php');
                 }
-        }else{echo "entre";
+        }else{
         header('Location:?action=sindex');
         }
 } else {

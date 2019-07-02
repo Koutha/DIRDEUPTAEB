@@ -50,7 +50,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             }
             else{ echo "1";require('vistas/vista_modificarContraseña.php'); }
         }
-        elseif (isset($_GET['id'])&&$_GET['id']==1) {$id=$_GET['id'];
+        elseif (isset($_GET['id'])&&$_GET['id']==1) {
+        require('modelos/modelo_usuario.php');
+        $Ousuario=new usuario();
+            $id=$_GET['id'];
             require('vistas/vista_modificarContraseña.php');
         }
         else{echo "entre";

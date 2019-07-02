@@ -24,8 +24,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             imagepng($img1);//This will normally output the image, but because of ob_start(), it won't.
             $contents = ob_get_contents(); // read from buffer //Instead, output above is saved to $contents
             ob_end_clean(); //End the output buffer.
-            $img1string = base64_encode($contents);
-            $img1md5 = md5($img1string);
+            $img1string = base64_encode($contents); //cifrado de la imagen a base64
+            $img1md5 = md5($img1string); //cifrado de la imagen por md5
 
             //imagen del usuario
             $Userimg = base64_decode($_SESSION['imgSelect']);
@@ -38,7 +38,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             ob_end_clean(); //End the output buffer.
             $UserSSimgString = base64_encode($UserContents);
             $UserSSimgMd5 = md5($UserSSimgString);
-
             if ($img1md5 == $UserSSimgMd5) { //valido la imagen
                 $_SESSION['imgCorrect'] = 1;
                 if (isset($modulo2)){
@@ -59,8 +58,9 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 }
             }
         }
-        else{//entrada por enlace o get primera entrada
-            
+        else{//entrada por get o primera entrada
+            require('modelos/modelo_usuario.php');
+            $Ousuario=new usuario();
             function randomGen($min, $max, $quantity, $imgcheck = null) {
                 $numbers = range($min, $max); //generamos el arreglo
                 foreach ($numbers as &$value) {

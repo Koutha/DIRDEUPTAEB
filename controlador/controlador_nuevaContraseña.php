@@ -20,7 +20,6 @@ if (isset($_SESSION['logg']) && $_SESSION['logg'] == true) {
                 $Obitacora=new Cbitacora();
                 $usuario=new usuario();
                 $username=$_SESSION['username'];
-                 
                     //continua el flujo por POST sin conflictos para registrar
                         $hash=password_hash($_POST['passn'],PASSWORD_DEFAULT);
                         // end cifrado
@@ -42,7 +41,8 @@ if (isset($_SESSION['logg']) && $_SESSION['logg'] == true) {
                 }
             
         
-    else {$username=$_SESSION['username'];
+    else {
+        $username=$_SESSION['username'];
         require('vistas/vista_nuevaContraseña.php');
     }
     
