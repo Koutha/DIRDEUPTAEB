@@ -48,11 +48,11 @@ require('core/sist-header.php');
 
                                             <div class="form-group">
                                                 <label>Nombre del PNF</label>
-                                                <input class="form-control" name="nombre" placeholder="Nombre del PNF" onkeypress="return letra(event);" required/>
+                                                <input class="form-control" name="nombre" pattern="(PNF en)([a-z A-Z]){6,32}\s?" title="Ejemplo: PNF en Informatica" maxlength="32" placeholder="Nombre del PNF" required/>
                                             </div>
                                            <div class="form-group">
                                                 <label>Nombre del Coordinador</label>
-                                                <input class="form-control" name="coordinador" placeholder="Nombre del Coordinador del PNF" onkeypress="return letra(event);" required/>
+                                                <input class="form-control" name="coordinador" pattern="[a-z A-Z]{6,32}\s+" title="Ejemplo: Osmin Rodriguez" placeholder="Nombre del Coordinador del PNF" onkeypress="return letra(event);" required/>
                                             </div>
 
                                                    

@@ -18,7 +18,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $t_usuario=$Ousuario->getbyuser($username);
         $id_usuario=$t_usuario['id_usuario'];
         $fecha=date('d/m/y');
-        $hora=date('h:i:s');
+        $hora=date('H:i:s');
         $actividad="Elimino un Pnf";
         $Obitacora->setid_usuarios($id_usuario);
         $Obitacora->setfecha($fecha);

@@ -25,32 +25,35 @@
     <link href='assets/css/bootstrap-datetimepicker.min.css' rel='stylesheet' />
     <style type="text/css">
     .div-general-img
-{
-display: inline-flex;
-}
+    {
+    display: inline-flex;
+    width: 100%
+    }
  
-.img
-{
-background-color: #fff;
-margin: 25px;
-padding:25px;
-}
- 
-.img-selected
-{
-border: 3px dashed #099a9f;
-margin:25px;
-padding:25px;
-}
-.check
-{
+    .img{
+    background-color: #fff;
+    margin: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding:20px;
+    }
+    .img-selected
+    {
+    border: 3px dashed #099a9f;
+    margin:25px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding:20px;
+    }
+    .check
+    {
     opacity:0.5;
     color:#996;
-}
-.box{
+    }
+    .box{
     margin-bottom:5px;
-}
-</style>
+    }
+    </style>
 
 
 </head>

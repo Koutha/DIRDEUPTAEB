@@ -56,7 +56,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $id=$_GET['id'];
             require('vistas/vista_modificarContraseña.php');
         }
-        else{echo "entre";
+        else{
+            
         header('Location:?action=sindex');
         }
 } else {

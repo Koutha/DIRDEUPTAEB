@@ -28,15 +28,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $Obitacora->setactividad($actividad);
             $Obitacora->registrarbitacora();
             $Opnf= new Cpnf();
-            $nombr=$_POST['nombre'];
+            $nombr=htmlspecialchars($_POST['nombre'],ENT_QUOTES);
             if ($Opnf->consulta($nombr)) {
                 //si el nombre existe
                 $existe= 1;
                 require('vistas/vista_registrarPnf.php');
             }
             else{
-                $nombre=$_POST['nombre'];
-                $coordinador=$_POST['coordinador'];
+                $nombre=htmlspecialchars($_POST['nombre'],ENT_QUOTES);
+                $coordinador=htmlspecialchars($_POST['coordinador'],ENT_QUOTES);
                 $Opnf->setnombre($nombre);
                 $Opnf->setcoordinador($coordinador);
                 //registrarlo

@@ -47,7 +47,7 @@ require('core/sist-header.php');
                                       </div>
                                       <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                            <input name="password" type="password" class="form-control"  placeholder="Contraseña" required />
+                                            <input name="password" type="password" autocomplete="off" class="form-control"  placeholder="Contraseña" required />
                                       </div>
                                       <div class="form-group" >
                                           <button name="submit" value="login" type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>

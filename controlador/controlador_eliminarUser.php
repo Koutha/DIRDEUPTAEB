@@ -18,7 +18,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $t_usuario=$Ousuario->getbyuser($username);
         $id_usuario=$t_usuario['id_usuario'];
         $fecha=date('d/m/y');
-        $hora=date('h:i:s');
+        $hora=date('H:i:s');
         $actividad="Elimino un Usuario";
         $Obitacora->setid_usuarios($id_usuario);
         $Obitacora->setfecha($fecha);
@@ -27,7 +27,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Obitacora->registrarbitacora();
         $usuario= new usuario();
         if (isset($_GET['id'])) {
-            $id=$_GET['id'];
+            $id= htmlspecialchars($_GET['id'],ENT_QUOTES);
             $usuario->borrar_user($id);
             $borrado = 1;
         }$valu=1;

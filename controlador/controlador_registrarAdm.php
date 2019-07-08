@@ -38,7 +38,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $Opersonal=new Cpersonal();
             $usuario=new usuario();
             $username=$_SESSION['username'];
-            if ($usuario->getbyuser($_POST['username'])) {
+            if ($usuario->getbyuser(htmlspecialchars($_POST['username'],ENT_QUOTES))) {
                 //verificamos si el usuario existe
                 $existe= 1;
                 $arr = randomGen(1,18,4); 
@@ -46,8 +46,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             }else{
                 $parar=0;
                 if((isset($_POST['cedula'])) && ($_POST['cedula']>0)) {  //se introdujo una cedula para el usuario
-                    if ($Opersonal->consultarDatos($_POST['cedula'])) { //la cedula existe en la tabla personal
-                        if ($usuario->getbycedula($_POST['cedula'])) { //otro usuario tiene la misma cedula
+                    if ($Opersonal->consultarDatos(htmlspecialchars($_POST['cedula'],ENT_QUOTES))) { //la cedula existe en la tabla personal
+                        if ($usuario->getbycedula(htmlspecialchars($_POST['cedula'],ENT_QUOTES))) { //otro usuario tiene la misma cedula
                             $existe= 2; 
                             $parar=1;
                             $arr = randomGen(1,18,4); 

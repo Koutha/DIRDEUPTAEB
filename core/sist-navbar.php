@@ -48,14 +48,6 @@
         <li><a href="#"><i class="fas fa-user-secret fa-2x"></i>Administrar<span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
                 <li>
-                    <a href="#">Bitácora<span class="fa arrow"></span></a>
-                    <ul class="nav nav-third-level">
-                        <li>
-                            <a href="?action=consultarBitacora">Consultar</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
                     <a href="#">Usuarios<span class="fa arrow"></span></a>
                     <ul class="nav nav-third-level">
                         <li>
@@ -85,6 +77,14 @@
                         </li>
                         <li>
                             <a href="?action=consultarPnf">Consultar</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Bitácora<span class="fa arrow"></span></a>
+                    <ul class="nav nav-third-level">
+                        <li>
+                            <a href="?action=consultarBitacora">Consultar</a>
                         </li>
                     </ul>
                 </li>

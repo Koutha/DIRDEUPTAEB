@@ -24,7 +24,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $actividad="registro una Disciplina";
             
             $Odisciplina= new Cdisciplina();
-            $nomb=$_POST['nombre'];
+            $nomb=htmlspecialchars($_POST['nombre'],ENT_QUOTES);
             $Odisciplina->setnombre($nomb);
             if ($Odisciplina->consultar()) {
                 //si el nombre existe
@@ -32,7 +32,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 require('vistas/vista_registrarDisciplina.php');
             }
             else{
-                 $nombre=$_POST['nombre'];
+                $nombre=htmlspecialchars($_POST['nombre'],ENT_QUOTES);
                 $tipo_disciplina=$_POST['tipo_disciplina'];
                 $Odisciplina->setnombre($nombre);
                 $Odisciplina->settipo_disciplina($tipo_disciplina);
@@ -50,7 +50,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         }
         else{
         require('modelos/modelo_usuario.php');
-        $Ousuario=new usuario();
+            $Ousuario=new usuario();
             require('vistas/vista_registrarDisciplina.php');
         }
 } 

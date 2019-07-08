@@ -49,7 +49,7 @@ require('core/sist-header.php');
 
                                             <div class="form-group">
                                                 <label>nombre de la disciplina</label>
-                                                <input class="form-control" name="nombre" placeholder="nombre:" onkeypress="return letra(event);" required/>
+                                                <input class="form-control" name="nombre" pattern="[a-z A-Z]{6,32}\s?" title="Ejemplo: Ajedrez Masculino" placeholder="nombre de la disciplina" maxlength="32" required/>
                                             </div>
                                             <div class="form-group">
                                                 <label>tipos</label>

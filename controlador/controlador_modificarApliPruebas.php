@@ -8,7 +8,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         echo "Su sesion a terminado,
 		<a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;
-    } else if (isset($_POST['Submit']) or isset($_GET['id_ap'])) {
+    } else if (isset($_POST['submit']) or isset($_GET['id_ap'])) {
         if (isset($_POST['id_ap'])) {
             $id_ap = $_POST['id_ap'];
         } else if (isset($_GET['id_ap'])) {

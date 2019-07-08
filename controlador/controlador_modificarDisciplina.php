@@ -8,7 +8,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         echo "Su sesion a terminado,
 		<a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;
-    } else if (isset($_POST['Submit']) or isset($_GET['id_disciplina'])) {
+    } else if (isset($_POST['submit']) or isset($_GET['id_disciplina'])) {
         if (isset($_POST['id_disciplina'])) {
             $id_disciplina = $_POST['id_disciplina'];
         } else if (isset($_GET['id_disciplina'])) {
@@ -29,7 +29,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Obitacora->setfecha($fecha);
         $Obitacora->sethora($hora);
         $Obitacora->setactividad($actividad);
-        $Obitacora->registrarbitacora();
+        
         $Odisciplina = new Cdisciplina();
         $Odisciplina->setid_disciplina($id_disciplina);
         $user = $Odisciplina->consultarid();
@@ -47,6 +47,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         $Odisciplina->settipo_disciplina($tipo_disciplina);
                     //aca  guardar en la base de datos
                         $Odisciplina->actualizarDisciplina();
+                        $Obitacora->registrarbitacora();
                          
                         $actualizo = 1;
                        

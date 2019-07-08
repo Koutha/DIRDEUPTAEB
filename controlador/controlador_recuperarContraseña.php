@@ -74,7 +74,7 @@ else{
         else if (isset($_POST['submit']) && $_POST['submit']=='recuperarContraseña') {//entrada para validar el usuario
             include_once('modelos/modelo_usuario.php');
             $usuario = new usuario();
-            $username = $_POST['username'];
+            $username = htmlspecialchars($_POST['username'], ENT_QUOTES);
             $result = $usuario->getbyuser($username);
             if ($result>0) {
 

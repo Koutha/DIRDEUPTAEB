@@ -25,7 +25,7 @@ require('core/sist-header.php');
                     </div>
                     <div class="row">
 
-                        <div class="col-md-10 col-md-offset-1 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+                        <div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-10 col-xs-offset-1">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <strong>  Registrar Nuevo Administrador </strong>  
@@ -41,11 +41,11 @@ require('core/sist-header.php');
                                         <?php } ?>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-circle-notch"  ></i></span>
-                                            <input name="username" type="text" class="form-control" placeholder="Nombre de Usuario" required />
+                                            <input name="username" type="text" class="form-control" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{1,20}$" title="El nombre de usuario no puede empezar con un caracter numerico ni contener espacios" placeholder="Nombre de Usuario" autocomplete="off" required />
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon">@</span>
-                                            <input name="email" type="email" class="form-control" placeholder="Correo" />
+                                            <input name="email" type="email" class="form-control" placeholder="Correo" autocomplete="off" />
                                         </div>
                                         <?php if (isset($pass)&&$pass==0) {?>
                                         <div class="alert alert-danger alert-dismissible">
@@ -55,23 +55,23 @@ require('core/sist-header.php');
                                         <?php } ?>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                            <input name="pass" type="password" class="form-control" placeholder="Contraseña" required />
+                                            <input name="pass" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" autocomplete="off" class="form-control" placeholder="Contraseña" required />
                                         </div>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                            <input name="rpass" type="password" class="form-control" placeholder="Repita la contraseña" required />
+                                            <input name="rpass" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" autocomplete="off" class="form-control" placeholder="Repita la contraseña" required />
                                         </div>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
                                             <h5><strong>Seleccione una imagen</strong></h5>
                                             </div>
                                             <div class="panel-body">
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-12">
                                                 <div class="div-general-img">
                                                 <?php foreach ($arr as $key => $value) {
-                                                        echo '<div class="img">
+                                                        echo '<div class="div-general-img img">
                                                                     <label >
-                                                                        <img src="'.$value.'.png" width="100px" height="100px" />
+                                                                        <img src="'.$value.'.png" class="div-general-img" width="100px" height="100px" />
                                                                         <input type="radio" name="imgValid" value="'.$value.'" class="hidden" required>
                                                                     </label>
                                                                 </div>';
@@ -82,24 +82,22 @@ require('core/sist-header.php');
                                                 </div>
                                             </div>
                                         </div>
-
-                                                             <?php if (isset($existe)&&$existe==0) {?>
-                                                                <div class="alert alert-danger alert-dismissible">
-                                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                    <strong>la cedula del usuario no se encuentra registrada como personal capacitado</strong> por favor intente con una diferente
-                                                                </div>
-                                                            <?php } ?>
-                                                            <?php if (isset($existe)&&$existe==2) {?>
-                                                                    <div class="alert alert-danger alert-dismissible">
-                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                                        <strong>La cedula del usuario ya esta registrada con otro usuario.</strong> por favor intente con una diferente
-                                                                    </div>
-                                                                <?php } ?>
-                                        
-                                                            <div class="form-group">
-                                                                <label class="control-label label-default">Cedula del Usuario en caso de que este registrado como personal capacitado (Opcional)</label>
-                                                                <input type="text" name="cedula" maxlength="8" class="form-control" placeholder="Ejemplo:26556987" onkeypress="return numero(event);">
-                                                            </div>
+                                            <?php if (isset($existe)&&$existe==0) {?>
+                                            <div class="alert alert-danger alert-dismissible">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <strong>la cedula del usuario no se encuentra registrada como personal capacitado</strong> por favor intente con una diferente
+                                            </div>
+                                            <?php } ?>
+                                            <?php if (isset($existe)&&$existe==2) {?>
+                                                    <div class="alert alert-danger alert-dismissible">
+                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                        <strong>La cedula del usuario ya esta registrada con otro usuario.</strong> por favor intente con una diferente
+                                                    </div>
+                                            <?php } ?>
+                                            <div class="form-group">
+                                                <label class="control-label label-default">Cedula del Usuario en caso de que este registrado como personal capacitado (Opcional)</label>
+                                                <input type="text" name="cedula" maxlength="8" class="form-control" placeholder="Ejemplo:26556987" onkeypress="return numero(event);">
+                                            </div>
                                         <div class="panel panel-info">
                                             <div class="panel-heading checkbox-group">Funciones / Responsabilidad</div>
                                                         <div class="panel-body">

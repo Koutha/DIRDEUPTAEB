@@ -53,15 +53,22 @@ class usuario extends modelobase
 	}
 
     public function getbyuser($username){
-        $sql="SELECT * FROM $this->tabla WHERE nombre_usuario='$username'";
-        $db=$this->db();
-        $query=$db->query($sql);
-        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
-            $resultado=$fila;
-            return $resultado;
-        }else{
-            return 0;
+        try {
+            $sql="SELECT * FROM $this->tabla WHERE nombre_usuario=?";
+            $db=$this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $username);
+            $query->execute();
+            if($fila=$query->fetch(PDO::FETCH_ASSOC)){
+                $resultado=$fila;
+                return $resultado;
+            }else{
+                return 0;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
         }
+
     }
      
     public function getbycedula($cedula){
