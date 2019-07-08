@@ -17,9 +17,9 @@ require('core/sist-header.php');
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#datos_personales">Personales</a></li>
                                 <li><a data-toggle="tab" href="#datos_disciplina">Disciplina</a></li>
-                                <li style="float: right;">
+                                <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar Personal Capacitado",$_SESSION['id_usuario'])) { ?><li style="float: right;">
                                     <a class="btn btn-dangerda" href="?action=modificarPersonal&cedula_et=<?php echo $personal['cedula_et']; ?>">Modificar</a>
-                                </li>
+                                </li><?php } ?>
                                 <li style="float: right;">
                                     <a class="btn btn-infoda" href="?action=consultarPersonal">Volver</a>
                                 </li>

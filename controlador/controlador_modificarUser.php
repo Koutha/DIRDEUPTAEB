@@ -82,6 +82,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                             }
                             if ($consultusuario==0) {
                                 $todos=$usuario->consultarTodosPermisos();
+                           $todos=$usuario->consultarTodosPermisos();
                                 $existe= 0;
                                 $parar=1;
                                 require('vistas/vista_modificarUser.php');

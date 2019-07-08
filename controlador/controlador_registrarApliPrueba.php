@@ -94,11 +94,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       $buscar= '1';
       require('vistas/vista_registrarApliPrueba.php');    }
     else{
+      require('modelos/modelo_usuario.php');
+      $Ousuario=new usuario();
+    if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar Aplicación de Pruebas",$_SESSION['id_usuario'])) {
       include_once('modelos/modelo_pruebas.php');
       include_once('modelos/modelo_atleta.php');
       include_once('modelos/modelo_disciplina.php');
-        require('modelos/modelo_usuario.php');
-        $Ousuario=new usuario();
       $Oprueba= new Cprueba();
       $Oatleta= new Catleta();
       $Odisciplina= new Cdisciplina();
@@ -110,12 +111,15 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
       $disci=$_POST['id_disciplina'];
       $buscar= '1';
       require('vistas/vista_registrarApliPrueba.php');
+    }else{
+      header('Location:?action=sindex');
     }
-  } 
-  else{
-    echo "Esta pagina es solo para usuarios registrados.<br>";
-    echo "<br><a href='?action=ingresar'>Login</a>";
-    exit; 
   }
+} 
+else{
+  echo "Esta pagina es solo para usuarios registrados.<br>";
+  echo "<br><a href='?action=ingresar'>Login</a>";
+  exit; 
+}
 
 ?>

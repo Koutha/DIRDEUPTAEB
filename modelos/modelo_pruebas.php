@@ -229,14 +229,16 @@
 
     }
 
-    public function ca($id_prueba){
+    public function ca($cedula_atleta){
         $sql = 'SELECT * FROM "T_atleta_prueba" WHERE cedula_atleta=?';
         $db=$this->db();
         $query=$db->prepare($sql);
-        $query->bindParam(1, $id_prueba);
+        $query->bindParam(1, $cedula_atleta);
         $query->execute();
-        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
-            $resultado=$fila;
+        while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+            $resultado[] = $fila;
+        }
+        if (!empty($resultado)) {
             return $resultado;
         }
         else{

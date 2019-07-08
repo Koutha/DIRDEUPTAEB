@@ -127,12 +127,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             }
         }
         else{
-            include_once('modelos/modelo_disciplina.php');
-            $Odisciplina= new Cdisciplina();
         require('modelos/modelo_usuario.php');
         $Ousuario=new usuario();
-            $disciplinas=$Odisciplina->consultarTodos();
-            require('vistas/vista_registrarAtleta.php');
+        if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar personal capacitado",$_SESSION['id_usuario'])) {
+           include_once('modelos/modelo_disciplina.php');
+           $Odisciplina= new Cdisciplina();
+           $disciplinas=$Odisciplina->consultarTodos();
+           require('vistas/vista_registrarAtleta.php');
+        }else{
+            header('Location:?action=sindex');
+        }   
         }
 }
 else{

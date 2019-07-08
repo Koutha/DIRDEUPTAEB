@@ -20,10 +20,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         
         require_once('vistas/vista_consultarApliPruebas.php');
         }
-        else{if (isset($_SESSION['permisos'])) {
-          foreach ($_SESSION['permisos'] as $key => $value) {echo $value;
-            }
-            }
+        else{
             if (isset($_POST['cedula_atleta'])) {
                 $cedula_atleta=$_POST['cedula_atleta'];
             }

@@ -12,12 +12,20 @@ require('core/sist-header.php');
                         <?php if (isset($_SESSION['imgIncorrect']) && $_SESSION['imgIncorrect'] == 1) { ?>
                             <div class="alert alert-danger alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                <strong>Incorrecta!</strong>  La imagen selecionada no es correcta.
+                                <strong>Incorrecta!</strong>  La imagen selecionada no es correcta le quedan <?php echo 3-$_SESSION['fallido'];?> intento(s) si los agota podria bloquear su usuario por favor intentelo de nuevo o espere 30 minutos para volver a intentarlos.
                             </div>
                         <?php unset($_SESSION['imgIncorrect']); } ?>
+                        <?php if (isset($bloqueado)&&$bloqueado==1) {?>
+                                      <div class="alert alert-danger alert-dismissible">
+                                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                          <strong>Usuario bloqueado por favor espere 2 horas para hacer uso del servicio recuperar contraseña y poder desbloquearlo. </strong>
+                                          <a href="?action=logout" class="btn btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+                                        </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <hr /><!-- /. ROW  -->
+                <?php if (!isset($bloqueado)) {?>
                 <div class="row">
                     <div class="col-md-12">
                         <!-- Form Elements -->  
@@ -58,7 +66,7 @@ require('core/sist-header.php');
                                 </div>
                         </form><!-- End Form Elements -->
                     </div>
-                </div> <!-- /. ROW  -->
+                </div><?php } ?> <!-- /. ROW  -->
             </div><!-- /. PAGE INNER  -->  
     </div><!-- /. WRAPPER  -->
 
@@ -134,6 +142,14 @@ require('core/sist-header.php');
                                           <strong>Usuario incorrecto</strong> por favor intentelo de nuevo.
                                         </div>
                               <?php } ?>
+                              <?php if (isset($bloqueado)&&$bloqueado==1) {?>
+                                    <div class="alert alert-danger alert-dismissible">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>Usuario bloqueado por favor espere 2 horas para hacer uso del servicio recuperar contraseña y poder desbloquearlo. </strong>
+                                        <a href="?action=logout" class="btn btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+                                    </div>
+                                <?php } ?>
+                                <?php if (!isset($bloqueado)) {?>
                                 <form action=" " method="post" role="form">
                                        <br />
                                      <div class="form-group input-group">
@@ -147,7 +163,7 @@ require('core/sist-header.php');
                                           <a href="?action=logout" class="btn btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Salir</a>
                                       </div>
                                     <hr />
-                                </form>
+                                </form><?php } ?>
                             </div>
                            
                         </div>

@@ -49,9 +49,11 @@
                                 
                                     <div class="row"><div class="col-md-9">
                         <ul class="nav nav-tabs" style="float: right;">
+                    <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar Aplicación de Pruebas",$_SESSION['id_usuario'])) { ?>
                     <li style="float: right;">
                          <a class="btn btn-infoda" href="?action=registrarApliPruebas">Registrar</a>
                     </li>
+                    <?php } ?>
                     <li >
                          <a class="btn btn-danger" href="?action=consultarApliPruebas">Regresar</a>
                     </li>
@@ -93,25 +95,33 @@
                     <div class="col-md-9">
                         <!-- Advanced Tables -->
                         
-                        <div class="panel panel-default">
+                        <div class="panel panel-default"><?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Reporte de la Aplicación de las Pruebas",$_SESSION['id_usuario'])) { ?>
+                    
+                         <a class="btn btn-warning" style="float: right;" href="<?php echo "?action=generarReporteAplicacion&cedula_atleta=".$cedula_atleta; ?>">Generar historico de pruebas en PDF</a>
+                   
+                    <?php } ?>
                             <div class="panel-heading">
-                                Registros de la base de datos
+                                Registros de la base de datos 
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
                                             <tr>
+                                                <th>prueba</th>
                                                 <th>Fecha</th>
                                                 <th>Resultado de <br/>la prueba</th>
-                                                <th>prueba</th>
+                                                <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar Aplicación de Pruebas",$_SESSION['id_usuario'])) { ?>
                                                 <th>Acciones</th>
+                                                <?php } ?>
                                             </tr>
                                         </thead>
                                        <tbody> 
                                         <?php $deficiente=0; $regular=0; $bueno=0; $excelente=0; foreach ($todos as $au){if(($cedula_atleta)==($au['cedula_atleta'])){ ?>
                                             <tr class="odd gradeX"><?php foreach ($todosp as $aud){if(($au['id_prueba'])==($aud['id_prueba'])){$condicion=$aud['condicion']; $rango1=$aud['rango1'];$rango2=$aud['rango2'];$rango3=$aud['rango3'];$rango4=$aud['rango4'];
                                                   }} ?>
+                                                <td><?php foreach ($todosp as $aud){ if ($au['id_prueba']==$aud['id_prueba']) {
+                                                echo $aud['nombre'];}}?></td>
                                                 <td><?php echo $au['fecha'] ?></td>
                                                 <td><?php if ($condicion=='1') {
                                                  if ($au['medicion']<=$rango1) {$deficiente=$deficiente+1; echo $au['medicion']." el  resultado es deficiente";
@@ -130,14 +140,13 @@
                                                 }
                                                 else {$excelente=$excelente+1; echo $au['medicion']." el  resultado es excelente";
                                                 }}?></td>
-                                                <td><?php foreach ($todosp as $aud){ if ($au['id_prueba']==$aud['id_prueba']) {
-                                                echo $aud['nombre'];}}?></td>
-
+                                                <?php $uid= $au['id_ap']; $promedio=($deficiente*0.25)+($regular*0.25)+($bueno*0.25)+($excelente*0.25);?>
+                                                <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar Aplicación de Pruebas",$_SESSION['id_usuario'])) { ?>
                                                 <td class="center">
-                                                    <?php $uid= $au['id_ap']; $promedio=($deficiente*0.25)+($regular*0.25)+($bueno*0.25)+($excelente*0.25);?>
                                                     <!-- Boton para activar el modal MODIFICAR -->
                                                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=modificaraplipruebas&id_ap=".$uid; ?>">Modificar</button>
                                                 </td>
+                                               <?php }?>
                                                 
                                             </tr>
                                             <?php }} ?>
@@ -196,11 +205,10 @@
 
     <!-- SCRIPT PARA LA TABLA-->
 <script src="assets/js/jquery.js"></script>
-
     <!-- Flot Charts JavaScript -->
     <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
-    <script src="js/plugins/flot/jquery.flot.js"></script>
-    <script src="js/plugins/flot/jquery.flot.pie.js"></script>
+    <script src="assets/js/plugins/flot/jquery.flot.js"></script>
+    <script src="assets/js/plugins/flot/jquery.flot.pie.js"></script>
         <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- script para validaciones -->
     <script type="text/javascript" src="assets/js/valida.js"></script>
@@ -281,3 +289,4 @@
               <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
 </body>
+</html>

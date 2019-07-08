@@ -9,6 +9,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 		<a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
     	exit;	
     }else {
+        if ($_SESSION['rol']==1) {
         include_once('modelos/modelo_pruebas.php');
         require_once ('modelos/modelo_bitacora.php');
         require_once ('modelos/modelo_usuario.php');
@@ -24,16 +25,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Obitacora->setfecha($fecha);
         $Obitacora->sethora($hora);
         $Obitacora->setactividad($actividad);
-        $Obitacora->registrarbitacora();
         $Oprueba= new Cprueba();
         if (isset($_GET['id_prueba'])) {
-            $id_prueba=$_GET['id_prueba'];
+            $id_prueba=htmlspecialchars($_GET['id_prueba'],ENT_QUOTES);
             $Oprueba->setid_prueba($id_prueba);
             $Oprueba->borrarPrueba();
+            $Obitacora->registrarbitacora();
             $borrado = 1;
         }
         $todos=$Oprueba->consultarTodosp(); 
         require('vistas/vista_consultarPruebas.php');
+            }else{
+                header('Location:?action=sindex');
+            }
+        
     }
     
 } 

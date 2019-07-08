@@ -69,7 +69,9 @@ require('core/sist-header.php');
                                                     <!--<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=detalleAtleta&id=".$uid; ?>">Mas detalles</button> -->
                                                 
                                                     <!-- Boton para activar el modal ELIMINAR -->
+                                                   <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Eliminar Atleta",$_SESSION['id_usuario'])) { ?>
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarAtleta&id=".$uid; ?>">Eliminar</button>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                             <?php }} ?>

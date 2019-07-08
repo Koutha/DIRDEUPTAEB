@@ -92,12 +92,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 }
         }
         else{//entrada por enlace o get
-            include_once('modelos/modelo_disciplina.php');
-            $Odisciplina= new Cdisciplina();
-        require('modelos/modelo_usuario.php');
-        $Ousuario=new usuario();
-            $disciplinas=$Odisciplina->consultarTodos();
-            require('vistas/vista_registrarPdc.php');
+                require('modelos/modelo_usuario.php');
+                $Ousuario=new usuario();
+            if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar PDC",$_SESSION['id_usuario'])) {
+                include_once('modelos/modelo_disciplina.php');
+                $Odisciplina= new Cdisciplina();
+                $disciplinas=$Odisciplina->consultarTodos();
+                require('vistas/vista_registrarPdc.php');
+            }else{
+                header('Location:?action=sindex');
+            }
         }
 }
 else{

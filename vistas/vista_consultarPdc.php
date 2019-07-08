@@ -69,7 +69,9 @@ require('core/sist-header.php');
                                                     </dl>
                                                 </div>
                                                 <div class="modal-footer"> 
+                                                   <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar PDC",$_SESSION['id_usuario'])) { ?>
                                                    <button type="button" class="btn btn-canc-vis btn-warning">Modificar</button>
+                                                   <?php }?>
                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Volver</button>
                                                 </div>
                                             </div><!--/. End Seccion Informacion -->
@@ -398,7 +400,9 @@ require('core/sist-header.php');
                                             </div> <!--/ Modal Body-->
                                             <div class="modal-footer">
                                                 <div class="form-group">
+                                                    <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar PDC",$_SESSION['id_usuario'])) { ?>
                                                     <button type="submit" name="submit" value="registrarPdc" class="btn btn-primary">Registrar</button>
+                                                    <?php } ?>
                                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
                                                 </div>
                                             </div>

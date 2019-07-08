@@ -12,16 +12,16 @@ require('core/sist-header.php');
                     <div class="col-md-12">
                         <h2>Registros
                          <ul class="nav nav-tabs">
+                            <?php if ($_SESSION['rol']==1) {?>
                     <li style="float: right;">
                          <a class="btn btn-infoda" href="?action=registrarPruebas">Registrar</a>
-                    </li>
+                    </li><?php } ?>
                 </ul></h2>   
                         
 
                     </div>
                 </div>
                 <!-- /. ROW  -->
-                <hr />
                 <?php if (isset($borrado)&&$borrado==1) {?>
                     <div class="alert alert-danger alert-dismissible">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -44,7 +44,7 @@ require('core/sist-header.php');
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <table class="table table-striped table-bordered table-hover" >
                                         <thead>
                                             <tr>
                                                 <th>Nombre</th>
@@ -57,8 +57,9 @@ require('core/sist-header.php');
                                                 <th>Regular</th>
                                                 <th>Bueno</th>
                                                 <th>Excelente</th>
+                                                <?php if ($_SESSION['rol']==1) {?>
                                                 <th>Acciones</th>
-                                                <th> </th>
+                                                <th> </th><?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody><?php foreach ($todos as $au){ ?>
@@ -74,7 +75,7 @@ require('core/sist-header.php');
                                                 <td><?php echo $au['rango2']; ?></td>
                                                 <td><?php echo $au['rango3']; ?></td>
                                                 <td><?php echo $au['rango4']; ?></td>
-
+                                                <?php if ($_SESSION['rol']==1) {?>
                                                 <td class="center">
                                                     <?php $uid= $au['id_prueba']; ?>
                                                     <!-- Boton para activar el modal MODIFICAR -->
@@ -84,7 +85,7 @@ require('core/sist-header.php');
                                                     <!-- Boton para activar el modal ELIMINAR -->
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPruebas&id_prueba=".$uid; ?>">Eliminar</button>
                                                         
-                                                </td>
+                                                </td><?php } ?>
                                             </tr>
                                             <?php }} ?>
                                             <!-- contenido del Modal MODIFICAR -->

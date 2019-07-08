@@ -51,7 +51,8 @@ require('core/sist-header.php');
                                 <p class="main-text"><?php echo $totalA; ?></p>
                                 <p class="text-muted"> Atletas registrados</p>
                             </div>
-                            <a href="?action=registrarAtleta" class="btn btn-sm btn-primary">Agregar Nuevo +</a>
+                            <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar Atleta",$_SESSION['id_usuario'])) { ?>
+                            <a href="?action=registrarAtleta" class="btn btn-sm btn-primary">Agregar Nuevo +</a><?php } ?>
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-6 col-xs-12">           
@@ -75,7 +76,8 @@ require('core/sist-header.php');
                                 <p class="main-text"><?php echo $totalP; ?></p>
                                 <p class="text-muted"> Registros de Personal </p>
                             </div>
-                            <a href="?action=consultarPersonal" class="btn btn-sm btn-primary">Agregar Nuevo +</a>
+                            <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar personal capacitado",$_SESSION['id_usuario'])) { ?>
+                            <a href="?action=consultarPersonal" class="btn btn-sm btn-primary">Agregar Nuevo +</a><?php } ?>
                         </div>
                     </div>
                    <!-- paneles para uso futuro

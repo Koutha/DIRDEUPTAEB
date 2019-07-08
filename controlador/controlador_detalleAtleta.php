@@ -48,12 +48,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     break;
             }
             $validacion  = 0; 
-            foreach ($_SESSION['permisos'] as $key => $value) {
+            if (isset($_SESSION['permisos'])) {
+                foreach ($_SESSION['permisos'] as $key => $value) {
                 if ($value == "Modificar Atleta") {
                      $validacion = 1 ; 
                 }
                     
             }
+            }
+            if ($_SESSION['rol']==1) {
+               $validacion = 1 ; 
+            }
+            
                 
         require('vistas/vista_detalleAtleta.php');
     }

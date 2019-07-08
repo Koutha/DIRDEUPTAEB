@@ -49,7 +49,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         else{
         require('modelos/modelo_usuario.php');
         $Ousuario=new usuario();
-            require('vistas/vista_registrarPnf.php');
+        if ($_SESSION['rol']==1) {
+                require('vistas/vista_registrarPnf.php');
+            }else{
+                header('Location:?action=sindex');
+            }
+            
         }
 } 
 else{

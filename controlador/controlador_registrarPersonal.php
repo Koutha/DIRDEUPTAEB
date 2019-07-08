@@ -73,14 +73,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 header('Location:?action=registrarPersonal');
             }
         }
-        else{
-            include_once('modelos/modelo_disciplina.php');
-            $Odisciplina= new Cdisciplina();
+    else{
+        include_once('modelos/modelo_disciplina.php');
+        $Odisciplina= new Cdisciplina();
         require('modelos/modelo_usuario.php');
         $Ousuario=new usuario();
+        if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Registrar personal capacitado",$_SESSION['id_usuario'])) {                 
             $disciplinas=$Odisciplina->consultarTodos();
             require('vistas/vista_registrarPersonal.php');
+        }else{
+            header('Location:?action=sindex');
         }
+    }
 }
 else{
     echo "Esta pagina es solo para usuarios registrados.<br>";

@@ -37,7 +37,7 @@ require('core/sist-header.php');
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <table class="table table-striped table-bordered table-hover" >
                                         <thead>
                                             <tr>
                                                 <th>Cedula</th>
@@ -47,7 +47,8 @@ require('core/sist-header.php');
                                                 <th>Cargo</th>
                                                 <th>Telefono</th>
                                                 <th>Disciplina</th>
-                                                <th></th><th></th>
+                                                <th></th><?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Eliminar Personal Capacitado",$_SESSION['id_usuario'])) { ?></td>
+                                                <th ></th><?php } ?>
                                             </tr>
                                         </thead>
                                         <tbody><?php foreach ($todos as $au) { ?>
@@ -70,11 +71,11 @@ require('core/sist-header.php');
                                                     <!--<a class="btn btn-warning" href="<?php echo "?action=detallePersonal&cedula_et=".$uid; ?>">Mas Detalles</a>-->
                                                      <!-- Boton para activar el modal MODIFICAR -->
                                                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal" data-id="<?php echo "?action=detallePersonal&id=".$uid; ?>">Mas detalles</button>
-                                                </td>
+                                                <?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Eliminar Personal Capacitado",$_SESSION['id_usuario'])) { ?></td>
                                                 <td class="center">
                                                     <!-- Boton para activar el modal ELIMINAR -->
                                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="<?php echo "?action=eliminarPersonal&cedula_et=".$uid; ?>">Eliminar</button>
-                                                </td>
+                                                </td><?php } ?>
                                             </tr>
                                             <?php }} ?>
                                             <!-- /contenido del Modal -->
@@ -87,11 +88,11 @@ require('core/sist-header.php');
                                                                     <h4 class="modal-title">Confirmación</h4>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <p>¿Estas segur@ que quieres modificar al usuario?</p>
+                                                                    <p>¿Estas segur@ que quieres ver detalles del personal?</p>
                                                                     
                                                                 </div>
                                                                 <div class="modal-footer">
-                                                                    <a class="btn btn-warning" href="">Modificar</a>
+                                                                    <a class="btn btn-warning" href="">Siguiente</a>
                                                                   <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
                                                                 </div>
                                                               </div>

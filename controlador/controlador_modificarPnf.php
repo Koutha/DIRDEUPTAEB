@@ -55,7 +55,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     }
         }    
         else{
-            require('vistas/vista_modificarPnf.php');
+            if ($_SESSION['rol']==1) {
+                require('vistas/vista_modificarPnf.php');
+            }else{
+                header('Location:?action=sindex');
+            }            
         }
     }
         

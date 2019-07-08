@@ -12,9 +12,10 @@ require('core/sist-header.php');
                     <div class="col-md-12">
                         <h2>Consulta de pruebas</h2>
                         <ul class="nav nav-tabs">
+                    <?php if ($Ousuario->consultarPermisosUsu("Registrar Aplicación de Pruebas",$_SESSION['id_usuario'])) { ?>
                     <li style="float: right;">
                          <a class="btn btn-infoda" href="?action=registrarApliPruebas">Registrar</a>
-                    </li>
+                    </li><?php }?>
                 </ul>
 
                     </div>

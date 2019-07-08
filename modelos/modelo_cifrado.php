@@ -17,7 +17,7 @@ class StreamSteganography
     var $img_path;
     var $img_object = null;
  
-    function StreamSteganography( $img_path , $w = 640 , $h = 480 )
+    function __construct( $img_path , $w = 640 , $h = 480 )
     {
         if ( !is_file( $img_path ) )
         {

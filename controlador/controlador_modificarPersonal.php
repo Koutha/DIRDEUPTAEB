@@ -104,14 +104,20 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                   // require('vistas/vista_detalleAtleta.php');
                 } //else linea 31 validacion
             }//if de la entrada por post linea 22
-            else {
-                //entra por get
-                $Odisciplina= new Cdisciplina();
-                $disciplinas=$Odisciplina->consultarTodos();
-                $personalDisciplinas=$Odisciplina->getDisciplinasPorPersonal($id);
-                require('vistas/vista_modificarPersonal.php');
+            else {//entra por get
+                if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar Personal Capacitado",$_SESSION['id_usuario'])) {
+                    $Odisciplina= new Cdisciplina();
+                    $disciplinas=$Odisciplina->consultarTodos();
+                    $personalDisciplinas=$Odisciplina->getDisciplinasPorPersonal($id);
+                    require('vistas/vista_modificarPersonal.php');
+                }else{
+                    header('Location:?action=sindex');
+                }
             } //else del get linea 169
         }//else linea 12
+        else{
+            header('Location:?action=sindex');
+        }
 } //if linea 5 validacion de sesion
 else{
     echo "Esta pagina es solo para usuarios registrados.<br>";

@@ -30,7 +30,13 @@ require('core/sist-header.php');
                               <?php if (isset($pw)&&$pw==0) {?>
                                       <div class="alert alert-danger alert-dismissible">
                                           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                          <strong>Contraseña incorrecta</strong> por favor intentelo de nuevo.
+                                          <strong>Usuario o Contraseña incorrecta</strong> le quedan <?php echo 3-$_SESSION['fallido'];?> intento(s) si los agota podria bloquear su contraseña por favor intentelo de nuevo o espere 30 minutos para volver a intentarlos.
+                                        </div>
+                              <?php } ?>
+                              <?php if (isset($bloqueado)&&$bloqueado==1) {?>
+                                      <div class="alert alert-danger alert-dismissible">
+                                          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                          <strong>Contraseña bloqueada por favor dirijase a recuperar contraseña para desbloquearla.</strong>
                                         </div>
                               <?php } ?>
                               <?php if (isset($user)&&$user==0) {?>
@@ -52,7 +58,7 @@ require('core/sist-header.php');
                                       <div class="form-group" >
                                           <button name="submit" value="login" type="submit" class="btn btn-primary"> <span class="glyphicon glyphicon-log-in"></span> Ingresar</button>
                                         	<!-- <input type="submit" name="Submit" value="login" class="btn btn-primary "> -->
-                                          <a href="?action=recuperarContraseña" class="btn btn-danger"> <span class="glyphicon glyphicon-log-out"></span> Recuperar Contraseña</a>
+                                          <a href="?action=recuperarContraseña" class="btn" style="color: orange; float: right">Recuperar Contraseña</a>
                                       </div>
                                     <hr />
                                 </form>

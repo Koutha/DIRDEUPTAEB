@@ -199,19 +199,16 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 $disciplinas=$Odisciplina->consultarTodos();
                 $atletaDisciplinas=$Odisciplina->getDisciplinasPorAtleta($id);
                 $validacion  = 0; 
-                foreach ($_SESSION['permisos'] as $key => $value) {
-                    if ($value == "Modificar Atleta") {
-                        $validacion = 1 ; 
-                    }
-                    
-                }
-                if ($validacion == 1) {
+                if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Modificar Atleta",$_SESSION['id_usuario'])) {
+                    $validacion  = 1; 
                     require('vistas/vista_modificarAtleta.php');
                 }else{
                     header('Location:?action=sindex');
                 }
 
             } //else del get linea 169
+        }else{
+            header('Location:?action=sindex');
         }//else linea 12
 } //if linea 5 validacion de sesion
 else{

@@ -190,7 +190,52 @@ class usuario extends modelobase
             return 0;
         }
     }
-    
+    public function consultarPermisosUsu($permisos,$id_usuario){
+        $sql = 'SELECT * FROM "T_permisos" WHERE permisos=? and id_usuario=?';
+        $db=$this->db();
+        $query=$db->prepare($sql);
+        $query->bindParam(1, $permisos);
+        $query->bindParam(2, $id_usuario);
+        $query->execute();
+        if($fila=$query->fetch(PDO::FETCH_ASSOC)){
+            $resultado=$fila;
+            return $resultado;
+        }
+        else{
+            return 0;
+        }   
+    }
+
+    public function bloquear_contra($status,$id){
+        try {
+            $sql= "UPDATE $this->tabla SET status=? WHERE id_usuario=?";
+            $db=$this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $status);
+            $query->bindParam(2, $id);
+            $resultado=$query->execute();
+            
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        return 0;
+    }
+
+    public function bloquear_usuario($bloqueo,$status,$id){
+        try {
+            $sql= "UPDATE $this->tabla SET bloqueo=?,status=? WHERE id_usuario=?";
+            $db=$this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $bloqueo);
+            $query->bindParam(2, $status);
+            $query->bindParam(3, $id);
+            $resultado=$query->execute();
+            
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        return 0;
+    }
    
 }
  ?>

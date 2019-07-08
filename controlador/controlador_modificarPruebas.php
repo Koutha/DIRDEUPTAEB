@@ -8,7 +8,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         echo "Su sesion a terminado,
 		<a href='?action=ingresar'>Click aqui para ingresar de nuevo</a>";
         exit;
-    } else if (isset($_POST['submit']) or isset($_GET['id_prueba'])) {
+    } else if (isset($_POST['Submit']) or isset($_GET['id_prueba'])) {
         if (isset($_POST['id_prueba'])) {
             $id_prueba = $_POST['id_prueba'];
         } else if (isset($_GET['id_prueba'])) {
@@ -74,7 +74,11 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     }
         }    
         else{
-            require('vistas/vista_modificarPruebas.php');
+            if ($_SESSION['rol']==1) {
+                 require('vistas/vista_modificarPruebas.php');
+            }else{
+                header('Location:?action=sindex');
+            }            
         }
     }
         
