@@ -153,7 +153,8 @@ else if (isset($_POST['submit']) && $_POST['submit']=='recuperarContraseña') {/
     }
 }
 
-else{ require('vistas/vista_recuperarContraseña.php');
+else{ #corrije aqui carloss
+    require('vistas/vista_recuperarContraseña.php');
 
 
 }

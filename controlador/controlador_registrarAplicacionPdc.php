@@ -30,7 +30,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Odisciplina= new Cdisciplina();
         $disciplinas=$Odisciplina->consultarTodos();
         if (isset($_GET['id'])) {
-            $id=$_GET['id'];
+            $id=htmlspecialchars($_GET['id'],ENT_QUOTES);
             $pdc=$Opdc->consultarDatos($id);
             if ($Opdc->consultarADP2($pdc['id_pdc'],$pdc['id_disciplina'])) { //si hay atletas en el programa
                 $asigDias=1;

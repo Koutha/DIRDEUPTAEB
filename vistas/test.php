@@ -108,7 +108,7 @@
 -->    
 <form action="" method="post" enctype="multipart/form-data">
 <script type="text/javascript">
-    alert('hola deibys');
+    //alert('hola deibys');
 </script>
 <div  class="container">
     <div class="row">
@@ -285,7 +285,11 @@ var_dump($md51);
 */
 $token = bin2hex(random_bytes(16));
 var_dump($token);
-
+echo '<br>';
+echo '<br>';
+echo '<br>';
+echo "fecha de hace 15 años: ";
+echo $date15YearsBefore = date("Y-m-d", mktime(0, 0, 0, date("m"),   date("d"),   date("Y")-15));
 #mail('alvarot027@gmail.com', 'hola estoy es prueba', 'mensaje de prueba para deibys');
 
 echo '<br>';

@@ -25,7 +25,7 @@ require('core/sist-header.php');
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                    <form action="" method="post" enctype="multipart/form-data" role="form" class="form-group">
+                    <form action="" method="post" enctype="multipart/form-data" role="form" class="form-group" id="form_atleta">
                     
                     <div class="stepwizard col-md-offset-3">
                         <div class="stepwizard-row setup-panel">
@@ -56,7 +56,13 @@ require('core/sist-header.php');
                                 <h3> Datos Personales</h3>
                                 <div class="form-group">
                                     <label class="control-label label-default">Cedula del Atleta</label>
-                                    <input type="text" name="cedula" maxlength="8" required="required" class="form-control" placeholder="Ejemplo:26556987" onkeypress="return numero(event);">
+                                    <input type="text" name="cedula" id="cedula" minlength="5" maxlength="8" required="required" class="form-control" placeholder="Ejemplo:26556987" autocomplete="off" onkeypress="return numero(event);">
+                                </div>
+                                <div class="form-group input-group alert alert-success" id= "cedulaD" style="display:none; ">
+                                    <span  > Nombre de usuario disponible</span>
+                                </div>
+                                <div class="form-group input-group alert alert-danger" id= "cedulaND" style="display:none; ">
+                                    <span > Nombre de usuario NO disponible</span>
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Nombres</label>
@@ -68,7 +74,7 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Fecha de Nacimiento</label>
-                                    <input type="date" name="fecha_nacimiento" max="<?php echo date("Y-m-d");?>" required="required" class="form-control">
+                                    <input type="date" name="fecha_nacimiento" max="<?php echo $date15YearsBefore=date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y")-15));?>" required="required" value="<?php echo $date15YearsBefore=date("Y-m-d", mktime(0, 0, 0, date("m"), date("d"), date("Y")-15));?>" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Direccion</label>
@@ -96,19 +102,19 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargar Foto</label>
-                                    <input name="dir_foto" type="file" required="required" class="form-control-file" onchange="preview_image_foto(event)" >
+                                    <input name="dir_foto" type="file" id="input-foto"  accept=".png,.jpg,.jpeg,.gif" required="required" class=" file form-control-file" data-msg-placeholder="Selecione una imagen .jpg | .pnf | .jpeg" data-allowed-file-extensions='["jpg","png","jpeg"]' data-show-upload="false" data-max-file-size="1000" onchange="preview_image_foto(event)" >
                                 </div>
-                                <div class="form-group"> 
+                                <!-- <div class="form-group"> 
                                     <img class="img-rounded" id="output_image_foto" style="max-width:300px"/>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargar Cedula</label>
-                                    <input name="dir_cedula" type="file" required="required" class="form-control-file" onchange="preview_image_cedula(event)" >
+                                    <input name="dir_cedula" type="file" id="input-cedula" accept=".png,.jpg,.jpeg,.gif" required="required" class=" file form-control-file" data-msg-placeholder="Selecione una imagen .jpg | .pnf | .jpeg" data-allowed-file-extensions='["jpg","png","jpeg"]' data-show-upload="false" data-max-file-size="1000" onchange="preview_image_cedula(event)" >
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <img class="img-rounded" id="output_image_cedula" style="max-width:300px" />
-                                </div>
-                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+                                </div> -->
+                                <button id="btnNextOne" class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
                             </div>
                         </div>
                     </div>
@@ -141,18 +147,18 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargar Planilla de Inscripción</label>
-                                    <input name="dir_planilla" type="file" required="required" class="form-control-file" onchange="preview_image_planilla(event)" >
+                                    <input name="dir_planilla" type="file" id="input-planilla" accept=".png,.jpg,.jpeg,.gif" required="required" class="file form-control-file" data-msg-placeholder="Selecione una imagen .jpg | .pnf | .jpeg" data-allowed-file-extensions='["jpg","png","jpeg"]' data-show-upload="false" data-max-file-size="1000" onchange="preview_image_planilla(event)" >
                                 </div>
-                                <div class="form-group"> 
+                                <!-- <div class="form-group"> 
                                     <img class="img-rounded" id="output_image_planilla" style="max-width:300px"/>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargar Carnet</label>
-                                    <input name="dir_carnet" type="file" required="required" class="form-control-file" onchange="preview_image_carnet(event)" >
+                                    <input name="dir_carnet" type="file" id="input-carnet" accept=".png,.jpg,.jpeg,.gif" required="required" class="file form-control-file" data-msg-placeholder="Selecione una imagen .jpg | .pnf | .jpeg" data-allowed-file-extensions='["jpg","png","jpeg"]' data-show-upload="false" data-max-file-size="1000" onchange="preview_image_carnet(event)" >
                                 </div>
-                                <div class="form-group"> 
+                                <!-- <div class="form-group"> 
                                     <img class="img-rounded" id="output_image_carnet" style="max-width:300px"/>
-                                </div>
+                                </div> -->
                                 <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Anterior</button>
                                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
                             </div>
@@ -331,6 +337,7 @@ require('core/sist-header.php');
     <script src="assets/js/jquery-3.3.1.min.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/fileinput.min.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
      <!-- DATA TABLE SCRIPTS -->
@@ -350,38 +357,41 @@ require('core/sist-header.php');
     <script src="assets/js/stepform.js" type="text/javascript"></script>
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
 
-
-  <!--  <script type="text/javascript">
-    $(document).ready(function() {
-        $("input[name$='discapacidad']").click(function() {
-            var test = $(this).val();
-
-            $("div.form-group-text").hide();
-            $("#"+test).show();
-        });
-    });
-    </script>
-
-        <script type="text/javascript">
-        $('input.single-checkbox').on('change', function(evt) {
-            var limit = 2;
-            if($("input[name='id_disciplina']:checked").length > limit) {
-                this.checked = false;
+<script type="text/javascript">
+        $(document).ready(function(){
+            $('#btnNextOne').click(function(event) {
+            if ($('#cedula').val()=="") {
+              alert('Debe introducir una cedula valida');  
+                return false;
             }
         });
-    </script>
-    <script type="text/javascript">
-        $(function(){
-            var requiredCheckboxes = $('.checkbox-group :checkbox[required]');
-            requiredCheckboxes.change(function(){
-                if(requiredCheckboxes.is(':checked')) {
-                    requiredCheckboxes.removeAttr('required');
-                } else {
-                    requiredCheckboxes.attr('required', 'required');
+            $("#cedula").keyup(function(event){
+                var cedula = $("#cedula").val();
+                if (cedula.length>=8){
+                    $.post('ajax/validarUsuario.php', $("#form_atleta").serialize(), function(respuesta){
+                        //alert(respuesta); 
+                        if (respuesta == 'false') {
+                            $("#cedulaD").fadeIn();
+                            $("#cedulaND").fadeOut();
+                             // $("#cedula").attr("readonly", "readonly");  
+                        }
+                        else if(respuesta == 'true'){
+                            $("#cedulaND").fadeIn();
+                            $("#cedulaD").fadeOut();
+                        }
+                    })
+                }else{
+                    //alert('what saap');
+                    $("#cedulaND").fadeOut();
+                    $("#cedulaD").fadeOut();
                 }
             });
-        });
-    </script> -->
-
+            
+            $("#input-foto").fileinput();
+            $("#input-cedula").fileinput();
+            $("#input-planilla").fileinput();
+            $("#input-carnet").fileinput();
+        })
+    </script>
 </body>
 </html>

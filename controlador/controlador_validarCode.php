@@ -39,11 +39,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 }
             }
         }
-        else{//primera entrada despues de validar la imagen
-
+        else if (isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] == 1){//primera entrada despues de validar la imagen
         require('modelos/modelo_usuario.php');
         $Ousuario=new usuario();
-            $seleccion  = $_GET['mod']; //se indica el modulo a validar
+            $seleccion  = htmlspecialchars($_GET['mod'],ENT_QUOTES); //se indica el modulo a validar
             if (isset($_GET['at'])){ //para consultarAplicacionPdc&at
                 $seleccion2 = 'at' ; 
             }
@@ -51,6 +50,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             //utilizacion de servidor de correos o mensajes SMS para enviar el codigo al usuario
             
             require('vistas/vista_validarCode.php');
+        }else{
+            header('Location:?action=sindex');
         }
 }
 else{

@@ -41,6 +41,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             if ($usuario->getbyuser(htmlspecialchars($_POST['username'],ENT_QUOTES))) {
                 //verificamos si el usuario existe
                 $existe= 1;
+                echo json_encode(true);
                 $arr = randomGen(1,18,4); 
                 require('vistas/vista_registrarAdm.php');
             }else{

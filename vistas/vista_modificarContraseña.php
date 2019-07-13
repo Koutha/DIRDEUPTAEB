@@ -49,12 +49,12 @@ require('core/sist-header.php');
                                             <label>Coloque la nueva contraseña</label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                            <input name="passa" type="password" class="form-control" placeholder="Contraseña" required />
+                                            <input name="passa" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" autocomplete="off" class="form-control" placeholder="Contraseña" required />
                                         </div>
                                             <label>Repita la nueva contraseña</label>
                                         <div class="form-group input-group">
                                             <span class="input-group-addon"><i class="fa fa-lock"  ></i></span>
-                                            <input name="rpassa" type="password" class="form-control" placeholder="Repita la contraseña" required />
+                                            <input name="rpassa" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres" autocomplete="off" class="form-control" placeholder="Repita la contraseña" required />
                                         </div>
                                         <div class="form-group input-group">
                                         <?php if (isset($id_username)) {?><input type="hidden" name="id_username" value="<?php echo $id_username; ?>"> <?php } ?>

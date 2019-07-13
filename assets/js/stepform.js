@@ -40,7 +40,9 @@ $(document).ready(function () {
           if (!curInputs[i].validity.valid){
               isValid = false;
               $(curInputs[i]).closest(".form-group").addClass("has-error");
-              $(curInputs[i]).validationMessage();
+              $(curInputs[i]).focus();
+              $(curInputs[i]).checkValidity();
+              // alert('debe llenar los datos solicitados');
           }
       }
 

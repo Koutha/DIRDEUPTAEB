@@ -52,7 +52,7 @@ require('core/sist-header.php');
                                             </div>
                                            <div class="form-group">
                                                 <label>Nombre del Coordinador</label>
-                                                <input class="form-control" name="coordinador" pattern="[a-z A-Z]{6,32}\s+" title="Ejemplo: Osmin Rodriguez" placeholder="Nombre del Coordinador del PNF" onkeypress="return letra(event);" required/>
+                                                <input class="form-control" name="coordinador" pattern="([a-z A-Z]{3,32}\s+)([a-z A-Z]{3,32}\s?)" title="Ejemplo: Osmin Rodriguez" placeholder="Nombre del Coordinador del PNF" onkeypress="return letra(event);" required/>
                                             </div>
 
                                                    

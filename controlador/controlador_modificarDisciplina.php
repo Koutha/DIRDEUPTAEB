@@ -12,7 +12,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         if (isset($_POST['id_disciplina'])) {
             $id_disciplina = $_POST['id_disciplina'];
         } else if (isset($_GET['id_disciplina'])) {
-            $id_disciplina = $_GET['id_disciplina'];
+            $id_disciplina = htmlspecialchars($_GET['id_disciplina'],ENT_QUOTES);
         }
         include_once('modelos/modelo_disciplina.php');
         require_once ('modelos/modelo_bitacora.php');
@@ -23,7 +23,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $t_usuario=$Ousuario->getbyuser($username);
         $id_usuario=$t_usuario['id_usuario'];
         $fecha=date('d/m/y');
-        $hora=date('h:i:s');
+        $hora=date('H:i:s');
         $actividad="Modifico una Disciplina";
         $Obitacora->setid_usuarios($id_usuario);
         $Obitacora->setfecha($fecha);

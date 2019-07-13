@@ -78,7 +78,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             $arr = randomGen(1,18,3,$imgchek);
             array_push($arr,$imgchek ); //se introduce la imagen del user al arreglo
             shuffle($arr); //mezclamos el arreglo
-            $seleccion  = $_GET['mod']; //se indica el modulo a validar
+            $seleccion  = htmlspecialchars($_GET['mod'],ENT_QUOTES); //se indica el modulo a validar
             if (isset($_GET['at'])){ //para consultarAplicacionPdc&at
                 $seleccion2 = 'at' ; 
             }

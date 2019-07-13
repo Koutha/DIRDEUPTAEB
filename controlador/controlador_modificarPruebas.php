@@ -12,7 +12,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         if (isset($_POST['id_prueba'])) {
             $id_prueba = $_POST['id_prueba'];
         } else if (isset($_GET['id_prueba'])) {
-            $id_prueba = $_GET['id_prueba'];
+            $id_prueba = htmlspecialchars($_GET['id_prueba'],ENT_QUOTES);
         }
         include_once('modelos/modelo_pruebas.php');
         require_once ('modelos/modelo_bitacora.php');

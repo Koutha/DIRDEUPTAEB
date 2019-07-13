@@ -33,6 +33,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             }
             else{
                 $nombre=htmlspecialchars($_POST['nombre'],ENT_QUOTES);
+                $nombre = pg_escape_string($nombre);
                 $tipo_disciplina=$_POST['tipo_disciplina'];
                 $Odisciplina->setnombre($nombre);
                 $Odisciplina->settipo_disciplina($tipo_disciplina);

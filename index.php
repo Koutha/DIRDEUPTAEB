@@ -6,6 +6,8 @@ if (!empty($_POST['submit'])) {
 } else {
     $action = "index";
 }
+htmlspecialchars($action,ENT_QUOTES);
+$action = strval(str_replace("\0", "", $action));
 if (is_file("controlador/controlador_" . $action . ".php")) {
     include_once("controlador/controlador_" . $action . ".php");
 } else {
