@@ -75,7 +75,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             }
             $imgchek = base64_decode($_SESSION['imgSelect']); //imagen del patron selecionada para verificar no repetirla
             //$secretImg = base64_decode($_SESSION['secretImg']); //imagen secreta del usuario
-            $arr = randomGen(1,18,3,$imgchek);
+            $arr = randomGen(1,18,5,$imgchek);
             array_push($arr,$imgchek ); //se introduce la imagen del user al arreglo
             shuffle($arr); //mezclamos el arreglo
             $seleccion  = htmlspecialchars($_GET['mod'],ENT_QUOTES); //se indica el modulo a validar

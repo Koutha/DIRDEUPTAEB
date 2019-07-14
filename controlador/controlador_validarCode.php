@@ -48,7 +48,10 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             }
             $token = bin2hex(random_bytes(16)); //generamos el codigo de seguridad para ser inviado al usuario
             //utilizacion de servidor de correos o mensajes SMS para enviar el codigo al usuario
-            
+            $userinfo = $Ousuario->getbyuser($_SESSION['username']);
+            //var_dump($userinfo);
+            $correo = $userinfo['correo'];
+            mail($correo, 'Autenticacion de usuario', 'Su codigo de seguridad es: '.$token);
             require('vistas/vista_validarCode.php');
         }else{
             header('Location:?action=sindex');

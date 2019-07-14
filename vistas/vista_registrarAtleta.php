@@ -59,10 +59,10 @@ require('core/sist-header.php');
                                     <input type="text" name="cedula" id="cedula" minlength="5" maxlength="8" required="required" class="form-control" placeholder="Ejemplo:26556987" autocomplete="off" onkeypress="return numero(event);">
                                 </div>
                                 <div class="form-group input-group alert alert-success" id= "cedulaD" style="display:none; ">
-                                    <span  > Nombre de usuario disponible</span>
+                                    <span  > Cedula de atleta Disponible</span>
                                 </div>
                                 <div class="form-group input-group alert alert-danger" id= "cedulaND" style="display:none; ">
-                                    <span > Nombre de usuario NO disponible</span>
+                                    <span > Cedula de atleta NO disponible</span>
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Nombres</label>
@@ -82,7 +82,7 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Telefono movil</label>
-                                    <input type="text" name="tel_movil" required="required" maxlength="11" class="form-control" onkeypress="return numero(event);" placeholder="Ejemplo: 04168987745">
+                                    <input type="text" name="tel_movil"  maxlength="11" class="form-control" onkeypress="return numero(event);" placeholder="Ejemplo: 04168987745">
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Telefono fijo</label>
@@ -357,7 +357,7 @@ require('core/sist-header.php');
     <script src="assets/js/stepform.js" type="text/javascript"></script>
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
         $(document).ready(function(){
             $('#btnNextOne').click(function(event) {
             if ($('#cedula').val()=="") {

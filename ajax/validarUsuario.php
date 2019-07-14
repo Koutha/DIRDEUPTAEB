@@ -72,7 +72,7 @@
 	        $query->bindParam(1, $cedula);
 	        $query->execute();
 	        while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
-            $resultado=$fila;
+            	$resultado=$fila;
             }
             if (!empty($resultado)) {
                 return $resultado;
@@ -81,7 +81,30 @@
                 return 0;
             }
 
-      }
+     }
+
+    function consultarDatosPT($cedula){
+	        	$sql ='SELECT  ta.cedula_et,ta.nombres,ta.apellidos,ta.tel_movil,ta.correo, 
+                               ta.cargo,ta.dir_foto,ta.dir_cedula
+                            
+		               FROM "T_equipo_tecnico" ta
+		               WHERE ta.cedula_et=?';
+		    $md = new modelobase();
+	        $db= $md->db();
+	        $query=$db->prepare($sql);
+	        $query->bindParam(1, $cedula);
+	        $query->execute();
+	        while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
+            	$resultado=$fila;
+        	}
+        	if (!empty($resultado)) {
+                return $resultado;
+            }
+            else{
+                return 0;
+            }
+
+    }
 
     if (isset($_POST['username'])) {
     	if (getbyuser(htmlspecialchars($_POST['username'],ENT_QUOTES))) {
@@ -95,6 +118,12 @@
 		}else{
 			echo json_encode(false);
 		}
+    }else if(isset($_POST['cedula_et'])){
+    	if (consultarDatosPT(htmlspecialchars($_POST['cedula_et'],ENT_QUOTES))) {
+    		echo json_encode(true);
+    	}else {
+    		echo json_encode(false);
+    	}
     }
 	
  ?>

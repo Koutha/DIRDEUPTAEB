@@ -11,8 +11,8 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Programas directos de competencia</h2>
-                        <h5>Donde se establece la estructura del programa de entrenamiento con miras a la obtención de logros deportivos en corto tiempo. </h5>   
+                        <h2>Autenticación de usuario</h2>
+                        <h5>Por favor, indique la informacion solicitada. Verifique su correo para proporcionar el codigo de seguridad  </h5>   
                         <?php if (isset($_SESSION['codeIncorrect']) && $_SESSION['codeIncorrect'] == 1) { ?>
                             <div class="alert alert-danger alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

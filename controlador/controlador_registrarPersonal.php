@@ -20,20 +20,19 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             $t_usuario=$Ousuario->getbyuser($username);
             $id_usuario=$t_usuario['id_usuario'];
             $fecha=date('d/m/y');
-            $hora=date('h:i:s');
+            $hora=date('H:i:s');
             $actividad="registro un Personal Capacitado";
             $Obitacora->setid_usuarios($id_usuario);
             $Obitacora->setfecha($fecha);
             $Obitacora->sethora($hora);
             $Obitacora->setactividad($actividad);
-            $Obitacora->registrarbitacora();
             $Oatleta= new Cpersonal();
             $Odisciplina= new Cdisciplina();
-            $cedula=$_POST['cedula_et'];
+            $cedula=htmlspecialchars($_POST['cedula_et'],ENT_QUOTES);
             $atleta= $Oatleta->consultarDatos($cedula);
             if ($atleta>0) {
                 $existe=1;
-                echo 'entre por existe';
+                //echo 'entre por existe';
                 $disciplinas=$Odisciplina->consultarTodos();
                 require('vistas/vista_registrarPersonal.php');
             }else{
@@ -69,6 +68,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 //$registro= 1;
                 //echo 'registre';
                 //require('vistas/vista_registrarPersonal.php');
+                $Obitacora->registrarbitacora();
                 $_SESSION['registro']=1;
                 header('Location:?action=registrarPersonal');
             }

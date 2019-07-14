@@ -24,7 +24,7 @@ require('core/sist-header.php');
                 <!-- /. ROW  -->
                 <hr />
                 <div class="row">
-                    <form action="" method="post" enctype="multipart/form-data" role="form" class="form-group">
+                    <form action="" method="post" id="form_personal" enctype="multipart/form-data" role="form" class="form-group">
                     <?php if (isset($registro)&&$registro==1) {?>
                                <div class="alert alert-success alert-dismissible">
                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -47,7 +47,13 @@ require('core/sist-header.php');
                                 <h3> Datos Personales</h3>
                                 <div class="form-group">
                                     <label class="control-label label-default">Cedula</label>
-                                    <input type="text" name="cedula_et" maxlength="8" required="required" class="form-control" placeholder="Ejemplo:26556987" onkeypress="return numero(event);">
+                                    <input type="text" name="cedula_et" id="cedula_et" minlength="5" maxlength="8" required="required" class="form-control" placeholder="Ejemplo:26556987" autocomplete="off" onkeypress="return numero(event);">
+                                </div>
+                                <div class="form-group input-group alert alert-success" id= "cedulaD" style="display:none; ">
+                                    <span  > Cedula Disponible</span>
+                                </div>
+                                <div class="form-group input-group alert alert-danger" id= "cedulaND" style="display:none; ">
+                                    <span > Cedula NO disponible</span>
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Nombres</label>
@@ -59,11 +65,11 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Telefono movil</label>
-                                    <input type="text" name="tel_movil" required="required" maxlength="11" class="form-control" onkeypress="return numero(event);" placeholder="Ejemplo: 04168987745">
+                                    <input type="text" name="tel_movil" maxlength="11" class="form-control" onkeypress="return numero(event);" placeholder="Ejemplo: 04168987745">
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Correo electronico</label>
-                                    <input type="email" name="correo" required="required" class="form-control">
+                                    <input type="email" name="correo" placeholder="ejemplo@correo.com" required="required" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargo</label>
@@ -78,19 +84,19 @@ require('core/sist-header.php');
                                 </div>
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargar Foto</label>
-                                    <input name="dir_foto" type="file" required="required" class="form-control-file" onchange="preview_image_foto(event)" >
+                                    <input name="dir_foto" type="file" id="input-foto" required="required" class="file form-control-file" data-msg-placeholder="Selecione una imagen .jpg | .pnf | .jpeg" data-allowed-file-extensions='["jpg","png","jpeg"]' data-show-upload="false" data-drop-zone-enabled="false" data-max-file-size="1000" onchange="preview_image_foto(event)" >
                                 </div>
-                                <div class="form-group"> 
+                                <!-- <div class="form-group"> 
                                     <img class="img-rounded" id="output_image_foto" style="max-width:300px"/>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label  class="control-label label-default">Cargar Cedula</label>
-                                    <input name="dir_cedula" type="file" required="required" class="form-control-file" onchange="preview_image_cedula(event)" >
+                                    <input name="dir_cedula" type="file" required="required" id="input-cedula" accept=".png,.jpg,.jpeg,.gif" required="required" class=" file form-control-file" data-msg-placeholder="Selecione una imagen .jpg | .pnf | .jpeg" data-allowed-file-extensions='["jpg","png","jpeg"]' data-show-upload="false" data-drop-zone-enabled="false" data-max-file-size="1000" onchange="preview_image_cedula(event)" >
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <img class="img-rounded" id="output_image_cedula" style="max-width:300px" />
-                                </div>
-                                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+                                </div> -->
+                                <button class="btn btn-primary nextBtn btn-lg pull-right" name="btnNextOne" type="button">Siguiente</button>
                             </div>
                         </div>
                     </div>
@@ -127,6 +133,8 @@ require('core/sist-header.php');
     <script src="assets/js/jquery-3.3.1.min.js"></script>
       <!-- BOOTSTRAP SCRIPTS -->
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/fileinput.min.js"></script>
+    <script src="assets/js/locales/es.js"></script>
     <!-- METISMENU SCRIPTS -->
     <script src="assets/js/jquery.metisMenu.js"></script>
      <!-- DATA TABLE SCRIPTS -->
@@ -145,39 +153,42 @@ require('core/sist-header.php');
     
     <script src="assets/js/stepform.js" type="text/javascript"></script>
     <script src="assets/js/img-preview.js" type='text/javascript'></script>
-
-
-  <!--  <script type="text/javascript">
-    $(document).ready(function() {
-        $("input[name$='discapacidad']").click(function() {
-            var test = $(this).val();
-
-            $("div.form-group-text").hide();
-            $("#"+test).show();
-        });
-    });
-    </script>
-
-        <script type="text/javascript">
-        $('input.single-checkbox').on('change', function(evt) {
-            var limit = 2;
-            if($("input[name='id_disciplina']:checked").length > limit) {
-                this.checked = false;
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('button[name=btnNextOne]').click(function(event) {
+            if ($('#cedula_et').val()=="") {
+                    alert('Debe introducir una cedula valida');  
+                return false;
             }
         });
-    </script>
-    <script type="text/javascript">
-        $(function(){
-            var requiredCheckboxes = $('.checkbox-group :checkbox[required]');
-            requiredCheckboxes.change(function(){
-                if(requiredCheckboxes.is(':checked')) {
-                    requiredCheckboxes.removeAttr('required');
-                } else {
-                    requiredCheckboxes.attr('required', 'required');
+            $("#cedula_et").keyup(function(event){
+                var cedula = $("#cedula_et").val();
+                if (cedula.length>=8){
+                    $.post('ajax/validarUsuario.php', $("#form_personal").serialize(), function(respuesta){
+                        //alert(respuesta); 
+                        if (respuesta == 'false') {
+                            $("#cedulaD").fadeIn();
+                            $("#cedulaND").fadeOut();
+                             // $("#cedula").attr("readonly", "readonly");  
+                        }
+                        else if(respuesta == 'true'){
+                            $("#cedulaND").fadeIn();
+                            $("#cedulaD").fadeOut();
+                        }
+                    })
+                }else{
+                    //alert('what saap');
+                    $("#cedulaND").fadeOut();
+                    $("#cedulaD").fadeOut();
                 }
             });
-        });
-    </script> -->
+            
+            $("#input-foto").fileinput();
+            $("#input-cedula").fileinput();
+            $("#input-planilla").fileinput();
+            $("#input-carnet").fileinput();
+        })
+    </script>
 
 </body>
 </html>

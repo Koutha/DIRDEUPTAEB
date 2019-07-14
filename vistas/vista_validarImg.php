@@ -11,8 +11,8 @@ require('core/sist-header.php');
             <div id="page-inner">
                 <div class="row">
                     <div class="col-md-12">
-                        <h2>Programas directos de competencia</h2>
-                        <h5>Donde se establece la estructura del programa de entrenamiento con miras a la obtención de logros deportivos en corto tiempo. </h5>   
+                        <h2>Autenticación de usuario</h2>
+                        <h5>Por favor, indique la informacion solicitada. Seleccione la imagen de su usuario </h5>   
                         <?php if (isset($_SESSION['imgIncorrect']) && $_SESSION['imgIncorrect'] == 1) { ?>
                             <div class="alert alert-danger alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -34,13 +34,13 @@ require('core/sist-header.php');
                                         <h5><strong>Seleccione una imagen para continuar</strong></h5>
                                     </div>
                                     <div class="panel-body">
-                                        <div class="col-sm-9">
+                                        <div class="col-sm-12">
                                             <div class="div-general-img">
                                         <?php 
                                             foreach ($arr as $key => $value) {
-                                                echo '<div class="img">
+                                                echo '<div class="div-general-img img">
                                                         <label >
-                                                            <img src="'.$value.'.png" width="100px" height="100px" />
+                                                            <img src="'.$value.'.png" class="div-general-img" width="100px" height="100px" />
                                                             <input type="radio" name="imgValid" value="'.$value.'.png" class="hidden" required>
                                                         </label>
                                                     </div>';
