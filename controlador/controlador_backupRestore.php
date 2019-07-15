@@ -22,18 +22,18 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
             $Obitacora->setid_usuarios($id_usuario);
             $Obitacora->setfecha($fecha);
             $Obitacora->sethora($hora);
-            //var_dump($_POST);
             if (isset($_POST['exportFormat'])) {//validacion para exportar
                 if ($_POST['exportFormat']==".backup") { //formato .backup
-                    echo "binario";
                     $fecha = date('Y-m-d_H-i-s'); //fecha para el nombre del archivo
                     $name = 'db-backup'.$fecha;
                     $actividad="Exporto la Base de datos .BACKUP"; //cambiar aqui
                     $Obitacora->setactividad($actividad);
                     $Obitacora->registrarbitacora(); //IMPORTANTE DECOMENTAR AL FINALIZAR EL DESARROLLO
-                    exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U postgres -C -p 5432 -F c DIRDEUPTAEB > db_backup\db-backup'.$fecha.'.backup 2>&1');
+                    //backup encriptado
+                    exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U postgres -C -p 5432 -F c DIRDEUPTAEB | E:\laragon\bin\apache\httpd-2.4.35-win64-VC15\bin\openssl.exe smime -encrypt -aes256 -binary -outform DEM -out E:/laragon/www/DIRDEUPTAEB/db_backup/db-backup'.$fecha.'.backup.ssl E:\laragon\www\DIRDEUPTAEB\core\db_backup_key.pem.pub 2>&1');
+                    //exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U postgres -C -p 5432 -F c DIRDEUPTAEB > db_backup\db-backup'.$fecha.'.backup 2>&1');
                     $path = 'db_backup/';
-                    $filepath = $path.$name.'.backup';
+                    $filepath = $path.$name.'.backup.ssl';
                     $fp = @fopen($filepath, 'rb');
                     header('Content-Description: File Transfer');
                     header('Content-Type: application/octet-stream');
@@ -46,7 +46,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                     fpassthru($fp);
                     fclose($fp); 
                 }else{ //formato .sql
-                    //echo "sql";
                     $fecha = date('Y-m-d_H-i-s'); //fecha para el nombre del archivo
                     $name = 'db-backup'.$fecha;
                     $actividad="Exporto la Base de datos .SQL"; //cambiar aqui
@@ -69,15 +68,22 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                 }
                 require('vistas/vista_backupRestore.php');
             }else if(isset($_FILES['restoreFile'])){//validacion para importar/restauracion
-                    //echo 'selecione restauracion';
-                    //var_dump($_FILES);
                     unset($Obitacora);
                     unset($Ousuario); //para desconectar las estancias de la base de datos 
                     $file = $_FILES['restoreFile']['tmp_name'];
                     echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\dropdb.exe -U postgres DIRDEUPTAEB'); //borrar base de datos
-
                     echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\createdb.exe -U postgres -E UTF8 -O postgres DIRDEUPTAEB'); //crear base de datos
-                    echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_restore.exe -h localhost -p 5432 -U postgres -C -d DIRDEUPTAEB '.$file);
+                    //echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_restore.exe -h localhost -p 5432 -U postgres -C -d DIRDEUPTAEB '.$file);
+                    //decifrado
+                    echo exec('E:\laragon\bin\apache\httpd-2.4.35-win64-VC15\bin\openssl.exe smime -decrypt -in '.$file.' -binary -inform DEM -inkey E:\laragon\www\DIRDEUPTAEB\core\db_backup_key.pem -out E:\laragon\www\DIRDEUPTAEB\decrypted.backup 2>&1');
+                    //restore
+                    echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_restore.exe -h localhost -p 5432 -U postgres -C -d DIRDEUPTAEB E:\laragon\www\DIRDEUPTAEB\decrypted.backup');
+                    //eliminar el archivo desencriptado
+                    $myFile = "E:\laragon\www\DIRDEUPTAEB\decrypted.backup";
+                    $myFileLink = fopen($myFile, 'w') or die("can't open file");
+                    fclose($myFileLink);
+                    $myFile = "E:\laragon\www\DIRDEUPTAEB\decrypted.backup";
+                    unlink($myFile) or die("Couldn't delete file");
                     $Obitacora=new Cbitacora();
                     $Ousuario=new usuario();
                     $username=$_SESSION['username'];
@@ -94,24 +100,21 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                     $_SESSION['restore'] = 1 ;
                     require('vistas/vista_backupRestore.php');
                 }
-                //echo "estoy aqui";
         }
         else if (isset($_SESSION['imgCorrect'])&& $_SESSION['imgCorrect'] ==1) { //entrada despues de validacion de usuario se puede agregar variable de tiempo
-        require('modelos/modelo_usuario.php');
-        $Ousuario=new usuario();
-            unset($_SESSION['imgCorrect']); //IMPORTANTE DECOMENTAR AL FINALIZAR EL DESARROLLO
+            require('modelos/modelo_usuario.php');
+            $Ousuario=new usuario();
+            //unset($_SESSION['imgCorrect']); //IMPORTANTE DECOMENTAR AL FINALIZAR EL DESARROLLO
             require('vistas/vista_backupRestore.php');
-        }else if (isset($_SESSION['restoring'])&& $_SESSION['restoring']== 1){
-                //echo 'hola tu acertaste agregar aqui el codigo para restaurar la bd';
+            }else if (isset($_SESSION['restoring'])&& $_SESSION['restoring']== 1){
+                //agregar aqui el codigo para restaurar la bd
                 $backupInfo = unserialize($_GET['id']);
                 var_dump($backupInfo);
                 $file = $backupInfo['file_path'];
                 echo $file;
                 echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\dropdb.exe -U postgres DIRDEUPTAEB'); //borrar base de datos
-
                 echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\createdb.exe -U postgres -E UTF8 -O postgres DIRDEUPTAEB'); //crear base de datos
                 echo exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_restore.exe -h localhost -p 5432 -U postgres -C -d DIRDEUPTAEB '.$file);
-
                 unset($_SESSION['restoring']);
                 $_SESSION['restored'] = 1 ;
                 header('Location:?action=restoreAutoSave');
@@ -124,5 +127,4 @@ else{
     echo "<br><a href='?action=ingresar'>Login</a>";
     exit; 
 }
-
 ?>

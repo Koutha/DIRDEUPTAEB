@@ -85,7 +85,7 @@ require('core/sist-header.php');
                                                 <div class="form-group">
                                                     <label>Archivo</label>
                                                     <div class='file-loading'>
-                                                        <input type='file' id="input-id" name="restoreFile" class="file" value="" data-show-preview="false" data-msg-placeholder="Selecione el archivo .backup" data-allowed-file-extensions='["backup"]' data-show-upload="false" required >
+                                                        <input type='file' id="input-id" name="restoreFile" class="file" value="" data-show-preview="false" data-msg-placeholder="Selecione el archivo .backup.ssl" data-allowed-file-extensions='["ssl"]' data-show-upload="false" required >
                                                     
                                                     </div>
                                                 </div>
@@ -95,10 +95,32 @@ require('core/sist-header.php');
                                             
                                         </div>
                                         <div class="form-group">
-                                            <button name="submit" value="backupRestore" type="submit" class="btn btn-primary">Importar</button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2" data-id="">Importar</button>
+                                            <!-- <button name="submit" value="backupRestore" type="submit" class="btn btn-primary">Importar</button> -->
                                         </div>
                                 </div>
                             </div>
+                            <!-- contenido del Modal Importar -->
+                            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModal2">
+                                <div class="modal-dialog modal-sm" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">&times;</button>
+                                                <h4 class="modal-title">Confirmación</h4>
+                                            </div>
+                                        <div class="modal-body">
+                                            <p><strong>¿Estas segur@ ?</strong> </p>
+                                             <strong><p>Se perderan los cambios posteriores la fecha de este respaldo</p></strong>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!-- <a class="btn btn-danger" href="">Importar</a> -->
+                                            <button name="submit" value="backupRestore" type="submit" class="btn btn-primary">Importar</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /contenido del Modal -->
                         </form><!-- End Form Elements import -->
                                 
                         
