@@ -92,6 +92,9 @@ class Catleta extends Cpersona
             return $this->status;
         }
 
+        public function getSta() {
+            return $this->sta;
+        }
         public function setTrayecto($trayecto) {
             $this->trayecto = $trayecto;
         }
@@ -166,7 +169,9 @@ class Catleta extends Cpersona
         public function setStatus($status){
             $this->status = $status;
         }
-
+        public function setSta($sta){
+            $this->sta = $sta;
+        }
         public function consultarTodos(){
             $sql= 'SELECT * FROM "T_atleta" ORDER BY cedula_atleta DESC';
             $query = $this->db()->query($sql);
@@ -180,6 +185,7 @@ class Catleta extends Cpersona
                 return 0;
             }
         }
+
 
         public function borrarAtleta($cedula){
             try {
@@ -435,6 +441,124 @@ class Catleta extends Cpersona
                 exit;
             }
 
+        }
+
+            public function consultarAtletaMedico(){
+            $sql = 'SELECT * FROM "T_atleta_medico" WHERE info_discapacidad!=?';
+            $db=$this->db();
+            $query = $db->prepare($sql);
+            $query->bindParam(1, $this->info_discapacidad);
+            $query->execute();
+            while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+                    $resultado[] = $fila;
+                }
+                if (!empty($resultado)) {
+                    return $resultado;
+                } else {
+                    return 0;
+                }  
+            }
+
+            public function consultarAtletaTallaPeso($estaturamin,$estaturamax,$pesomin,$pesomax){
+                $sql ='SELECT  cedula_atleta, estatura, peso FROM "T_atleta_medico" WHERE estatura>=? and estatura<=? and peso>=? and peso<=?';
+                $db=$this->db();
+                $query=$db->prepare($sql);
+                $query->bindParam(1, $estaturamin);
+                $query->bindParam(2, $estaturamax);
+                $query->bindParam(3, $pesomin);
+                $query->bindParam(4, $pesomax);
+                $query->execute();
+                while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
+                $resultado[]=$fila;
+            }
+            if (!empty($resultado)) {
+                return $resultado;
+            }
+            else{
+                return 0;
+            }
+
+        }
+        public function consultarAtletasPorDisciplinamedicos($id_disciplina){
+            try {
+                $sql='  SELECT ta.cedula_atleta, ta.nombres, ta.apellidos, td.id_disciplina, td.nombre, tam.info_discapacidad
+                        FROM "T_atleta" ta 
+                        JOIN "T_atleta_disciplina" tad ON ta.cedula_atleta=tad.cedula_atleta 
+                        JOIN "T_atleta_medico" tam ON ta.cedula_atleta=tam.cedula_atleta 
+                        JOIN "T_disciplina" td ON tad.id_disciplina=td.id_disciplina
+                        WHERE td.id_disciplina=:id_disciplina and tam.info_discapacidad!=:info_discapacidad and ta.status=1';
+                $db=$this->db();
+                $query=$db->prepare($sql);
+                $query->bindParam(':id_disciplina', $id_disciplina);
+                $query->bindParam(':info_discapacidad', $this->info_discapacidad);
+                $query->execute();
+                while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
+                    $resultado[]=$fila;
+                }
+                if (!empty($resultado)) {
+                    return $resultado;
+                }
+                else{
+                    return 0;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                exit;
+            }
+
+        }
+
+        public function consultarAtletasPorDisciplinapnf($id_disciplina,$id_pnf){
+            try {
+                $sql='  SELECT ta.cedula_atleta, ta.nombres, ta.apellidos, taa.trayecto
+                        FROM "T_atleta" ta 
+                        JOIN "T_atleta_academico" taa ON taa.cedula_atleta=ta.cedula_atleta
+                        JOIN "T_atleta_disciplina" tad ON tad.cedula_atleta=ta.cedula_atleta
+                        WHERE tad.id_disciplina=:id_disciplina and taa.id_pnf=:id_pnf and ta.status=1';
+                $db=$this->db();
+                $query=$db->prepare($sql);
+                $query->bindParam(':id_disciplina', $id_disciplina);
+                $query->bindParam(':id_pnf', $id_pnf);
+                $query->execute();
+                while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
+                    $resultado[]=$fila;
+                }
+                if (!empty($resultado)) {
+                    return $resultado;
+                }
+                else{
+                    return 0;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                exit;
+            }
+
+        }
+
+
+        public function consultarTodoszapato(){
+            $sql= 'SELECT DISTINCT talla_zapato FROM "T_atleta_uniforme"';
+            $query = $this->db()->query($sql);
+            while ($fila = $query->fetch(PDO::FETCH_ASSOC)) {
+                $resultado[] = $fila;
+            }
+            if (!empty($resultado)) {
+                return $resultado;
+            }
+            else{
+                return 0;
+            }
+        }
+
+        public function consultartallazapatos($talla_zapato){
+            $sql='SELECT count(talla_zapato) FROM "T_atleta_uniforme" WHERE talla_zapato=?';
+            $db=$this->db();
+            $query=$db->prepare($sql);
+            $query->bindParam(1, $talla_zapato);
+            $query->execute();
+            $cantidad=$query->fetchColumn();
+            return $cantidad;
         }
 }
  ?>

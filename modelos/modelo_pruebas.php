@@ -341,7 +341,33 @@
             return 0;
     }   
         
+    public function consultarapfecha($cedula_atleta){
+            try {
+                $sql='  SELECT tp.nombre, tp.condicion, tp.rango1, tp.rango2, tp.rango3, tp.rango4,
+                                tap.medicion, tap.fecha
+                        FROM "T_atleta" ta 
+                        JOIN "T_atleta_prueba" tap ON ta.cedula_atleta=tap.cedula_atleta 
+                        JOIN "T_prueba" tp ON tap.id_prueba=tp.id_prueba
+                        WHERE  tap.cedula_atleta=:cedula_atleta and ta.status=1';
+                $db=$this->db();
+                $query=$db->prepare($sql);
+                $query->bindParam(':cedula_atleta', $cedula_atleta);
+                $query->execute();
+                while ($fila=$query->fetch(PDO::FETCH_ASSOC)) {
+                    $resultado[]=$fila;
+                }
+                if (!empty($resultado)) {
+                    return $resultado;
+                }
+                else{
+                    return 0;
+                }
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                exit;
+            }
 
+        }
         
     }
  ?>

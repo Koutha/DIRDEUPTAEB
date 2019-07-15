@@ -16,6 +16,58 @@ require('core/sist-header.php');
                     </div>
                 </div>
                 <hr /><!-- /. ROW  -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Form Elements -->  
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>Generar reportes por parametros</h4>
+                                si desea generar un reporte por parámetro debe seleccionar una opcción y pulsar en continuar
+                            </div>
+                            <div class="panel-body">
+                                <?php if (isset($discapacidad)&&$discapacidad==0) {?>
+                               <div class="alert alert-success alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                        <strong>No existen atletas registrados en el sistema con alguna discapacidad.</strong>
+                                </div>
+                            <?php } ?>
+                              <form action="" method="POST" role="form">
+                                <div class="row">
+                                 <div class="col-md-12">
+                                         <div class="col-md-6">
+                                         <div class="form-group">
+                                                <label>seleccione prueba</label>
+                                                <select name="selectReporte" class="form-control" required>
+                                                    <option value="">Seleccione...</option>
+                                                    <option value="1">Reporte por Discapacidad</option>
+                                                    <option value="2">Reporte por Peso y Estatura</option>
+                                                    <option value="3">Reporte por Talla de Franela</option>
+                                                    <option value="4">Reporte por Talla de Pantalon</option>
+                                                    <option value="5">Reporte por Talla de Shorts</option>
+                                                    <option value="6">Reporte por Talla de Zapatos</option>
+                                                    <option value="7">Reporte por Talla de Gorra</option>
+                                                    <option value="8">Reporte por Talla de Chaqueta</option>
+                                                    <option value="9">Reporte de Tallas</option>
+                                                    <option value="10">Reportes por Discapacidad y Disciplina</option>
+                                                    <option value="11">Reportes por Disciplina y PNF</option>
+                                                    
+                                                </select>
+                                        </div> 
+                                        </div>
+                                       </div>                                     
+                                
+                                    <div class="form-group">
+                                    <button name="submit" value="generarReportesAtleta" type="submit" class="btn btn-primary">Siguente</button>
+                                </div>
+                            </div>
+                                </form>
+                            <!-- End Form Elements -->
+                        </div>
+
+                    </div>
+                    </div>
+                    <!-- /. ROW  -->
+                </div>
                 <hr />
                 <div class="row">
                     <div class="col-md-12">

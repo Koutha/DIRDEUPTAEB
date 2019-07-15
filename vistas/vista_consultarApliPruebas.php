@@ -96,9 +96,40 @@
                         <!-- Advanced Tables -->
                         
                         <div class="panel panel-default"><?php if ($_SESSION['rol']==1 or $Ousuario->consultarPermisosUsu("Reporte de la Aplicación de las Pruebas",$_SESSION['id_usuario'])) { ?>
-                    
-                         <a class="btn btn-warning" style="float: right;" href="<?php echo "?action=generarReporteAplicacion&cedula_atleta=".$cedula_atleta; ?>">Generar historico de pruebas en PDF</a>
-                   
+                        <div>
+                            <?php if (isset($_GET['atletaaplifecha']) && $_GET['atletaaplifecha'] == 0) { ?>
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                <strong>No se encontraron pruebas para este atleta en este rango de fecha.</strong>
+                            </div>      
+                            <?php } ?>
+                            <form action="" method="POST" role="form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label  class="control-label label-default">En caso de querer un reporte por rango de fecha</label>
+                                                    <div class="col-md-12" class="form-group">
+                                                        <div class="col-md-6">
+                                                            <input type="hidden" name="selectfecha" >
+                                                            <input type="hidden" name="cedula_atleta" value="<?php echo $cedula_atleta;?>" >
+                                                            <label  class="control-label label-default">Desde</label>
+                                                            <input type="date" style="max-width:200px" name="fechainicio"  class="form-control" required="required" >
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <label  class="control-label label-default">Hasta</label>
+                                                            <input type="date" style="max-width:200px" name="fechafinal" class="form-control" required="required" >
+                                                        </div>
+                                                        <br/><br/><br/><br/>
+                                                        <button name="submit" value="generarReportesAtleta" type="submit" class="btn btn-primary">Generar pdf por fechas</button>
+                                                    </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                            </form>
+                        </div>
+                        <div>
+                            <a class="btn btn-warning" style="float: right;" href="<?php echo "?action=generarReporteAplicacion&cedula_atleta=".$cedula_atleta; ?>">Generar historico de pruebas en PDF</a>
+                        </div>
                     <?php } ?>
                             <div class="panel-heading">
                                 Registros de la base de datos 

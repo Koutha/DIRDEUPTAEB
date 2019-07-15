@@ -38,6 +38,6 @@
 			}
 	}
 	$done = saveBackup($backup_file,$date,$file_path);
-	exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U usuario  -p 5432 -C -F c DIRDEUPTAEB > E:\laragon\www\DIRDEUPTAEB\db_autosave\db-backup-autosave'.$fecha.'.backup 2>&1');
+	exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U postgres -p 5432 -C -F c DIRDEUPTAEB > E:\laragon\www\DIRDEUPTAEB\db_autosave\db-backup-autosave'.$fecha.'.backup 2>&1');
 
  ?>

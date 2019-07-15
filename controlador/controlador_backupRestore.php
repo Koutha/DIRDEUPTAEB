@@ -31,7 +31,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                     $actividad="Exporto la Base de datos .BACKUP"; //cambiar aqui
                     $Obitacora->setactividad($actividad);
                     $Obitacora->registrarbitacora(); //IMPORTANTE DECOMENTAR AL FINALIZAR EL DESARROLLO
-                    exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U usuario -C -p 5432 -F c DIRDEUPTAEB > db_backup\db-backup'.$fecha.'.backup 2>&1');
+                    exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U postgres -C -p 5432 -F c DIRDEUPTAEB > db_backup\db-backup'.$fecha.'.backup 2>&1');
                     $path = 'db_backup/';
                     $filepath = $path.$name.'.backup';
                     $fp = @fopen($filepath, 'rb');
@@ -52,7 +52,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {//estan la s
                     $actividad="Exporto la Base de datos .SQL"; //cambiar aqui
                     $Obitacora->setactividad($actividad);
                     $Obitacora->registrarbitacora(); //IMPORTANTE DECOMENTAR AL FINALIZAR EL DESARROLLO
-                    exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U usuario -C -p 5432 DIRDEUPTAEB > db_backup\db-backup'.$fecha.'.sql 2>&1');
+                    exec('E:\laragon\bin\postgresql\postgresql-11.3-4\bin\pg_dump.exe -h localhost -U postgres -C -p 5432 DIRDEUPTAEB > db_backup\db-backup'.$fecha.'.sql 2>&1');
                     $path = 'db_backup/';
                     $filepath = $path.$name.'.sql';
                     $fp = @fopen($filepath, 'rb');
