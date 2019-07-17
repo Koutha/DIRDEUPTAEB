@@ -19,6 +19,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         $Opersonal=new Cpersonal();
         $totalA= $Oatleta->getTotalAtletasActivos();
         $totalD= $Odisciplina->getTotalDisciplinas();
+        $todosad= $Odisciplina->consultarTodosad();
+        $disciplina= $Odisciplina->consultarTodos();
         $totalP= $Opersonal->getTotalPersonas();
     	require('vistas/vista_sindex.php');
         

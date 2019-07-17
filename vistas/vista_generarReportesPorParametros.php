@@ -125,7 +125,7 @@ require('core/sist-header.php');
                                                     <button name="submit" value="generarReportesAtleta" type="submit" class="btn btn-primary">Generar</button>
                                                     <a class="btn btn-danger" href="?action=generarReportesAtleta&at">Regresar</a>
                                                 </div>
-                                                }?>
+                                               <?php }?>
                                                 
                                         </div> 
                                         </div>

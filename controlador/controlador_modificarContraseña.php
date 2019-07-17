@@ -29,7 +29,6 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                     }
         }
         else{ $pass = 1;
-            echo $pass;
             require('vistas/vista_modificarContraseña.php');
         }}
         else if ((isset($_GET['id_username'])) or (isset($_POST['submit']))) {
@@ -48,7 +47,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 header('Location:?action=modificarUser&activado='.$activado);
                     }
             }
-            else{ echo "1";require('vistas/vista_modificarContraseña.php'); }
+            else{ require('vistas/vista_modificarContraseña.php'); }
         }
         elseif (isset($_GET['id'])&&$_GET['id']==1) {
         require('modelos/modelo_usuario.php');

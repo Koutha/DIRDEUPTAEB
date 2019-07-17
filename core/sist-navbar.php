@@ -15,7 +15,7 @@
                 <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <!--<li class="dropdown-header">Dropdown header 1</li>-->
-                  <li><a href="#"><span class="glyphicon glyphicon-th-list"></span> Mi perfil</a></li>
+                  <!--<li><a href="#"><span class="glyphicon glyphicon-th-list"></span> Mi perfil</a></li>-->
                   <li><a href="<?php echo "?action=modificarContraseña&id="."1"; ?>"><span class="glyphicon glyphicon glyphicon-edit"></span> Cambiar contraseña</a></li>
 
                   <li class="divider"></li>

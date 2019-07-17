@@ -33,10 +33,11 @@ require('core/sist-header.php');
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                         <thead>
-                                            <tr>
-                                                <th>Hora</th>
-                                                <th>Nombre</th>
+                                            <tr>   
                                                 <th>Fecha</th>
+                                                <th>Hora</th>
+                                                <th>Usuario</th>
+                                                
                                                 <th>Actividad</th>
                                             </tr>
                                         </thead>
@@ -45,12 +46,13 @@ require('core/sist-header.php');
                                                 foreach ($todos as $bitacora){ ?>
                                             
                                             <tr class="odd gradeX">
+                                                <td><?php echo $bitacora['fecha']; ?></td>
                                                 <td><?php echo $bitacora['hora']; ?></td>
                                                 <td><?php foreach ($todosu as $key => $usuarios) {
                                                                 if ($bitacora['id_usuarios']==$usuarios['id_usuario']) {
                                                                 echo $usuarios['nombre_usuario'];}
                                                             } ?></td>
-                                                <td><?php echo $bitacora['fecha']; ?></td>
+                                                
                                                 <td><?php echo $bitacora['actividad'];?></td>
                                                
 
@@ -96,7 +98,9 @@ require('core/sist-header.php');
 
     <script>
         $(document).ready(function () {
-            $('#dataTables-example').dataTable();
+            $('#dataTables-example').dataTable({
+                order: [[0, 'desc'],[1, 'desc']] //ordenar por fecha y hora descendiente
+            });
         });
 
         $('#myModal2').on('show.bs.modal', function (event) {

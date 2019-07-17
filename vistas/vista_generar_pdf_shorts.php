@@ -41,7 +41,7 @@
           $XS=0;$S=0;$M=0;$L=0;$XL=0;$XXL=0; 
           foreach ($atletat as $key => $at) { 
             $atleta = $Oatleta->consultarDatos($at['cedula_atleta']);?>
-                <?php switch ($atleta['talla_Shorts']) {
+                <?php switch ($atleta['talla_short']) {
                     case 'XS':
                         $XS=$XS+1;
                         break;

@@ -70,7 +70,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                         require('vistas/vista_generar_pdf_chaqueta.php');
                         break;
                     case '9':
-                        $pnf=' Deportes';
+                        $zapatos = $Oatleta->consultarTodoszapato();
+                        require('vistas/vista_generar_pdf_tallas.php');
                         break;
                     case '10':
                         if (isset($_POST['id_disciplina'])) {
